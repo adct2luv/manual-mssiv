@@ -1,0 +1,102 @@
+/**
+ * EPIC Manuals — global styles
+ * Brand color: EPIC red (#E10600) inspired by the printed manual cover.
+ */
+
+:root {
+  /* Brand: EPIC red */
+  --ifm-color-primary: #e10600;
+  --ifm-color-primary-dark: #c90500;
+  --ifm-color-primary-darker: #bc0500;
+  --ifm-color-primary-darkest: #9c0400;
+  --ifm-color-primary-light: #ef2a25;
+  --ifm-color-primary-lighter: #f13a35;
+  --ifm-color-primary-lightest: #f56c69;
+
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(225, 6, 0, 0.08);
+
+  /* Tighter hero */
+  --ifm-hero-background-color: #ffffff;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #f05653;
+  --ifm-color-primary-dark: #ec3a37;
+  --ifm-color-primary-darker: #ea2c29;
+  --ifm-color-primary-darkest: #cf1d1a;
+  --ifm-color-primary-light: #f4726f;
+  --ifm-color-primary-lighter: #f5807d;
+  --ifm-color-primary-lightest: #faa7a5;
+
+  --docusaurus-highlighted-code-line-bg: rgba(225, 6, 0, 0.25);
+  --ifm-hero-background-color: #1b1b1d;
+}
+
+/* Hero on homepage */
+.hero--primary {
+  --ifm-hero-background-color: var(--ifm-color-primary);
+  --ifm-hero-text-color: #fff;
+}
+
+[data-theme='dark'] .hero--primary {
+  --ifm-hero-background-color: #2a0a0a;
+}
+
+/* Make the navbar logo crisp */
+.navbar__logo {
+  height: 32px;
+}
+
+/* Larger, more readable callouts */
+.admonition {
+  border-radius: 8px;
+}
+
+/* Manual callout card */
+.manual-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  background: var(--ifm-background-surface-color);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+  height: 100%;
+}
+
+.manual-card:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+}
+
+.manual-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: var(--ifm-heading-color);
+}
+
+.manual-card__meta {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1rem 0;
+}
+
+.manual-card__actions {
+  margin-top: auto;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.manual-card__actions .button {
+  margin: 0;
+}
+
+/* Quick-reference ASCII art boxes in the manual pages */
+blockquote p code,
+pre code {
+  font-size: 0.85rem;
+}

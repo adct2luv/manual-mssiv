@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <!-- EPIC wordmark in red, inspired by the source manual cover -->
+  <g font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" fill="#E10600">
+    <text x="0" y="48" font-size="44" letter-spacing="2">EPIC</text>
+    <text x="0" y="70" font-size="11" letter-spacing="4" fill="#222">FUTUREPROOF</text>
+  </g>
+</svg>
