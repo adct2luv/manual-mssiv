@@ -45,8 +45,8 @@ const config: Config = {
       'classic',
       {
         docs: {
-          path: 'docs', // TH default locale — Docusaurus reads from i18n/th/docusaurus-plugin-content-docs/current/
-          routeBasePath: '/docs',
+          path: 'docs', // TH default locale
+          routeBasePath: '/', // clean URLs: /, /es-k70/intro, /catalog
           sidebarPath: './sidebars.ts',
           showLastUpdateTime: false,
         },
