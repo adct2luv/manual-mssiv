@@ -1,0 +1,8 @@
+{
+  "label": "กุญแจดิจิทัล TOUCH",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "กุญแจดิจิทัลที่รองรับ PIN และ Smart Card"
+  }
+}

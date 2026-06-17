@@ -1,0 +1,8 @@
+{
+  "label": "กุญแจดิจิทัล OS300H",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "กุญแจดิจิทัลระบบ Rim Type สำหรับประตูบานเปิด เปิดด้วยรหัส PIN หรือบัตร RFID"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "label": "กุญแจดิจิทัล TRIPLEX 3way",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "กุญแจดิจิทัลที่รองรับ PIN, Smart Key และกุญแจกลไกฉุกเฉิน"
+  }
+}

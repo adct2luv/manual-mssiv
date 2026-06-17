@@ -1,0 +1,8 @@
+{
+  "label": "ES-B10 Digital Lock",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "A digital lock that can be opened by PIN number, random number feature, and manual lock knob. It has safety features like fire detection and anti-hacking alarms."
+  }
+}

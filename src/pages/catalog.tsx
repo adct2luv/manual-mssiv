@@ -9,7 +9,6 @@ type Manual = {
   category: 'product' | 'guide' | 'app' | 'consolidated';
   size: string;
   image?: string;
-  onlinePath?: string;
 };
 
 const PRODUCT_MANUALS: Manual[] = [
@@ -18,7 +17,7 @@ const PRODUCT_MANUALS: Manual[] = [
   {title: 'ES-303G', slug: 'es-303g', category: 'product', size: '3.8 MB', image: '/img/brochures/es-303g.png'},
   {title: 'ES-809L', slug: 'es-809l', category: 'product', size: '6.5 MB'},
   {title: 'ES-B10', slug: 'es-b10', category: 'product', size: '14 MB', image: '/img/brochures/es-b10.png'},
-  {title: 'ES-K70', slug: 'es-k70', category: 'product', size: '8.2 MB', onlinePath: '/es-k70/intro'},
+  {title: 'ES-K70', slug: 'es-k70', category: 'product', size: '8.2 MB'},
   {title: 'ES-L200 Series', slug: 'es-l200', category: 'product', size: '252 KB', image: '/img/brochures/es-l200.png'},
   {title: 'ES-M50', slug: 'es-m50', category: 'product', size: '3.1 MB', image: '/img/brochures/es-m50.png'},
   {title: 'ES-P9100FK', slug: 'es-p9100fk', category: 'product', size: '10 MB'},
@@ -32,18 +31,19 @@ const PRODUCT_MANUALS: Manual[] = [
 ];
 
 const REFERENCE_GUIDES: Manual[] = [
-  {title: 'คู่มือประกอบ Key Tail', slug: 'key-tail-assembly', category: 'guide', size: '0.4 MB'},
-  {title: 'Consolidated Manual (Rev.09)', slug: 'consolidated-manual', category: 'consolidated', size: '5.7 MB'},
-  {title: 'คู่มือใช้งาน IR Sensor สำหรับ Face ID', slug: 'ir-sensor-face-id', category: 'guide', size: '0.5 MB'},
-  {title: 'คู่มือจัดการสายของตัวล็อกด้านนอก', slug: 'outer-body-cable', category: 'guide', size: '0.1 MB'},
-  {title: 'ตารางความเข้ากันได้ของ Remote Control', slug: 'remote-control-compat', category: 'guide', size: '0.1 MB'},
+  {title: 'คู่มือประกอบ Key Tail', slug: 'assembly-guide-for-key-tail', category: 'guide', size: '0.4 MB'},
+  {title: 'IR Sensor สำหรับ Face ID', slug: 'ir-sensor-usage-guide-for-face-id', category: 'guide', size: '0.5 MB'},
+  {title: 'การจัดการสายของตัวล็อกด้านนอก', slug: 'outer-body-cable-management-guide', category: 'guide', size: '0.1 MB'},
+  {title: 'ตารางความเข้ากันได้ของ Remote Control', slug: 'remote-control-module-compatibility-guide', category: 'guide', size: '0.1 MB'},
 ];
 
-const APP_MANUALS: Manual[] = [
-  {title: 'EPIC Things APP', slug: 'epic-things-app', category: 'app', size: '9.4 MB'},
+const APP_AND_CONSOLIDATED: Manual[] = [
+  {title: 'Consolidated Manual (Rev.09)', slug: 'consolidated-manual-rev-09', category: 'consolidated', size: '5.7 MB'},
+  {title: 'EPIC Things APP', slug: 'epic-things-app-user-manual', category: 'app', size: '9.4 MB'},
 ];
 
-function ManualCard({m}: {m: Manual}) {
+function ManualCard({m, localePrefix = ''}: {m: Manual; localePrefix?: string}) {
+  const introUrl = `${localePrefix}/${m.slug}/intro`;
   return (
     <div className="col col--4 margin-bottom--lg">
       <div className="manual-card">
@@ -58,22 +58,23 @@ function ManualCard({m}: {m: Manual}) {
           <h3 className="manual-card__title">{m.title}</h3>
           <p className="manual-card__meta">{m.size} · {m.category}</p>
         </div>
+        <div className="manual-card__actions">
+          <Link className="button button--primary button--sm button--block" to={introUrl}>
+            📖 อ่านคู่มือ
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
 
-function ManualGrid({manuals, title, description}: {manuals: Manual[]; title: string; description?: string}) {
+function ManualGrid({manuals, localePrefix = ''}: {manuals: Manual[]; localePrefix?: string}) {
   return (
-    <section className="margin-top--lg">
-      <Heading as="h2">{title} ({manuals.length})</Heading>
-      {description && <p>{description}</p>}
-      <div className="row">
-        {manuals.map((m) => (
-          <ManualCard key={m.slug} m={m} />
-        ))}
-      </div>
-    </section>
+    <div className="row">
+      {manuals.map((m) => (
+        <ManualCard key={m.slug} m={m} localePrefix={localePrefix} />
+      ))}
+    </div>
   );
 }
 
@@ -86,28 +87,31 @@ export default function Catalog(): ReactNode {
       <main className="container margin-vert--lg">
         <Heading as="h1">สารบัญคู่มือทั้งหมด</Heading>
         <p>
-          คู่มือทั้งหมด <strong>{PRODUCT_MANUALS.length + REFERENCE_GUIDES.length + APP_MANUALS.length} เล่ม</strong> จาก <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual/</a>
-          {' '}— ปรับปรุงล่าสุด 2026-06-16
+          คู่มือทั้งหมด <strong>{PRODUCT_MANUALS.length + REFERENCE_GUIDES.length + APP_AND_CONSOLIDATED.length} เล่ม</strong> จาก <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual/</a>
+          {' '}— ปรับปรุงล่าสุด 2026-06-17
         </p>
 
-        <ManualGrid
-          manuals={PRODUCT_MANUALS}
-          title="คู่มือรายรุ่น"
-          description="คู่มือการใช้งานสำหรับกุญแจดิจิทัล EPIC แต่ละรุ่น"
-        />
-        <ManualGrid
-          manuals={REFERENCE_GUIDES}
-          title="คู่มือติดตั้งและอ้างอิง"
-          description="คู่มือข้ามรุ่นสำหรับการติดตั้งและความเข้ากันได้"
-        />
-        <ManualGrid
-          manuals={APP_MANUALS}
-          title="แอปและซอฟต์แวร์"
-        />
+        <section className="margin-top--lg">
+          <Heading as="h2">คู่มือรายรุ่น ({PRODUCT_MANUALS.length})</Heading>
+          <p>คู่มือการใช้งานสำหรับกุญแจดิจิทัล EPIC แต่ละรุ่น — คลิกที่การ์ดเพื่ออ่าน</p>
+          <ManualGrid manuals={PRODUCT_MANUALS} />
+        </section>
+
+        <section className="margin-top--lg">
+          <Heading as="h2">คู่มือติดตั้งและอ้างอิง ({REFERENCE_GUIDES.length})</Heading>
+          <p>คู่มือข้ามรุ่นสำหรับการติดตั้งและความเข้ากันได้</p>
+          <ManualGrid manuals={REFERENCE_GUIDES} />
+        </section>
+
+        <section className="margin-top--lg">
+          <Heading as="h2">App และ Consolidated ({APP_AND_CONSOLIDATED.length})</Heading>
+          <p>คู่มือแอปและคู่มือรวม</p>
+          <ManualGrid manuals={APP_AND_CONSOLIDATED} />
+        </section>
 
         <p className="margin-top--xl">
           <small>
-            หมายเหตุ: ขณะนี้มีเพียง <strong>ES-K70</strong> ที่มีคู่มือออนไลน์ฉบับเต็ม รุ่นอื่น ๆ กำลังจะตามมา — ดู <Link to="/es-k70/intro">ตัวอย่างคู่มือ ES-K70</Link>
+            ทุกคู่มือเป็นแบบสองภาษา (ไทย/อังกฤษ) คลิกปุ่มเปลี่ยนภาษาที่มุมขวาบน หรือเพิ่ม <code>/en/</code> ต่อท้าย URL
           </small>
         </p>
       </main>
