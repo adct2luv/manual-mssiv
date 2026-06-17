@@ -5,122 +5,104 @@ import Link from '@docusaurus/Link';
 
 type Manual = {
   title: string;
-  file: string;
+  slug: string;
+  category: 'product' | 'guide' | 'app' | 'consolidated';
   size: string;
-  category: 'product' | 'reference' | 'app';
-  /** If set, link to the full online manual instead of / being a PDF */
+  /** Path to the bilingual manual under defaultLocale docs */
   onlinePath?: string;
 };
 
 const PRODUCT_MANUALS: Manual[] = [
-  {title: 'EF-8000L',     file: 'Manual_EF-8000L.pdf',     size: '5.5 MB', category: 'product'},
-  {title: 'EF-P8800K',    file: 'Manual_EF-P8800K.pdf',    size: '3.7 MB', category: 'product'},
-  {title: 'ES-303G',      file: 'Manual_ES-303G.pdf',      size: '3.8 MB', category: 'product'},
-  {title: 'ES-809L',      file: 'Manual_ES-809L.pdf',      size: '6.4 MB', category: 'product'},
-  {title: 'ES-B10',       file: 'Manual_ES-B10.pdf',       size: '14 MB',  category: 'product'},
-  {title: 'ES-K70',       file: 'Manual_ES-K70.pdf',       size: '8.2 MB', category: 'product', onlinePath: '/manuals/es-k70/intro'},
-  {title: 'ES-L200 Series', file: 'Manual_ES-L200 Series.pdf', size: '252 KB', category: 'product'},
-  {title: 'ES-M50',       file: 'Manual_ES-M50.pdf',       size: '3.1 MB', category: 'product'},
-  {title: 'ES-P9100FK',   file: 'Manual_ES-P9100FK.pdf',   size: '10 MB',  category: 'product'},
-  {title: 'ES-T153',      file: 'Manual_ES-T153.pdf',      size: '20 MB',  category: 'product'},
-  {title: 'N-TOUCH',      file: 'Manual_N-TOUCH.pdf',      size: '5.9 MB', category: 'product'},
-  {title: 'OS300H',       file: 'Manual_OS300H.pdf',       size: '0.8 MB', category: 'product'},
-  {title: 'POPscan',      file: 'Manual_POPscan.pdf',      size: '12 MB',  category: 'product'},
-  {title: 'TOUCH',        file: 'Manual_TOUCH.pdf',        size: '13 MB',  category: 'product'},
-  {title: 'TRIPLEX 2way', file: 'Manual_TRIPLEX 2way.pdf', size: '14 MB',  category: 'product'},
-  {title: 'TRIPLEX 3way', file: 'Manual_TRIPLEX 3way.pdf', size: '17 MB',  category: 'product'},
+  {title: 'EF-8000L', slug: 'ef-8000l', category: 'product', size: '5.5 MB', onlinePath: '/es-k70/intro'},
+  {title: 'EF-P8800K', slug: 'ef-p8800k', category: 'product', size: '3.7 MB'},
+  {title: 'ES-303G', slug: 'es-303g', category: 'product', size: '3.8 MB'},
+  {title: 'ES-809L', slug: 'es-809l', category: 'product', size: '6.5 MB'},
+  {title: 'ES-B10', slug: 'es-b10', category: 'product', size: '14 MB'},
+  {title: 'ES-K70', slug: 'es-k70', category: 'product', size: '8.2 MB', onlinePath: '/es-k70/intro'},
+  {title: 'ES-L200 Series', slug: 'es-l200', category: 'product', size: '252 KB'},
+  {title: 'ES-M50', slug: 'es-m50', category: 'product', size: '3.1 MB'},
+  {title: 'ES-P9100FK', slug: 'es-p9100fk', category: 'product', size: '10 MB'},
+  {title: 'ES-T153', slug: 'es-t153', category: 'product', size: '20 MB'},
+  {title: 'N-TOUCH', slug: 'n-touch', category: 'product', size: '5.9 MB'},
+  {title: 'OS300H', slug: 'os300h', category: 'product', size: '0.8 MB'},
+  {title: 'POPscan', slug: 'popscan', category: 'product', size: '12 MB'},
+  {title: 'TOUCH', slug: 'touch', category: 'product', size: '13 MB'},
+  {title: 'TRIPLEX 2way', slug: 'triplex-2way', category: 'product', size: '14 MB'},
+  {title: 'TRIPLEX 3way', slug: 'triplex-3way', category: 'product', size: '17 MB'},
 ];
 
 const REFERENCE_GUIDES: Manual[] = [
-  {title: 'Assembly Guide for Key Tail',           file: 'Assembly Guide for Key Tail.pdf',           size: '0.4 MB', category: 'reference'},
-  {title: 'Consolidated Manual (Rev.09)',          file: 'Consolidated-Manual-Rev.09.pdf',           size: '5.7 MB', category: 'reference'},
-  {title: 'IR Sensor Usage Guide for Face ID',     file: 'IR Sensor Usage Guide for Face ID.pdf',    size: '0.5 MB', category: 'reference'},
-  {title: 'Outer Body Cable Management Guide',     file: 'Outer Body Cable Management Guide.pdf',    size: '0.1 MB', category: 'reference'},
-  {title: 'Remote-Control Module Compatibility',   file: 'Remote-Control-Module-Compatibility-Guide.pdf', size: '0.1 MB', category: 'reference'},
+  {title: 'คู่มือประกอบ Key Tail', slug: 'key-tail-assembly', category: 'guide', size: '0.4 MB'},
+  {title: 'Consolidated Manual (Rev.09)', slug: 'consolidated-manual', category: 'consolidated', size: '5.7 MB'},
+  {title: 'คู่มือใช้งาน IR Sensor สำหรับ Face ID', slug: 'ir-sensor-face-id', category: 'guide', size: '0.5 MB'},
+  {title: 'คู่มือจัดการสายของตัวล็อกด้านนอก', slug: 'outer-body-cable', category: 'guide', size: '0.1 MB'},
+  {title: 'ตารางความเข้ากันได้ของ Remote Control', slug: 'remote-control-compat', category: 'guide', size: '0.1 MB'},
 ];
 
 const APP_MANUALS: Manual[] = [
-  {title: 'EPIC Things APP User Manual', file: 'EPIC Things APP User Manual.pdf', size: '9.4 MB', category: 'app'},
+  {title: 'EPIC Things APP', slug: 'epic-things-app', category: 'app', size: '9.4 MB'},
 ];
-
-function pdfUrl(file: string): string {
-  return `/manuals/${encodeURIComponent(file)}`;
-}
 
 function ManualCard({m}: {m: Manual}) {
   return (
-    <div className="manual-card col col--4 margin-bottom--md">
-      <div>
-        <h3 className="manual-card__title">{m.title}</h3>
-        <p className="manual-card__meta">PDF · {m.size}</p>
-      </div>
-      <div className="manual-card__actions">
-        {m.onlinePath && (
-          <Link className="button button--primary button--sm" to={m.onlinePath}>
-            Read online
-          </Link>
-        )}
-        <a
-          className={`button button--sm ${m.onlinePath ? 'button--outline button--primary' : 'button--primary'}`}
-          href={pdfUrl(m.file)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Download PDF
-        </a>
+    <div className="col col--4 margin-bottom--lg">
+      <div className="manual-card">
+        <div>
+          <h3 className="manual-card__title">{m.title}</h3>
+          <p className="manual-card__meta">{m.size} · {m.category}</p>
+        </div>
       </div>
     </div>
   );
 }
 
-function ManualGrid({manuals}: {manuals: Manual[]}) {
+function ManualGrid({manuals, title, description}: {manuals: Manual[]; title: string; description?: string}) {
   return (
-    <div className="row">
-      {manuals.map((m) => (
-        <ManualCard key={m.file} m={m} />
-      ))}
-    </div>
+    <section className="margin-top--lg">
+      <Heading as="h2">{title} ({manuals.length})</Heading>
+      {description && <p>{description}</p>}
+      <div className="row">
+        {manuals.map((m) => (
+          <ManualCard key={m.slug} m={m} />
+        ))}
+      </div>
+    </section>
   );
 }
 
 export default function Catalog(): ReactNode {
   return (
     <Layout
-      title="All Manuals"
-      description="Complete catalog of EPIC product manuals, reference guides, and app documentation."
+      title="สารบัญคู่มือทั้งหมด"
+      description="สารบัญคู่มือ EPIC ทั้ง 22 เล่ม — สินค้า คู่มืออ้างอิง และแอป"
     >
-      <header className="hero hero--primary">
-        <div className="container">
-          <Heading as="h1">All Manuals</Heading>
-          <p>{PRODUCT_MANUALS.length + REFERENCE_GUIDES.length + APP_MANUALS.length} documents from epic.co.kr — PDF downloads, with one online edition.</p>
-        </div>
-      </header>
       <main className="container margin-vert--lg">
-        <section>
-          <Heading as="h2">Per-product manuals ({PRODUCT_MANUALS.length})</Heading>
-          <p>Owner's manuals for individual EPIC door-lock models.</p>
-          <ManualGrid manuals={PRODUCT_MANUALS} />
-        </section>
+        <Heading as="h1">สารบัญคู่มือทั้งหมด</Heading>
+        <p>
+          คู่มือทั้งหมด <strong>{PRODUCT_MANUALS.length + REFERENCE_GUIDES.length + APP_MANUALS.length} เล่ม</strong> จาก <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual/</a>
+          {' '}— ปรับปรุงล่าสุด 2026-06-16
+        </p>
 
-        <section className="margin-top--xl">
-          <Heading as="h2">Installation &amp; reference guides ({REFERENCE_GUIDES.length})</Heading>
-          <p>Cross-product installation and compatibility references.</p>
-          <ManualGrid manuals={REFERENCE_GUIDES} />
-        </section>
+        <ManualGrid
+          manuals={PRODUCT_MANUALS}
+          title="คู่มือรายรุ่น"
+          description="คู่มือการใช้งานสำหรับกุญแจดิจิทัล EPIC แต่ละรุ่น"
+        />
+        <ManualGrid
+          manuals={REFERENCE_GUIDES}
+          title="คู่มือติดตั้งและอ้างอิง"
+          description="คู่มือข้ามรุ่นสำหรับการติดตั้งและความเข้ากันได้"
+        />
+        <ManualGrid
+          manuals={APP_MANUALS}
+          title="แอปและซอฟต์แวร์"
+        />
 
-        <section className="margin-top--xl">
-          <Heading as="h2">Apps &amp; software ({APP_MANUALS.length})</Heading>
-          <p>Companion-app documentation.</p>
-          <ManualGrid manuals={APP_MANUALS} />
-        </section>
-
-        <section className="margin-top--xl">
-          <p>
-            <small>
-              Source: <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual/</a> · Last refreshed 2026-06-16.
-            </small>
-          </p>
-        </section>
+        <p className="margin-top--xl">
+          <small>
+            หมายเหตุ: ขณะนี้มีเพียง <strong>ES-K70</strong> ที่มีคู่มือออนไลน์ฉบับเต็ม รุ่นอื่น ๆ กำลังจะตามมา — ดู <Link to="/es-k70/intro">ตัวอย่างคู่มือ ES-K70</Link>
+          </small>
+        </p>
       </main>
     </Layout>
   );

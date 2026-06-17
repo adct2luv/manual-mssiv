@@ -1,0 +1,8 @@
+{
+  "label": "ES-K70 Digital Door Lock",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Online edition of the ES-K70 user manual. PIN, RFID, and mechanical key access."
+  }
+}

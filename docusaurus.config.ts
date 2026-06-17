@@ -3,35 +3,41 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'EPIC Manuals',
-  tagline: 'Official product manuals, online',
+  title: 'คู่มือการใช้งาน EPIC',
+  tagline: 'คู่มือ EPIC ทุกรุ่น — อ่านออนไลน์ ภาษาไทย/อังกฤษ',
   favicon: 'img/favicon.ico',
 
   future: {
     v4: true,
   },
 
-  // Production URL — set after first deploy once the custom domain is attached.
+  // Production URL — Cloudflare Pages custom domain
   url: 'https://manual.mssiv.com',
   baseUrl: '/',
 
-  // Trailing-slash policy for clean URLs on Cloudflare Pages.
   trailingSlash: false,
 
   organizationName: 'mssiv',
   projectName: 'manual-mssiv',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
-  markdown: {
-    hooks: {
-      onBrokenMarkdownLinks: 'warn',
-    },
-  },
-
+  // TH default (ลูกค้าไทย), EN secondary
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'th',
+    locales: ['th', 'en'],
+    localeConfigs: {
+      th: {
+        label: 'ภาษาไทย',
+        direction: 'ltr',
+        htmlLang: 'th-TH',
+      },
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US',
+      },
+    },
   },
 
   presets: [
@@ -39,8 +45,8 @@ const config: Config = {
       'classic',
       {
         docs: {
+          path: 'docs', // TH default locale — Docusaurus reads from i18n/th/docusaurus-plugin-content-docs/current/
           sidebarPath: './sidebars.ts',
-          routeBasePath: '/manuals',
           showLastUpdateTime: false,
         },
         blog: false,
@@ -63,16 +69,10 @@ const config: Config = {
         src: 'img/epic-logo.svg',
       },
       items: [
+        {to: '/catalog', label: 'คู่มือทั้งหมด', position: 'left'},
         {
-          type: 'docSidebar',
-          sidebarId: 'esK70Sidebar',
-          position: 'left',
-          label: 'ES-K70',
-        },
-        {
-          to: '/catalog',
-          label: 'All Manuals',
-          position: 'left',
+          type: 'localeDropdown',
+          position: 'right',
         },
         {
           href: 'https://epicdoorlock.com',
@@ -85,16 +85,16 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Manuals',
+          title: 'EPIC Manuals',
           items: [
-            {label: 'ES-K70 Online', to: '/manuals/es-k70/intro'},
-            {label: 'All Manuals (PDF)', to: '/catalog'},
+            {label: 'คู่มือทั้งหมด', to: '/catalog'},
+            {label: 'English Version', to: '/en/catalog'},
           ],
         },
         {
           title: 'EPIC',
           items: [
-            {label: 'Official Site', href: 'https://www.epic.co.kr'},
+            {label: 'เว็บไซต์ทางการ', href: 'https://www.epic.co.kr'},
             {label: 'epicdoorlock.com', href: 'https://epicdoorlock.com'},
             {label: 'LINE @epicdoorlock', href: 'https://line.me/R/ti/p/@epicdoorlock'},
             {label: 'Facebook', href: 'https://fb.com/epicdoorlock'},
@@ -106,7 +106,6 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-      additionalLanguages: ['bash'],
     },
   } satisfies Preset.ThemeConfig,
 };

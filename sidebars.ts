@@ -24,6 +24,7 @@ const sidebars: SidebarsConfig = {
       ],
     },
   ],
+  // Other product sidebars can be added here
 };
 
 export default sidebars;

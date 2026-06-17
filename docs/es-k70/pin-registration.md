@@ -1,79 +1,79 @@
 ---
 sidebar_position: 5
-title: PIN Registration
-description: How to change the PIN on the ES-K70.
+title: การลงทะเบียนรหัส PIN
+description: วิธีเปลี่ยนรหัส PIN บน ES-K70
 ---
 
-# PIN Number Registration
+# การลงทะเบียนรหัส PIN
 
-This procedure **changes an existing PIN** to a new one. The first time you set up the lock, the existing PIN is the default `1234`.
+ขั้นตอนนี้ใช้สำหรับ **เปลี่ยนรหัส PIN เดิม** ครั้งแรกที่ตั้งค่าล็อก รหัส PIN ที่ใช้คือรหัสเริ่มต้น `1234`
 
-:::caution Before you start
-- Always register the PIN **while the door is open**. You don't want to be locked out if something goes wrong.
-- The default PIN is **`1`, `2`, `3`, `4`**. Change it before first use.
-- A new PIN overwrites **all previously registered PINs**. The ES-K70 only supports one PIN at a time.
-- Choose a 4 – 12 digit PIN. **Avoid** `0000`, `1234`, repeated digits, your birth year, or any obvious pattern.
-- **There is no factory reset path.** If you forget your PIN with no valid RFID card or mechanical key, you will need to call a technician to disassemble the lock.
+:::caution ก่อนเริ่ม
+- ลงทะเบียนรหัส PIN **ขณะประตูเปิดเสมอ** คุณไม่อยากถูกล็อกออกหากมีอะไรผิดพลาด
+- รหัส PIN เริ่มต้นคือ **`1, 2, 3, 4`** เปลี่ยนก่อนใช้งานครั้งแรก
+- รหัส PIN ใหม่จะ **ลบรหัสเก่าทั้งหมด** ES-K70 รองรับ PIN ได้แค่ชุดเดียว
+- เลือก PIN 4 – 12 หลัก **หลีกเลี่ยง** `0000`, `1234`, ตัวเลขซ้ำ, ปีเกิด หรือรูปแบบที่เดาง่าย
+- **ไม่มีวิธีรีเซ็ตจากโรงงาน** ถ้าลืมรหัส PIN โดยไม่มีบัตร RFID หรือกุญแจกลไกที่ใช้ได้ ต้องเรียกช่างเพื่อถอดล็อก
 :::
 
-## Step-by-step
+## ขั้นตอนทีละขั้น
 
-> The illustrations in the printed manual show the number pad (1 – 9, *, 0, #) and the inner-body **Registration** button under the battery cover.
+> ภาพประกอบในคู่มือฉบับพิมพ์แสดงคีย์แพด (1–9, *, 0, #) และปุ่ม **Registration** ใต้ฝาครอบแบตเตอรี่
 
-### ① Open the battery cover
+### ① เปิดฝาครอบแบตเตอรี่
 
-Open the **inner-body battery cover** so you can reach the **Registration** button.
+เปิด **ฝาครอบแบตเตอรี่ด้านใน** เพื่อเข้าถึง **ปุ่ม Registration**
 
-![Open battery cover](https://placehold.co/480x320/f5f5f5/888?text=Step+1:+Open+battery+cover)
+![เปิดฝาครอบแบตเตอรี่](https://placehold.co/480x320/f5f5f5/888?text=%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B2%E0%B8%99+1:+%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B8%94%E0%B8%9D%E0%B8%B2%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A)
 
-### ② Press the Registration button once
+### ② กดปุ่ม Registration หนึ่งครั้ง
 
-Press the **Registration** button once. A short **beep** confirms the lock has entered registration mode.
+กด **ปุ่ม Registration** หนึ่งครั้ง จะได้ยินเสียง **บี๊บสั้น**
 
-![Press Registration button — beep](https://placehold.co/480x320/f5f5f5/888?text=Step+2:+Press+Registration)
+![กดปุ่ม Registration — บี๊บ](https://placehold.co/480x320/f5f5f5/888?text=%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B2%E0%B8%99+2:+%E0%B8%81%E0%B8%94+Registration)
 
-You now have **10 seconds** to complete the next step. If you wait longer, the lock times out and you'll need to start over.
+ตอนนี้คุณมีเวลา **10 วินาที** ในการทำขั้นตอนถัดไป ถ้านานเกินไป ล็อกจะหมดเวลาและต้องเริ่มใหม่
 
-### ③ Enter the current PIN, then `*`
+### ③ ใส่รหัส PIN ปัจจุบัน แล้วกด `*`
 
-On the outer-body keypad, enter the **current PIN**, then press **`*`** to confirm.
+บนคีย์แพดด้านนอก ใส่ **รหัส PIN ปัจจุบัน** แล้วกด **`*`** เพื่อยืนยัน
 
-| If this is the first time | Use the default PIN `1 2 3 4` |
+| ถ้าเป็นครั้งแรก | ใช้รหัสเริ่มต้น `1 2 3 4` |
 |---|---|
 
-### ④ Enter the new PIN, then `*`
+### ④ ใส่รหัส PIN ใหม่ 4–12 หลัก แล้วกด `*`
 
-Enter your **new PIN** (4 – 12 digits), then press **`*`** to confirm.
+ใส่ **รหัส PIN ใหม่** (4–12 หลัก) แล้วกด **`*`** บนคีย์แพด
 
-### ⑤ Enter the new PIN again, then `*`
+### ⑤ ใส่รหัส PIN ใหม่อีกครั้งเพื่อยืนยัน แล้วกด `*`
 
-Enter the **same new PIN** once more, then press **`*`** to confirm.
+ใส่ **รหัส PIN ใหม่ตัวเดิม** อีกครั้ง แล้วกด **`*`**
 
-A **melody plays** — this confirms the new PIN is registered.
+ล็อกจะเล่น **เพลงสั้น** เพื่อยืนยันว่ารหัสใหม่ลงทะเบียนสำเร็จ
 
-## Common pitfalls
+## ปัญหาที่พบบ่อย
 
-| Symptom | Likely cause |
+| อาการ | สาเหตุที่เป็นไปได้ |
 |---|---|
-| Three short beeps instead of a melody | The two new-PIN entries didn't match — start over |
-| Beep on step ②, then nothing on step ③ | The 10-second timeout elapsed — press Registration again |
-| Status LED flashes red | The PIN contains invalid characters — digits only, 4 – 12 long |
+| บี๊บสั้น 3 ครั้งแทนเพลง | PIN ใหม่สองครั้งไม่ตรงกัน — เริ่มใหม่ |
+| บี๊ปในขั้นตอน ② แล้วไม่มีอะไรเกิดขึ้นในขั้น ③ | หมดเวลา 10 วินาทีแล้ว — กด Registration อีกครั้ง |
+| LED สถานะกระพริบแดง | PIN มีตัวอักษรที่ไม่ถูกต้อง — ตัวเลขเท่านั้น 4–12 หลัก |
 
-## Quick-reference card
+## การ์ดอ้างอิงด่วน
 
 ```
-╔══════════════════════════════════════════════╗
-║  CHANGE PIN — door must be open             ║
-╠══════════════════════════════════════════════╣
-║  1. Open battery cover (inner body)          ║
-║  2. Press [Registration]      → beep         ║
-║  3. Current PIN + [✱]                       ║
-║  4. New PIN (4–12 digits) + [✱]              ║
-║  5. New PIN again + [✱]      → melody       ║
-║  Timeout: 10 s between steps                ║
-╚══════════════════════════════════════════════╝
+╔════════════════════════════════════════════════╗
+║  เปลี่ยน PIN — ประตูต้องเปิด                  ║
+╠════════════════════════════════════════════════╣
+║  1. เปิดฝาครอบแบตเตอรี่ (ด้านใน)              ║
+║  2. กด [Registration] หนึ่งครั้ง  → บี๊บ       ║
+║  3. PIN ปัจจุบัน + [✱]                          ║
+║  4. PIN ใหม่ (4–12 หลัก) + [✱]                 ║
+║  5. PIN ใหม่อีกครั้ง + [✱]  → เพลง             ║
+║  หมดเวลา: 10 วินาทีระหว่างขั้นตอน              ║
+╚════════════════════════════════════════════════╝
 ```
 
-## Next step
+## ขั้นตอนถัดไป
 
-Once your PIN works, register at least one RFID card as a backup. See **[RFID Card Registration](./rfid-registration)**.
+เมื่อ PIN ใช้งานได้แล้ว ลงทะเบียนบัตร RFID อย่างน้อย 1 ใบเป็นตัวสำรอง ดู **[การลงทะเบียนบัตร RFID](./rfid-registration)**

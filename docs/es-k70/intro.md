@@ -1,50 +1,50 @@
 ---
 sidebar_position: 1
-title: Overview
-description: EPIC ES-K70 Digital Door Lock — features and default settings.
-keywords: [epic, es-k70, digital door lock, manual]
+title: ภาพรวม
+description: กุญแจดิจิทัล EPIC ES-K70 — คุณสมบัติและการตั้งค่าเริ่มต้น
+keywords: [epic, es-k70, กุญแจดิจิทัล, คู่มือ]
 ---
 
-# EPIC ES-K70 — Digital Door Lock
+# EPIC ES-K70 — กุญแจดิจิทัล
 
-![ES-K70 keypad lock](https://placehold.co/640x420/f5f5f5/888?text=ES-K70+Front+View)
+![ล็อกประตูดิจิทัล ES-K70](https://placehold.co/640x420/f5f5f5/888?text=ES-K70+%E0%B8%84%E0%B8%AD%E0%B8%99%E0%B9%82%E0%B8%94%E0%B8%B1%E0%B8%99%E0%B8%9A%E0%B8%99)
 
-The **ES-K70** is a digital door lock from EPIC that supports three credential types: PIN number, RFID card, and a mechanical key override.
+**ES-K70** เป็นกุญแจดิจิทัลจาก EPIC ที่รองรับ 3 วิธีเปิดประตู: รหัส PIN, บัตร RFID และกุญแจกลไกสำรอง
 
-## Features
+## คุณสมบัติ
 
-- **PIN Number** — 4 to 12 digits
-- **RFID Card** — up to 100 cards
-- **Mechanical Key** — physical override
-- **Dual Lock** — privacy mode from inside
-- **9 V Emergency Power** — jump-start via external battery (sold separately)
+- **รหัส PIN** — 4 ถึง 12 หลัก
+- **บัตร RFID** — รองรับสูงสุด 100 บัตร
+- **กุญแจกลไก** — กุญแจสำรองฉุกเฉิน
+- **Dual Lock** — โหมดล็อกส่วนตัวจากด้านใน
+- **ไฟฉุกเฉิน 9V** — จ่ายไฟฉุกเฉินด้วยแบตเตอรี่ 9V (แยกจำหน่าย)
 
-## Default PIN Number
+## รหัส PIN เริ่มต้น
 
-> The default PIN is **[1, 2, 3, 4]**.
+> รหัส PIN เริ่มต้นคือ **[1, 2, 3, 4]**
 >
-> Change it before first use. Avoid consecutive or repetitive numbers (e.g. `1111`, `1234`, `2468`) — they are easier to guess and shoulder-surf.
+> กรุณาเปลี่ยนรหัส PIN ก่อนใช้งานครั้งแรก หลีกเลี่ยงรหัสที่เดาได้ง่าย เช่น `1111`, `1234`, `2468` หรือปีเกิด เพราะเสี่ยงต่อการถูกขโมยรหัส
 
-## Important: Installer Required
+## ข้อควรระวัง: ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ
 
 :::warning
-This product must be installed by a **skilled installer** to receive full warranty coverage. Do not install it yourself — the warranty does not cover self-installations, and incorrect installation may cause injury or product damage.
+ผลิตภัณฑ์นี้ต้องติดตั้งโดย **ช่างผู้เชี่ยวชาญเท่านั้น** เพื่อให้ได้รับการรับประกันเต็มรูปแบบ ห้ามติดตั้งด้วยตัวเอง — การติดตั้งที่ผิดพลาดอาจทำให้เกิดการบาดเจ็บหรือผลิตภัณฑ์เสียหาย
 :::
 
-- Manufacturer: EPIC Systems (epic.co.kr)
-- Contact: `info@epic.co.kr`
-- Website: [www.epic.co.kr](https://www.epic.co.kr)
-- Document revision: `PTMP6230ONTA REV.01`
+- ผู้ผลิต: EPIC Systems (epic.co.kr)
+- ติดต่อ: `info@epic.co.kr`
+- เว็บไซต์: [www.epic.co.kr](https://www.epic.co.kr)
+- เวอร์ชันเอกสาร: `PTMP6230ONTA REV.01`
 
-## What you'll need
+## สิ่งที่ต้องเตรียม
 
-- 8 × **LR6 (AA) alkaline batteries** for normal operation
-- 1 × **9 V alkaline battery** (sold separately) for emergency power
-- A small Phillips screwdriver (for the inner-body battery cover)
+- แบตเตอรี่ LR6 (AA) อัลคาไลน์ **8 ก้อน** สำหรับใช้งานปกติ
+- แบตเตอรี่อัลคาไลน์ **9V 1 ก้อน** (แยกจำหน่าย) สำหรับไฟฉุกเฉิน
+- ไขควง Phillips ขนาดเล็ก (สำหรับเปิดฝาครอบแบตเตอรี่ด้านใน)
 
-## Next steps
+## ขั้นตอนถัดไป
 
-- Read **[Safety Precautions](./safety)** before installation or use.
-- Review the **[Product Specifications](./specs)** to confirm door compatibility.
-- Use **[Components](./components)** to identify every part of the lock.
-- Follow the programming guides to set up PIN and RFID credentials.
+- อ่าน **[ข้อควรระวังด้านความปลอดภัย](./safety)** ก่อนติดตั้งหรือใช้งาน
+- ตรวจสอบ **[ข้อมูลจำเพาะของผลิตภัณฑ์](./specs)** เพื่อยืนยันความเข้ากันได้กับประตู
+- ดู **[ส่วนประกอบ](./components)** เพื่อระบุชิ้นส่วนทุกส่วนของล็อก
+- ทำตามคำแนะนำการเขียนโปรแกรมเพื่อตั้งค่ารหัส PIN และบัตร RFID

@@ -1,68 +1,68 @@
 ---
 sidebar_position: 4
-title: Components
-description: Outer body and inner body layout of the ES-K70.
+title: ส่วนประกอบ
+description: ผังตัวล็อกด้านนอกและด้านในของ ES-K70
 ---
 
-# Components
+# ส่วนประกอบ
 
-## Outer Body (outside the door)
+## ตัวล็อกด้านนอก (ฝั่งนอกประตู)
 
-The outer body is the side with the keypad — it touches the weather and the public.
+ตัวล็อกด้านนอกคือฝั่งที่มีคีย์แพด — สัมผัสกับสภาพอากาศและผู้ใช้
 
-![Outer body diagram — schematic placeholder](https://placehold.co/720x540/fafafa/777?text=Outer+Body+Diagram)
+![ผังตัวล็อกด้านนอก — ตัวยึดตำแหน่ง](https://placehold.co/720x540/fafafa/777?text=%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%A5%E0%B9%87%E0%B8%AD%E0%B8%81%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%81)
 
-| # | Part | What it does |
+| # | ชิ้นส่วน | หน้าที่ |
 |---|---|---|
-| 1 | **Number pad** | Enter your PIN or programming codes (1–9, *, 0, #) |
-| 2 | **Status LED lamp** | Shows the lock's current state (idle / locked / error) |
-| 3 | **Battery lamp** | Lights up when batteries are low — replace all 8 cells |
-| 4 | **RFID card reader** | Tap a registered card here |
-| 5 | **Reset button** | Resets the lock to factory defaults (rarely needed) |
-| 6 | **Emergency battery terminal** | Touch a 9 V battery here if the lock is dead |
-| 7 | **Mechanical key hole cover** | Slide to expose the keyhole for the mechanical override |
-| 8 | **Outer body handle** | Pull down to retract the latch/bolt after a successful unlock |
+| 1 | **คีย์แพดตัวเลข** | ใส่รหัส PIN หรือรหัสโปรแกรม (1–9, *, 0, #) |
+| 2 | **ไฟ LED แสดงสถานะ** | แสดงสถานะล็อก (พร้อมใช้ / ล็อก / ผิดพลาด) |
+| 3 | **ไฟแบตเตอรี่** | ติดเมื่อแบตเตอรี่ต่ำ — เปลี่ยนทั้ง 8 ก้อน |
+| 4 | **เครื่องอ่านบัตร RFID** | แตะบัตรที่ลงทะเบียนไว้ตรงนี้ |
+| 5 | **ปุ่มรีเซ็ต** | รีเซ็ตล็อกเป็นค่าเริ่มต้นจากโรงงาน (ใช้น้อยครั้ง) |
+| 6 | **ขั้วแบตเตอรี่ฉุกเฉิน** | แตะแบตเตอรี่ 9V ที่นี่หากล็อกไฟหมด |
+| 7 | **ฝาครอบรูกุญแจกลไก** | เลื่อนเพื่อเปิดรูกุญแจสำหรับกุญแจสำรอง |
+| 8 | **ที่จับด้านนอก** | ดึงลงเพื่อถอนกลอน/สลักหลังปลดล็อกสำเร็จ |
 
-### Emergency battery terminal
+### ขั้วแบตเตอรี่ฉุกเฉิน
 
-If the lock is unresponsive and the **Battery lamp** is dark:
+ถ้าล็อกไม่ตอบสนองและ **ไฟดับ**:
 
-1. Get a 9 V alkaline battery (sold separately).
-2. Touch the battery's **+ and −** terminals to the matching contacts under the outer body.
-3. While holding the 9 V battery in place, enter your PIN or tap your card as normal.
-4. Once the lock powers up and unlocks, **immediately replace the 8 AA cells** inside.
+1. หาแบตเตอรี่อัลคาไลน์ 9V (แยกจำหน่าย)
+2. แตะขั้ว **+ และ −** ของแบตเตอรี่กับจุดสัมผัสใต้ตัวล็อกด้านนอก
+3. ขณะที่ยังแนบแบตเตอรี่ 9V อยู่ ให้ใส่รหัส PIN หรือแตะบัตรตามปกติ
+4. เมื่อล็อกติดและปลดล็อกแล้ว ให้ **เปลี่ยนแบตเตอรี่ AA 8 ก้อนทันที**
 
-## Inner Body (inside the door)
+## ตัวล็อกด้านใน (ฝั่งในประตู)
 
-The inner body holds the batteries and the inside controls.
+ตัวล็อกด้านในมีแบตเตอรี่และปุ่มควบคุมภายใน
 
-![Inner body diagram — schematic placeholder](https://placehold.co/360x720/fafafa/777?text=Inner+Body+Diagram)
+![ผังตัวล็อกด้านใน — ตัวยึดตำแหน่ง](https://placehold.co/360x720/fafafa/777?text=%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%A5%E0%B9%87%E0%B8%AD%E0%B8%81%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%83%E0%B8%99)
 
-| Part | What it does |
+| ชิ้นส่วน | หน้าที่ |
 |---|---|
-| **Battery cover** | Slides off to reveal the battery compartment |
-| **Alkaline AA batteries** | 8 × LR6 cells — main power source |
-| **Registration button** | Used to enter programming mode (PIN / RFID changes) |
-| **Open / Close button** | One-touch unlock or lock from inside |
-| **Dual lock button** | Engages privacy mode — outside PIN/RFID are ignored until released |
-| **Inner body handle** | Pull down to retract the latch/bolt from inside |
+| **ฝาครอบแบตเตอรี่** | เลื่อนออกเพื่อเข้าถึงช่องแบตเตอรี่และปุ่มลงทะเบียน |
+| **แบตเตอรี่อัลคาไลน์ AA (×8)** | แหล่งพลังงานหลักของล็อก |
+| **ปุ่มลงทะเบียน** | ใช้เมื่อลงทะเบียน PIN, บัตร หรือลายนิ้วมือ |
+| **ปุ่มเปิด/ปิด** | เปิดหรือปิดล็อกจากด้านในได้ทันที |
+| **ปุ่ม Dual lock** | เปิดโหมดล็อกส่วนตัว — บล็อกการเข้าจากด้านนอกจนกว่าจะปิด |
+| **ที่จับด้านใน** | ดึงลงเพื่อถอนกลอน/สลักจากด้านใน |
 
-### Dual lock mode
+### โหมด Dual Lock
 
 :::info
-**Dual lock** (sometimes called *privacy mode* or *vacation mode*) blocks **all outside access** — even with a valid PIN or RFID card. Use it when you want true privacy inside.
+**Dual lock** (บางครั้งเรียก *โหมดส่วนตัว* หรือ *โหมดวันหยุด*) จะบล็อก **การเข้าจากด้านนอกทั้งหมด** — แม้แต่ด้วย PIN หรือบัตร RFID ที่ถูกต้อง ใช้เมื่อต้องการความเป็นส่วนตัวภายในอย่างแท้จริง
 :::
 
-- **Activate:** press the **Dual lock button** on the inner body. The status LED on the outer body will indicate dual-lock mode.
-- **Deactivate:** press the button again, or simply turn the inner-body handle.
+- **เปิดใช้งาน:** กด **ปุ่ม Dual lock** บนตัวล็อกด้านใน ไฟ LED สถานะบนตัวล็อกด้านนอกจะแสดงโหมด Dual-lock
+- **ปิดใช้งาน:** กดปุ่มเดิมอีกครั้ง หรือใช้ที่จับด้านใน
 
-## Indicator light reference
+## ไฟแสดงสถานะ
 
-| Light | Meaning |
+| ไฟ | ความหมาย |
 |---|---|
-| Status LED — green | Unlocked / OK |
-| Status LED — red | Locked / Error |
-| Battery lamp — red | Batteries low, replace soon |
-| Status LED — flashing | Programming mode is active |
+| LED สถานะ — เขียว | ปลดล็อก / ตกลง |
+| LED สถานะ — แดง | ล็อก / ผิดพลาด |
+| ไฟแบตเตอรี่ — แดง | แบตเตอรี่ต่ำ เปลี่ยนทันที |
+| LED สถานะ — กะพริบ | อยู่ในโหมดลงทะเบียน |
 
-If you see an unexpected indicator you can't resolve, see **[Safety Precautions → What to do in an emergency](./safety#what-to-do-in-an-emergency)**.
+ถ้าเห็นไฟแสดงสถานะที่ไม่คาดคิดและแก้ไขไม่ได้ ดู **[ข้อควรระวังด้านความปลอดภัย → ทำอย่างไรเมื่อเกิดเหตุฉุกเฉิน](./safety#ทำอย่างไรเมื่อเกิดเหตุฉุกเฉิน)**

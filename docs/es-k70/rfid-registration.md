@@ -1,130 +1,126 @@
 ---
 sidebar_position: 6
-title: RFID Card Registration
-description: How to register up to 100 RFID cards on the ES-K70.
+title: การลงทะเบียนบัตร RFID
+description: วิธีลงทะเบียนบัตร RFID บน ES-K70
 ---
 
-# RFID Card Registration
+# การลงทะเบียนบัตร RFID
 
-The ES-K70 supports up to **100 RFID cards**. There are two modes:
+ES-K70 รองรับสูงสุด **100 บัตร RFID** มีสองโหมด:
 
-- **All-at-once** — register multiple cards without assigning specific slot numbers. Fastest when you only need a few cards.
-- **One-by-one** — assign each card to a specific 3-digit slot number (001 – 100). Useful when you want to delete a single lost card later.
+- **ทั้งหมดพร้อมกัน** — ลงทะเบียนหลายบัตรโดยไม่ระบุหมายเลขช่อง เร็วที่สุดเมื่อต้องการบัตรไม่กี่ใบ
+- **ทีละใบ** — กำหนดบัตรแต่ละใบให้หมายเลขช่อง 3 หลัก (001–100) มีประโยชน์เมื่อต้องลบบัตรที่หายไปทีละใบ
 
-:::tip Compatibility
-Only EPIC-compatible 13.56 MHz RFID cards work with this lock. Cards included in the original box are pre-registered as a courtesy in some regions, but the manual states that **in-box cards are not registered by default** — register them yourself.
+:::tip ความเข้ากันได้
+ใช้ได้เฉพาะบัตร RFID 13.56 MHz ที่เข้ากันได้กับ EPIC เท่านั้น บัตรในกล่องดั้งเดิม **ไม่ได้ลงทะเบียนไว้ล่วงหน้า** (ตามที่ระบุในคู่มือ) — ต้องลงทะเบียนเอง
 :::
 
-:::caution Always register with the door open. If something goes wrong, you don't want to be locked out.
+:::caution ลงทะเบียนขณะประตูเปิดเสมอ ถ้ามีปัญหา คุณไม่อยากถูกล็อกออก
 :::
 
 ---
 
-## Mode A — All-at-once registration
+## โหมด A — ลงทะเบียนทั้งหมดพร้อมกัน
 
-Best for: registering a handful of cards without caring about slot numbers.
+เหมาะสำหรับ: ลงทะเบียนบัตรหลายใบโดยไม่สนหมายเลขช่อง
 
-### ① Open the battery cover
+### ① เปิดฝาครอบแบตเตอรี่
 
-Open the **inner-body battery cover** to reach the **Registration** button.
+เปิด **ฝาครอบแบตเตอรี่ด้านใน** เพื่อเข้าถึง **ปุ่ม Registration**
 
-### ② Press the Registration button
+### ② กดปุ่ม Registration
 
-Press the **Registration** button once. A short **beep** confirms registration mode is active.
+กด **ปุ่ม Registration** หนึ่งครั้ง จะได้ยินเสียง **บี๊บ** ยืนยันโหมดลงทะเบียน
 
-### ③ Enter the current PIN, then `*`
+### ③ ใส่รหัส PIN ปัจจุบัน แล้วกด `*`
 
-Enter your **current PIN**, then press **`*`**.
+ใส่ **รหัส PIN ปัจจุบัน** แล้วกด **`*`**
 
-### ④ Press `2`
+### ④ กดปุ่มหมายเลข `2`
 
-Press the number **`2`** button to select all-at-once mode.
+กดปุ่ม **`2`** เพื่อเลือกโหมดลงทะเบียนทั้งหมด
 
-### ⑤ Place each card on the reader
+### ⑤ วางบัตรบนเครื่องอ่าน
 
-One at a time, place each card on the **RFID card reader** on the outer body. After each card, you should hear a beep. The number pad will briefly display the assigned slot (e.g. `001`, `002`, …).
+ทีละใบ วางบัตรบน **เครื่องอ่านบัตร RFID** บนตัวล็อกด้านนอก หลังวางแต่ละใบจะได้ยินเสียงบี๊บ หมายเลขช่อง 3 หลัก (เช่น `001`, `002, …) จะแสดงบนคีย์แพดชั่วคราว
 
-### ⑥ Press Registration to finish
+### ⑥ กดปุ่ม Registration เพื่อเสร็จสิ้น
 
-Press the **Registration** button again. The lock beeps to confirm registration is complete.
+กด **ปุ่ม Registration** อีกครั้ง ล็อกจะบี๊บเพื่อยืนยันว่าการลงทะเบียนเสร็จสมบูรณ์
 
-#### Note
-
-- Up to **100 cards** total can be registered across both modes.
-- Repeat step ⑤ before the 10-second timeout to add more cards. After 10 s without activity, registration cancels.
-- After the 100th card is registered, no further cards can be added until you delete one or more.
+> **หมายเหตุ:** ลงทะเบียนบัตรได้สูงสุด **100 ใบ** ลงทะเบียนบัตรใบที่ 101 ไม่ได้ ต้องลบบัตรเก่าออกก่อน
 
 ---
 
-## Mode B — One-by-one registration
+## โหมด B — ลงทะเบียนทีละใบ
 
-Best for: large deployments or when you need to be able to delete a specific lost card.
+เหมาะสำหรับ: ระบบขนาดใหญ่หรือเมื่อต้องการลบบัตรที่หายไปทีละใบ
 
-### ① Open the battery cover
+### ① เปิดฝาครอบแบตเตอรี่
 
-Open the **inner-body battery cover**.
+เปิด **ฝาครอบแบตเตอรี่ด้านใน**
 
-### ② Press the Registration button
+### ② กดปุ่ม Registration
 
-Press the **Registration** button once. A **beep** confirms registration mode is active.
+กด **ปุ่ม Registration** หนึ่งครั้ง จะได้ยินเสียง **บี๊บ**
 
-### ③ Enter the current PIN, then `*`
+### ③ ใส่รหัส PIN ปัจจุบัน แล้วกด `*`
 
-Enter the **current PIN**, then press **`*`**.
+ใส่ **รหัส PIN ปัจจุบัน** แล้วกด **`*`**
 
-### ④ Press `2`
+### ④ กดปุ่มหมายเลข `2`
 
-Press **`2`** to select registration mode.
+กด **`2`** เพื่อเลือกโหมดลงทะเบียน
 
-### ⑤ Enter the 3-digit slot, then `#`
+### ⑤ ใส่หมายเลขช่อง 3 หลัก แล้วกด `#`
 
-Enter the **3-digit slot number** (`001` – `100`) you want this card to occupy, then press **`#`**.
+ใส่ **หมายเลขช่อง 3 หลัก** (`001` – `100`) ที่ต้องการให้บัตรนี้อยู่ แล้วกด **`#`**
 
-> The slot number **must always be 3 digits**. `1` is invalid; use `001`.
+> หมายเลขช่อง **ต้องเป็น 3 หลักเสมอ** ห้ามใส่ `1` ให้ใส่ `001`
 
-### ⑥ Place the card on the reader
+### ⑥ วางบัตรบนเครื่องอ่าน
 
-Hold the card on the **RFID card reader**. A beep confirms, and the slot number flashes on the number pad.
+วางบัตรบน **เครื่องอ่านบัตร RFID** จะได้ยินเสียงบี๊บ และหมายเลขช่องจะกะพริบบนคีย์แพด
 
-### ⑦ When the pad returns to standby
+### ⑦ เมื่อคีย์แพดกลับสู่สถานะพร้อมใช้งาน
 
-The number pad returns to its normal display when the lock is back in standby mode.
+คีย์แพดจะกลับสู่หน้าจอปกติเมื่อล็อกกลับสู่โหมดสแตนด์บาย
 
-### ⑧ Register more cards (optional)
+### ⑧ ลงทะเบียนบัตรเพิ่ม (ถ้ามี)
 
-- **To register additional cards:** while all 9 segments of the pad are lit, enter the next slot number + `#`, then place the next card. Repeat as needed.
-- **When there are no more cards:** press the **Registration** button to finish.
+- **ลงทะเบียนบัตรเพิ่ม:** เมื่อตัวเลขทุกตัวบนคีย์แพดติด ให้ใส่หมายเลขช่องใหม่ แล้วกด `#` แล้ววางบัตรใบถัดไป ทำซ้ำตามต้องการ
+- **เมื่อไม่มีบัตรเพิ่ม:** กด **ปุ่ม Registration** เพื่อเสร็จสิ้น
 
 ---
 
-## Quick-reference card
+## การ์ดอ้างอิงด่วน
 
 ```
-╔═══════════════════════════════════════════════════════╗
-║  REGISTER RFID — door open                            ║
-╠═══════════════════════════════════════════════════════╣
-║  ALL-AT-ONCE                                          ║
-║    1. Open cover                                      ║
-║    2. [Registration]            → beep                ║
-║    3. PIN + [✱]                                       ║
-║    4. [2]                                              ║
-║    5. Tap card on reader            (repeat per card) ║
-║    6. [Registration]            → finish              ║
-║                                                       ║
-║  ONE-BY-ONE                                           ║
-║    1. Open cover                                      ║
-║    2. [Registration]            → beep                ║
-║    3. PIN + [✱]                                       ║
-║    4. [2]                                              ║
-║    5. Slot (001–100) + [#]                            ║
-║    6. Tap card on reader                               ║
-║    7. (Optional) Slot + [#] + tap next card           ║
-║    8. [Registration]            → finish              ║
-║                                                       ║
-║  Capacity: 100 cards · Timeout: 10 s between steps    ║
-╚═══════════════════════════════════════════════════════╝
+╔════════════════════════════════════════════════════╗
+║  ลงทะเบียน RFID — ประตูเปิด                      ║
+╠════════════════════════════════════════════════════╣
+║  ทั้งหมดพร้อมกัน                                  ║
+║    1. เปิดฝาครอบ                                   ║
+║    2. [Registration] หนึ่งครั้ง  → บี๊บ            ║
+║    3. PIN + [✱]                                    ║
+║    4. [2]                                           ║
+║    5. วางบัตรบนเครื่องอ่าน  (ทำซ้ำต่อบัตร)          ║
+║    6. [Registration]  → เสร็จ                       ║
+║                                                    ║
+║  ทีละใบ                                            ║
+║    1. เปิดฝาครอบ                                   ║
+║    2. [Registration] หนึ่งครั้ง  → บี๊บ            ║
+║    3. PIN + [✱]                                    ║
+║    4. [2]                                           ║
+║    5. หมายเลขช่อง (001–100) + [#]                  ║
+║    6. วางบัตรบนเครื่องอ่าน                          ║
+║    7. (ถ้ามี) หมายเลขช่อง + [#] + วางบัตรถัดไป   ║
+║    8. [Registration]  → เสร็จ                       ║
+║                                                    ║
+║  ความจุ: 100 บัตร · หมดเวลา: 10 วินาทีระหว่างขั้นตอน║
+╚════════════════════════════════════════════════════╝
 ```
 
-## Need to remove a card?
+## ต้องลบบัตรไหม?
 
-If a card is lost or stolen, see **[RFID Card Deletion](./rfid-deletion)**.
+ถ้าบัตรหายหรือถูกขโมย ดู **[การลบบัตร RFID](./rfid-deletion)**

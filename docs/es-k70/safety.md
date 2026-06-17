@@ -1,34 +1,34 @@
 ---
 sidebar_position: 2
-title: Safety Precautions
-description: Read before installing or using the ES-K70.
+title: ข้อควรระวังด้านความปลอดภัย
+description: อ่านก่อนติดตั้งหรือใช้งาน ES-K70
 ---
 
-# Safety Precautions
+# ข้อควรระวังด้านความปลอดภัย
 
-:::caution Read first
-Please read these precautions carefully. Misuse may cause injury, lock failure, or void your warranty.
+:::caution อ่านก่อนใช้งาน
+โปรดอ่านข้อควรระวังเหล่านี้อย่างละเอียด การใช้งานที่ผิดพลาดอาจทำให้เกิดการบาดเจ็บ ล็อกเสีย หรือหมดประกัน
 :::
 
-- **Do not repair the product yourself.** Disassembly may cause electric shock or damage. Contact a qualified technician.
-- **Check the environment before installation.** Avoid locations exposed to direct rain, direct sunlight, or extreme temperature swings outside the rated range.
-- **Read the manual carefully before using the lock.**
-- **Change your PIN periodically.** Treat it like a password — change it every few months and whenever a keyholder leaves.
-- **Do not knock or apply force to the lock.** Slamming the door against the lock body can bend the bolt or crack the housing.
-- **Protect the product from wetness and moisture.** Even though the outer body is rated for outdoor use, submerging or pressure-washing will damage the electronics.
-- **Replace all batteries at once.** Mixing old and new batteries can leak and corrode the battery terminals.
-- **Clean the lock with a clean, dry cloth.** Do not use water, solvents, or abrasive cleaners.
-- **Use the product as intended.** The lock is designed for residential and light-commercial doors within the rated specifications.
+- **ห้ามซ่อมผลิตภัณฑ์ด้วยตัวเอง** การถอดประกอบอาจทำให้เกิดไฟฟ้าช็อตหรือความเสียหาย กรุณาติดต่อช่างผู้เชี่ยวชาญ
+- **ตรวจสอบสภาพแวดล้อมก่อนติดตั้ง** หลีกเลี่ยงบริเวณที่โดนฝนโดยตรง แสงแดดโดยตรง หรืออุณหภูมิสุดขั้ว
+- **อ่านคู่มืออย่างละเอียดก่อนใช้งานล็อก**
+- **เปลี่ยนรหัส PIN เป็นประจำ** ปฏิบัติเหมือนรหัสผ่าน — เปลี่ยนทุก ๆ 2-3 เดือน และเปลี่ยนทันทีเมื่อมีผู้ที่รู้รหัสลาออก
+- **ห้ามทุบหรือออกแรงกับล็อก** การกระแทกประตูกับตัวล็อกอาจทำให้กลอนบิดงอหรือเปลือกหัก
+- **ป้องกันผลิตภัณฑ์จากความชื้น** แม้ตัวล็อกด้านนอกจะกันน้ำได้ แต่การจุ่มน้ำหรือฉีดน้ำแรงดันสูงจะทำให้วงจรเสียหาย
+- **เปลี่ยนแบตเตอรี่ทั้งหมดพร้อมกัน** การผสมแบตเตอรี่เก่าและใหม่อาจทำให้แบตเตอรี่รั่วและกัดกร่อนขั้วแบตเตอรี่
+- **ทำความสะอาดล็อกด้วยผ้าแห้งสะอาด** ห้ามใช้น้ำ ตัวทำละลาย หรือสารทำความสะอาดที่มีฤทธิ์กัดกร่อน
+- **ใช้ผลิตภัณฑ์ตามวัตถุประสงค์** ล็อกนี้ออกแบบมาสำหรับประตูบ้านและอาคารเบาที่อยู่ในสเปคที่กำหนด
 
-## Quick-reference dos and don'ts
+## สิ่งที่ควรทำ vs ไม่ควรทำ
 
-| ✅ Do | ❌ Don't |
+| ✅ ควรทำ | ❌ ไม่ควรทำ |
 |---|---|
-| Change the default PIN before first use | Use the default `1234` PIN in production |
-| Use 8 × LR6 (AA) alkaline batteries | Mix alkaline, lithium, or rechargeable batteries |
-| Register RFID cards inside (door open) | Force a card that doesn't read on the reader |
-| Replace all 8 batteries together | Replace batteries one at a time |
+| เปลี่ยนรหัส PIN เริ่มต้นก่อนใช้งาน | ใช้รหัส `1234` ในการใช้งานจริง |
+| ใช้แบตเตอรี่อัลคาไลน์ AA 8 ก้อน | ผสมแบตเตอรี่อัลคาไนน์ ลิเธียม หรือชาร์จไฟได้ |
+| ลงทะเบียนบัตร RFID ขณะประตูเปิด | ฝืนใช้บัตรที่เครื่องอ่านไม่ได้ |
+| เปลี่ยนแบตเตอรี่ทั้ง 8 ก้อนพร้อมกัน | เปลี่ยนแบตเตอรี่ทีละก้อน |
 
-## What to do in an emergency
+## ทำอย่างไรเมื่อเกิดเหตุฉุกเฉิน
 
-If the lock fails to respond and the indicator is dark, see **[Components → Emergency battery terminal](./components#emergency-battery-terminal)** for the 9 V jump-start procedure.
+ถ้าล็อกไม่ตอบสนองและไฟดับ ดู **[ส่วนประกอบ → ขั้วแบตเตอรี่ฉุกเฉิน](./components#ขั้วแบตเตอรี่ฉุกเฉิน)** สำหรับขั้นตอนการใช้แบตเตอรี่ 9V บูสต์
