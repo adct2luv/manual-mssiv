@@ -11,7 +11,7 @@ hide_table_of_contents: true
 
 <div className="row margin-vert--lg">
   <div className="col col--6 margin-bottom--md">
-    <a className="button button--primary button--lg button--block" href="/docs/es-k70/intro">
+    <a className="button button--primary button--lg button--block" href="/es-k70/intro">
       📖 อ่านคู่มือ ES-K70
     </a>
   </div>
@@ -49,7 +49,7 @@ hide_table_of_contents: true
         <li>การลงทะเบียนและลบบัตร RFID</li>
       </ul>
       <div className="manual-card__actions">
-        <a className="button button--primary button--sm" href="/docs/es-k70/intro">
+        <a className="button button--primary button--sm" href="/es-k70/intro">
           เริ่มอ่าน →
         </a>
       </div>

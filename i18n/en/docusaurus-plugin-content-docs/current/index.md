@@ -11,7 +11,7 @@ User manuals for **EPIC Door Lock** products — easy to read, easy to search, a
 
 <div className="row margin-vert--lg">
   <div className="col col--6 margin-bottom--md">
-    <a className="button button--primary button--lg button--block" href="/en/docs/es-k70/intro">
+    <a className="button button--primary button--lg button--block" href="/en/es-k70/intro">
       📖 Read ES-K70 manual
     </a>
   </div>
@@ -49,7 +49,7 @@ Click **🌐 ภาษาไทย / English** in the top-right corner of any pa
         <li>RFID card registration & deletion</li>
       </ul>
       <div className="manual-card__actions">
-        <a className="button button--primary button--sm" href="/en/docs/es-k70/intro">
+        <a className="button button--primary button--sm" href="/en/es-k70/intro">
           Start reading →
         </a>
       </div>
