@@ -46,6 +46,7 @@ const config: Config = {
       {
         docs: {
           path: 'docs', // TH default locale — Docusaurus reads from i18n/th/docusaurus-plugin-content-docs/current/
+          routeBasePath: '/docs',
           sidebarPath: './sidebars.ts',
           showLastUpdateTime: false,
         },
