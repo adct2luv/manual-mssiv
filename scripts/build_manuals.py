@@ -204,12 +204,8 @@ PRODUCT_FEATURES = {
     "es-f7000kr": ["pin", "rfid", "fingerprint"],
     "es-f9000kr": ["pin", "rfid", "fingerprint", "mechanical_key"],
     "es-p8800k": ["pin", "rfid", "fingerprint"],
-    "assembly-guide-for-key-tail": [],
     "consolidated-manual-rev-09": ["pin", "rfid", "fingerprint", "face"],
     "epic-things-app-user-manual": ["app"],
-    "ir-sensor-usage-guide-for-face-id": [],
-    "outer-body-cable-management-guide": [],
-    "remote-control-module-compatibility-guide": [],
 }
 
 # Determine what pages to generate per product
@@ -1038,10 +1034,6 @@ MANUALS = [
      TH_DESCRIPTIONS["POPscan"],
      "POPscan digital lock in black. Supports fast scanning.",
      "popscan", None, "https://www.epic.co.kr/home/manual/"),
-    ("assembly-guide-for-key-tail", "Assembly Guide for Key Tail", "คู่มือประกอบหางกุญแจ", "Key Tail Assembly Guide",
-     TH_DESCRIPTIONS["Assembly Guide for Key Tail"],
-     "Step-by-step guide for assembling the key tail component during installation.",
-     None, None, "https://www.epic.co.kr/home/manual/"),
     ("consolidated-manual-rev-09", "Consolidated Manual Rev.09", "คู่มือรวม Rev.09", "Consolidated Manual Rev.09",
      TH_DESCRIPTIONS["Consolidated Manual Rev.09"],
      "Consolidated manual covering multiple EPIC door lock models.",
@@ -1092,18 +1084,7 @@ MANUALS = [
      TH_DESCRIPTIONS["EPIC Things APP User Manual"],
      "User manual for the EPIC Things mobile app for controlling smart locks via smartphone.",
      None, None, "https://www.epic.co.kr/home/manual/"),
-    ("ir-sensor-usage-guide-for-face-id", "IR Sensor Usage Guide for Face ID", "คู่มือใช้งาน IR Sensor สำหรับ Face ID", "IR Sensor Usage Guide for Face ID",
-     TH_DESCRIPTIONS["IR Sensor Usage Guide for Face ID"],
-     "Guide for using the IR sensor for Face ID functionality.",
-     None, None, "https://www.epic.co.kr/home/manual/"),
-    ("outer-body-cable-management-guide", "Outer Body Cable Management Guide", "คู่มือจัดการสายเคเบิลตัวล็อกด้านนอก", "Outer Body Cable Management Guide",
-     TH_DESCRIPTIONS["Outer Body Cable Management Guide"],
-     "Guide for cable management on the outer body of EPIC locks.",
-     None, None, "https://www.epic.co.kr/home/manual/"),
-    ("remote-control-module-compatibility-guide", "Remote Control Module Compatibility Guide", "ตารางความเข้ากันได้ของโมดูลรีโมท", "Remote Control Module Compatibility",
-     TH_DESCRIPTIONS["Remote-Control-Module-Compatibility-Guide"],
-     "Compatibility table for remote control modules across EPIC models.",
-     None, None, "https://www.epic.co.kr/home/manual/"),
+
 ]
 
 

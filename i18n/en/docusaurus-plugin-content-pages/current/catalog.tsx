@@ -41,13 +41,6 @@ const PRODUCT_MANUALS: Manual[] = [
 ];
 
 const REFERENCE_GUIDES: Manual[] = [
-  {title: 'Key Tail Assembly Guide', slug: 'assembly-guide-for-key-tail', category: 'guide', size: '0.4 MB'},
-  {title: 'IR Sensor Usage Guide for Face ID', slug: 'ir-sensor-usage-guide-for-face-id', category: 'guide', size: '0.5 MB'},
-  {title: 'Outer Body Cable Management Guide', slug: 'outer-body-cable-management-guide', category: 'guide', size: '0.1 MB'},
-  {title: 'Remote Control Module Compatibility', slug: 'remote-control-module-compatibility-guide', category: 'guide', size: '0.1 MB'},
-];
-
-const APP_AND_CONSOLIDATED: Manual[] = [
   {title: 'Consolidated Manual (Rev.09)', slug: 'consolidated-manual-rev-09', category: 'consolidated', size: '5.7 MB'},
   {title: 'EPIC Things APP', slug: 'epic-things-app-user-manual', category: 'app', size: '9.4 MB'},
 ];
@@ -92,12 +85,12 @@ export default function Catalog(): ReactNode {
   return (
     <Layout
       title="All manuals catalogue"
-      description="Catalogue of all 32 EPIC manuals — products, references and apps"
+      description="Catalogue of all 28 EPIC manuals — products, references and apps"
     >
       <main className="container margin-vert--lg">
         <Heading as="h1">All manuals catalogue</Heading>
         <p>
-          All <strong>{PRODUCT_MANUALS.length + REFERENCE_GUIDES.length + APP_AND_CONSOLIDATED.length} manuals</strong> from <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual/</a>
+          All <strong>{PRODUCT_MANUALS.length + REFERENCE_GUIDES.length} manuals</strong> from <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual/</a>
           {' '}— refreshed 2026-06-17
         </p>
 
@@ -108,15 +101,9 @@ export default function Catalog(): ReactNode {
         </section>
 
         <section className="margin-top--lg">
-          <Heading as="h2">Installation & reference guides ({REFERENCE_GUIDES.length})</Heading>
-          <p>Cross-model installation and compatibility guides</p>
-          <ManualGrid manuals={REFERENCE_GUIDES} localePrefix="/en" />
-        </section>
-
-        <section className="margin-top--lg">
-          <Heading as="h2">App & consolidated ({APP_AND_CONSOLIDATED.length})</Heading>
+          <Heading as="h2">App &amp; Consolidated ({REFERENCE_GUIDES.length})</Heading>
           <p>App manual and consolidated manual</p>
-          <ManualGrid manuals={APP_AND_CONSOLIDATED} localePrefix="/en" />
+          <ManualGrid manuals={REFERENCE_GUIDES} localePrefix="/en" />
         </section>
 
         <p className="margin-top--xl">
