@@ -1,0 +1,8 @@
+{
+  "label": "ES-F501D Digital Lock",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Rim-type digital lock supporting PIN, RFID card, and fingerprint (ES-F501D/H, ES-F500D/H, ES-S510D/H share the same manual)."
+  }
+}

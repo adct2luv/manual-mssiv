@@ -166,6 +166,13 @@ BROCHURE_MAP = {
     "os300h": "Rim Type/OS300H-01.png",
     "popscan": "Rim Type/POPscan-01.png",
     "touch": "Rim Type/Touch-01.png",
+    "es-s100dr": "Rim Type/ES-S100Dr-01.png",
+    "es-f300dr": "Rim Type/ES-F300Dr-01.png",
+    "es-f301d": "Rim Type/ES-F301D-01.png",
+    "es-f500dr": "Rim Type/ES-F500Dr-01.png",
+    "es-f501d": "Rim Type/ES-F501D-01.png",
+    "es-ff730gr": "Rim Type/ES-FF730Gr-01.png",
+    "es-ff731g": "Rim Type/ES-FF731G-01.png",
 }
 
 # Determine what features each product has
@@ -186,6 +193,17 @@ PRODUCT_FEATURES = {
     "touch": ["pin", "smart_card"],
     "triplex-2way": ["pin", "smart_key", "home_network"],
     "triplex-3way": ["pin", "smart_key", "mechanical_key"],
+    # New consolidated-manual models
+    "es-s100dr": ["pin", "rfid"],
+    "es-f300dr": ["pin", "rfid", "fingerprint"],
+    "es-f301d": ["pin", "rfid", "fingerprint"],
+    "es-f501d": ["pin", "rfid", "fingerprint"],
+    "es-ff730gr": ["pin", "rfid", "fingerprint", "mechanical_key"],
+    "es-ff731g": ["pin", "rfid", "fingerprint", "mechanical_key"],
+    "es-s740d": ["pin", "rfid", "fingerprint", "mechanical_key"],
+    "es-f7000kr": ["pin", "rfid", "fingerprint"],
+    "es-f9000kr": ["pin", "rfid", "fingerprint", "mechanical_key"],
+    "es-p8800k": ["pin", "rfid", "fingerprint"],
     "assembly-guide-for-key-tail": [],
     "consolidated-manual-rev-09": ["pin", "rfid", "fingerprint", "face"],
     "epic-things-app-user-manual": ["app"],
@@ -252,7 +270,8 @@ def make_category_json(slug, label, description, position=1):
 # ----- Generic page templates -----
 
 def gen_overview(model, slug, th_title, en_title, th_desc, en_desc,
-                 brochure_image=None, features=None, manual_url=None):
+                 brochure_image=None, features=None, manual_url=None,
+                 consolidated_manual=None):
     """Generate intro/overview page"""
     th_lines = [
         make_frontmatter(th_title, th_desc, 1),
@@ -265,6 +284,12 @@ def gen_overview(model, slug, th_title, en_title, th_desc, en_desc,
         th_lines.append("")
     th_lines.append(th_desc)
     th_lines.append("")
+    if consolidated_manual:
+        th_lines.append(f":::tip คู่มือฉบับรวม")
+        th_lines.append(f"รุ่นนี้ใช้คู่มือฉบับรวม [Consolidated Manual Rev.09](/consolidated-manual-rev-09/intro)")
+        th_lines.append(f"ดูตารางเปรียบเทียบฟีเจอร์ของทุกรุ่นในคู่มือฉบับรวม")
+        th_lines.append(":::")
+        th_lines.append("")
     th_lines.append("## คุณสมบัติเด่น")
     th_lines.append("")
     if features:
@@ -290,6 +315,12 @@ def gen_overview(model, slug, th_title, en_title, th_desc, en_desc,
         en_lines.append("")
     en_lines.append(en_desc)
     en_lines.append("")
+    if consolidated_manual:
+        en_lines.append(f":::tip Consolidated manual")
+        en_lines.append(f"This model uses the [Consolidated Manual Rev.09](/en/consolidated-manual-rev-09/intro)")
+        en_lines.append(f"See the feature comparison table for all models in the consolidated manual")
+        en_lines.append(":::")
+        en_lines.append("")
     en_lines.append("## Key Features")
     en_lines.append("")
     if features:
@@ -848,7 +879,8 @@ def generate_manual_pages(slug, model, th_title, en_title, th_desc, en_desc,
                           inner_parts=None, in_box=None, max_cards=100,
                           max_fingerprints=100, default_pin="1, 2, 3, 4",
                           pin_length="4~12", extra_features=None,
-                          extra_alarms=None, manual_url=None):
+                          extra_alarms=None, manual_url=None,
+                          consolidated_manual=None):
     """Generate all pages for a single manual"""
     pages_to_gen = get_pages_for_product(slug)
     brochure_image = None
@@ -873,7 +905,8 @@ def generate_manual_pages(slug, model, th_title, en_title, th_desc, en_desc,
             model, slug, th_title, en_title, th_desc, en_desc,
             brochure_image=brochure_image,
             features=features_for_card,
-            manual_url=manual_url
+            manual_url=manual_url,
+            consolidated_manual=consolidated_manual
         )
 
     # specs
@@ -1013,6 +1046,48 @@ MANUALS = [
      TH_DESCRIPTIONS["Consolidated Manual Rev.09"],
      "Consolidated manual covering multiple EPIC door lock models.",
      None, None, "https://www.epic.co.kr/home/manual/"),
+
+    # ===== New product pages (Consolidated Manual models) =====
+    ("es-s100dr", "ES-S100Dr", "กุญแจดิจิทัล ES-S100Dr", "ES-S100Dr Digital Lock",
+     "กุญแจดิจิทัล Rim Type เปิดด้วยรหัส PIN และบัตร RFID เหมาะกับประตูบานเปิด",
+     "Rim-type digital lock for swing doors. Opens with PIN or RFID card.",
+     "es-s100dr", None, "https://www.epic.co.kr/home/manual/"),
+    ("es-f300dr", "ES-F300Dr", "กุญแจดิจิทัล ES-F300Dr", "ES-F300Dr Digital Lock",
+     "กุญแจดิจิทัล Rim Type เปิดด้วยรหัส PIN, บัตร RFID และลายนิ้วมือ",
+     "Rim-type digital lock. Opens with PIN, RFID card, or fingerprint.",
+     "es-f300dr", None, "https://www.epic.co.kr/home/manual/"),
+    ("es-f301d", "ES-F301D", "กุญแจดิจิทัล ES-F301D", "ES-F301D Digital Lock",
+     "กุญแจดิจิทัล Rim Type เปิดด้วยรหัส PIN, บัตร RFID และลายนิ้วมือ",
+     "Rim-type digital lock. Opens with PIN, RFID card, or fingerprint.",
+     "es-f301d", None, "https://www.epic.co.kr/home/manual/"),
+    ("es-f501d", "ES-F501D", "กุญแจดิจิทัล ES-F501D", "ES-F501D Digital Lock",
+     "กุญแจดิจิทัล Rim Type รองรับ PIN, บัตร RFID และลายนิ้วมือ (รุ่น ES-F501D/H, ES-F500D/H, ES-S510D/H ใช้คู่มือเดียวกัน)",
+     "Rim-type digital lock supporting PIN, RFID card, and fingerprint (ES-F501D/H, ES-F500D/H, ES-S510D/H share the same manual).",
+     "es-f501d", None, "https://www.epic.co.kr/home/manual/"),
+    ("es-ff730gr", "ES-FF730Gr", "กุญแจดิจิทัล ES-FF730Gr", "ES-FF730Gr Digital Lock",
+     "กุญแจดิจิทัล Gate Type รองรับ PIN, บัตร RFID, ลายนิ้วมือ และกุญแจกลไก",
+     "Gate-type digital lock supporting PIN, RFID card, fingerprint, and mechanical key.",
+     "es-ff730gr", None, "https://www.epic.co.kr/home/manual/"),
+    ("es-ff731g", "ES-FF731G", "กุญแจดิจิทัล ES-FF731G", "ES-FF731G Digital Lock",
+     "กุญแจดิจิทัล Gate Type รองรับ PIN, บัตร RFID, ลายนิ้วมือ และกุญแจกลไก",
+     "Gate-type digital lock supporting PIN, RFID card, fingerprint, and mechanical key.",
+     "es-ff731g", None, "https://www.epic.co.kr/home/manual/"),
+    ("es-s740d", "ES-S740D", "กุญแจดิจิทัล ES-S740D", "ES-S740D Digital Lock",
+     "กุญแจดิจิทัล Gate Type รองรับ PIN, บัตร RFID, ลายนิ้วมือ และกุญแจกลไก",
+     "Gate-type digital lock supporting PIN, RFID card, fingerprint, and mechanical key.",
+     None, None, "https://www.epic.co.kr/home/manual/"),
+    ("es-f7000kr", "ES-F7000Kr", "กุญแจดิจิทัล ES-F7000Kr", "ES-F7000Kr Digital Lock",
+     "กุญแจดิจิทัล Mortise Type รองรับ PIN, บัตร RFID และลายนิ้วมือ",
+     "Mortise-type digital lock supporting PIN, RFID card, and fingerprint.",
+     None, None, "https://www.epic.co.kr/home/manual/"),
+    ("es-f9000kr", "ES-F9000Kr", "กุญแจดิจิทัล ES-F9000Kr", "ES-F9000Kr Digital Lock",
+     "กุญแจดิจิทัล Mortise Type รองรับ PIN, บัตร RFID, ลายนิ้วมือ และกุญแจกลไก",
+     "Mortise-type digital lock supporting PIN, RFID card, fingerprint, and mechanical key.",
+     None, None, "https://www.epic.co.kr/home/manual/"),
+    ("es-p8800k", "ES-P8800K", "กุญแจดิจิทัล ES-P8800K", "ES-P8800K Digital Lock",
+     "กุญแจดิจิทัล Push Pull Type รองรับ PIN, บัตร RFID และลายนิ้วมือ",
+     "Push-pull type digital lock supporting PIN, RFID card, and fingerprint.",
+     None, None, "https://www.epic.co.kr/home/manual/"),
     ("epic-things-app-user-manual", "EPIC Things APP User Manual", "คู่มือแอป EPIC Things", "EPIC Things APP User Manual",
      TH_DESCRIPTIONS["EPIC Things APP User Manual"],
      "User manual for the EPIC Things mobile app for controlling smart locks via smartphone.",
@@ -1037,6 +1112,13 @@ def main():
     print(f"TH docs dir: {DOCS_TH}")
     print(f"EN docs dir: {DOCS_EN}")
 
+    # Models in consolidated manual Rev.09
+    consolidated_models = {
+        "es-s100dr", "es-f300dr", "es-f301d", "es-f501d",
+        "es-ff730gr", "es-ff731g", "es-s740d",
+        "es-f7000kr", "es-f9000kr", "es-p8800k",
+    }
+
     for entry in MANUALS:
         slug, model, th_title, en_title, th_desc, en_desc, brochure_key, specs_override, manual_url = entry
         print(f"  → {slug} ({model})")
@@ -1049,6 +1131,9 @@ def main():
         if slug in ["popscan", "ef-p8800k", "ef-8000l", "es-p9100fk"]:
             max_cards = 100 if slug != "popscan" else 200
 
+        # Link to consolidated manual for new models
+        consolidated = "consolidated-manual-rev-09" if slug in consolidated_models else None
+
         pages = generate_manual_pages(
             slug=slug, model=model,
             th_title=th_title, en_title=en_title,
@@ -1060,6 +1145,7 @@ def main():
             default_pin="1, 2, 3, 4",
             pin_length="4~12",
             manual_url=manual_url,
+            consolidated_manual=consolidated,
         )
         write_pages(slug, pages)
 
