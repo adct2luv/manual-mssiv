@@ -10,30 +10,30 @@ description: ส่วนประกอบของ ES-S740D
 
 | # | ชิ้นส่วน | หน้าที่ |
 |---|---|---|
-| 1 | **Number Pad** | Enter PIN or programming codes (1-9, *, 0, #) |
-| 2 | **Status LED Lamp** | Shows lock status (idle / locked / error) |
-| 3 | **Battery Lamp** | Lights up when battery is low |
-| 4 | **RFID Card Reader** | Tap registered card here |
-| 5 | **Reset Button** | Reset lock to factory defaults (rarely used) |
-| 6 | **Emergency Battery Terminal** | Touch 9V battery here if lock is dead |
-| 7 | **Outer Body Handle** | Pull down to retract bolt after unlock |
+| 1 | **แผงคีย์แพดตัวเลข** | ป้อนรหัส PIN หรือรหัสตั้งค่าการทำงาน (1-9, *, 0, #) |
+| 2 | **ไฟ LED แสดงสถานะ** | แสดงสถานะการทำงานของตัวล็อก (สแตนด์บาย / ล็อกแล้ว / ข้อผิดพลาด) |
+| 3 | **ไฟแจ้งเตือนสถานะแบตเตอรี่** | ไฟเตือนจะสว่างขึ้นเมื่อแบตเตอรี่อ่อน |
+| 4 | **เครื่องอ่านการ์ด RFID** | แตะบัตรหรือแท็กคีย์การ์ดที่ลงทะเบียนแล้วเพื่อเปิดประตู |
+| 5 | **ปุ่มรีสตาร์ทเครื่อง (Reset)** | ใช้สำหรับรีสตาร์ทระบบกรณีตัวเครื่องขัดข้องหรือไม่ตอบสนอง |
+| 6 | **ขั้วต่อแบตเตอรี่ฉุกเฉิน (9V)** | แตะแบตเตอรี่ 9V เพื่อจ่ายไฟสำรองหากแบตเตอรี่หลักหมด |
+| 7 | **ที่จับประตูด้านนอก** | ดึงหรือหมุนลงเพื่อเปิดประตูหลังปลดล็อกสำเร็จ |
 
 ## ตัวล็อกด้านใน
 
 | # | ชิ้นส่วน | หน้าที่ |
 |---|---|---|
-| 1 | **Battery Cover** | Slide off to access battery compartment |
-| 2 | **Registration Button** | Used when registering PIN, Card or Fingerprint |
-| 3 | **Open/Close Button** | One-touch unlock from inside |
-| 4 | **Dual Lock Button** | Privacy mode - blocks outside access |
-| 5 | **Inner Body Handle** | Pull down to retract bolt from inside |
-| 6 | **Alkaline AA Battery** | Main power source |
-| 7 | **Manual Lock Button** | Used to close the door in manual mode |
+| 1 | **ฝาครอบแบตเตอรี่** | เปิดออกเพื่อเข้าถึงช่องใส่แบตเตอรี่ |
+| 2 | **ปุ่มลงทะเบียน (Registration)** | ใช้กดเมื่อต้องการลงทะเบียนหรือแก้ไขรหัส PIN, บัตร หรือลายนิ้วมือ |
+| 3 | **ปุ่มเปิด/ปิดประตู (Open/Close)** | กดปุ่มเพื่อล็อกหรือปลดล็อกประตูแบบสัมผัสเดียวจากด้านใน |
+| 4 | **ปุ่มล็อกสองชั้น (Dual Lock)** | เปิดโหมดความเป็นส่วนตัว เพื่อป้องกันการเปิดประตูจากภายนอก |
+| 5 | **ที่จับประตูด้านใน** | ดึงหรือหมุนเพื่อเปิดประตูจากภายในห้อง |
+| 6 | **แบตเตอรี่อัลคาไลน์ AA** | แหล่งพลังงานหลักสำหรับตัวล็อกประตูดิจิทัล |
+| 7 | **ปุ่มบิดล็อกด้วยตนเอง** | ใช้เพื่อล็อกหรือปลดล็อกประตูด้วยตนเองในโหมดล็อกแบบแมนนวล |
 
 ## อุปกรณ์ในกล่อง
-- Outer body
-- Inner body
-- Strike plate & fixing hardware
-- Mechanical keys
-- Batteries
-- User manual
+- ชุดอุปกรณ์ตัวเครื่องด้านนอก
+- ชุดอุปกรณ์ตัวเครื่องด้านใน
+- แป้นรับลิ้นกลอนและชุดอุปกรณ์สำหรับติดตั้ง
+- กุญแจกลไกสำรอง
+- แบตเตอรี่ขนาด AA
+- คู่มือการใช้งาน

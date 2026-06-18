@@ -15,6 +15,69 @@ const config: Config = {
   url: 'https://manual.mssiv.com',
   baseUrl: '/',
 
+  plugins: [
+    function trackingPlugin() {
+      return {
+        name: 'docusaurus-tracking-plugin',
+        injectHtmlTags() {
+          return {
+            headTags: [
+              {
+                tagName: 'script',
+                attributes: {},
+                innerHTML: `
+                  !function(f,b,e,v,n,t,s)
+                  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                  n.queue=[];t=b.createElement(e);t.async=!0;
+                  t.src=v;s=b.getElementsByTagName(e)[0];
+                  s.parentNode.insertBefore(t,s)}(window, document,'script',
+                  'https://connect.facebook.net/en_US/fbevents.js');
+                  fbq('init', '1945045202488164');
+                  fbq('init', '1559528578876193');
+                `,
+              },
+              {
+                tagName: 'script',
+                attributes: {
+                  async: 'true',
+                  src: 'https://www.googletagmanager.com/gtag/js?id=G-8B5L058716',
+                },
+              },
+              {
+                tagName: 'script',
+                attributes: {},
+                innerHTML: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  window.gtag = gtag;
+                  gtag('js', new Date());
+                  gtag('config', 'G-8B5L058716', { send_page_view: false });
+                  gtag('config', 'AW-958250070');
+                `,
+              },
+            ],
+            preBodyTags: [
+              {
+                tagName: 'noscript',
+                attributes: {},
+                innerHTML: `
+                  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1945045202488164&ev=PageView&noscript=1" />
+                  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1559528578876193&ev=PageView&noscript=1" />
+                `,
+              },
+            ],
+          };
+        },
+      };
+    },
+  ],
+
+  clientModules: [
+    require.resolve('./src/clientModules/tracking.ts'),
+  ],
+
   trailingSlash: false,
 
   organizationName: 'mssiv',
