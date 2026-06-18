@@ -822,6 +822,36 @@ def parse_components_from_json(slug, data, source_type):
                 default_rfid = "RFID Cards"
             in_box.append(default_rfid)
             
+    # Deduplicate outer_parts preserving order (case-insensitive check)
+    seen_outer = set()
+    deduped_outer = []
+    for name, func in outer_parts:
+        name_lower = name.lower()
+        if name_lower not in seen_outer:
+            seen_outer.add(name_lower)
+            deduped_outer.append((name, func))
+    outer_parts = deduped_outer
+
+    # Deduplicate inner_parts preserving order
+    seen_inner = set()
+    deduped_inner = []
+    for name, func in inner_parts:
+        name_lower = name.lower()
+        if name_lower not in seen_inner:
+            seen_inner.add(name_lower)
+            deduped_inner.append((name, func))
+    inner_parts = deduped_inner
+
+    # Deduplicate in_box preserving order
+    seen_box = set()
+    deduped_box = []
+    for item in in_box:
+        item_lower = item.lower()
+        if item_lower not in seen_box:
+            seen_box.add(item_lower)
+            deduped_box.append(item)
+    in_box = deduped_box
+
     return outer_parts, inner_parts, in_box
 
 
