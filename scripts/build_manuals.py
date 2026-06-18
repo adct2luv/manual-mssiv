@@ -385,7 +385,7 @@ def _read_json_file(path):
     try:
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
-    except json.JSONDecodeError as e:
+    except (json.JSONDecodeError, OSError) as e:
         print(f"Error: Malformed JSON file at {path}: {e}")
         return None
 
@@ -684,7 +684,9 @@ def parse_specs_from_json(slug, data, source_type):
             for row in table_data:
                 if not row or len(row) < 2:
                     continue
-                if row[0].lower() in ("item", "items", "description", "descriptions") or row[1].lower() in ("specification", "specifications"):
+                r0 = str(row[0]).lower().strip() if row[0] is not None else ""
+                r1 = str(row[1]).lower().strip() if row[1] is not None else ""
+                if r0 in ("item", "items", "description", "descriptions") or r1 in ("specification", "specifications"):
                     continue
                 
                 if len(row) == 2:
