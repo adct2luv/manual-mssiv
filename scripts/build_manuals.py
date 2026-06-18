@@ -690,13 +690,13 @@ def parse_specs_from_json(slug, data, source_type):
                     continue
                 
                 if len(row) == 2:
-                    category = row[0].strip() if row[0] else ""
+                    category = str(row[0]).strip() if row[0] is not None else ""
                     subcategory = ""
-                    val = row[1].strip() if row[1] else ""
+                    val = str(row[1]).strip() if row[1] is not None else ""
                 else:
-                    category = row[0].strip() if row[0] else ""
-                    subcategory = row[1].strip() if row[1] else ""
-                    val = row[2].strip() if row[2] else ""
+                    category = str(row[0]).strip() if row[0] is not None else ""
+                    subcategory = str(row[1]).strip() if row[1] is not None else ""
+                    val = str(row[2]).strip() if row[2] is not None else ""
                     
                 if not category:
                     category = prev_category
