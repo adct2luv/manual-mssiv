@@ -28,6 +28,16 @@ const PRODUCT_MANUALS: Manual[] = [
   {title: 'TOUCH', slug: 'touch', category: 'product', size: '13 MB', image: '/img/brochures/touch.png'},
   {title: 'TRIPLEX 2way', slug: 'triplex-2way', category: 'product', size: '14 MB'},
   {title: 'TRIPLEX 3way', slug: 'triplex-3way', category: 'product', size: '17 MB'},
+  {title: 'ES-S100Dr', slug: 'es-s100dr', category: 'product', size: '2.4 MB', image: '/img/brochures/es-s100dr.png'},
+  {title: 'ES-F300Dr', slug: 'es-f300dr', category: 'product', size: '3.7 MB', image: '/img/brochures/es-f300dr.png'},
+  {title: 'ES-F301D', slug: 'es-f301d', category: 'product', size: '4.1 MB', image: '/img/brochures/es-f301d.png'},
+  {title: 'ES-F501D', slug: 'es-f501d', category: 'product', size: '5.4 MB', image: '/img/brochures/es-f501d.png'},
+  {title: 'ES-FF730Gr', slug: 'es-ff730gr', category: 'product', size: '3.6 MB', image: '/img/brochures/es-ff730gr.png'},
+  {title: 'ES-FF731G', slug: 'es-ff731g', category: 'product', size: '4.4 MB', image: '/img/brochures/es-ff731g.png'},
+  {title: 'ES-S740D', slug: 'es-s740d', category: 'product', size: '4.5 MB'},
+  {title: 'ES-F7000Kr', slug: 'es-f7000kr', category: 'product', size: '5.0 MB'},
+  {title: 'ES-F9000Kr', slug: 'es-f9000kr', category: 'product', size: '5.5 MB'},
+  {title: 'ES-P8800K', slug: 'es-p8800k', category: 'product', size: '6.5 MB'},
 ];
 
 const REFERENCE_GUIDES: Manual[] = [
@@ -82,7 +92,7 @@ export default function Catalog(): ReactNode {
   return (
     <Layout
       title="All manuals catalogue"
-      description="Catalogue of all 22 EPIC manuals — products, references and apps"
+      description="Catalogue of all 32 EPIC manuals — products, references and apps"
     >
       <main className="container margin-vert--lg">
         <Heading as="h1">All manuals catalogue</Heading>
