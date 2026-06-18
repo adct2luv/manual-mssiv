@@ -30,7 +30,7 @@ The EPIC Things app is free to download for both iOS and Android:
 2. Enter your email and password
 3. Tap **Login**
 
-:::tip Guest Login
+:::tip[Guest Login]
 If you want to try the app before signing up, use **Guest Login**. Some features will be limited.
 :::
 
@@ -57,7 +57,7 @@ After signing up and logging in for the first time, the system will ask you to s
 
 ### 5.2 Via Wi-Fi Bridge (Remote)
 
-:::note Wi-Fi Bridge required
+:::note[Wi-Fi Bridge required]
 Remote control requires a **Wi-Fi Bridge** (sold separately).
 :::
 

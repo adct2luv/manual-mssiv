@@ -8,7 +8,7 @@ description: How to change the PIN on the ES-K70.
 
 This procedure **changes an existing PIN** to a new one. The first time you set up the lock, the existing PIN is the default `1234`.
 
-:::caution Before you start
+:::caution[Before you start]
 - Always register the PIN **while the door is open**. You don't want to be locked out if something goes wrong.
 - The default PIN is **`1`, `2`, `3`, `4`**. Change it before first use.
 - A new PIN overwrites **all previously registered PINs**. The ES-K70 only supports one PIN at a time.

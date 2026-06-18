@@ -5,7 +5,7 @@ description: EPIC Door Lock manuals — Thai & English, online
 hide_table_of_contents: true
 ---
 
-:::caution 🧪 Beta Version
+:::caution[🧪 Beta Version]
 This site is currently in **Beta** — content may contain errors. If you find issues or have suggestions, please contact **hello@mssiv.com**
 :::
 

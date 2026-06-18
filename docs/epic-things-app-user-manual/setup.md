@@ -30,7 +30,7 @@ description: วิธีติดตั้งแอป EPIC Things และต
 2. กรอกอีเมลและรหัสผ่าน
 3. คลิก **Login** หรือ **เข้าสู่ระบบ**
 
-:::tip Guest Login
+:::tip[Guest Login]
 หากต้องการทดลองใช้แอปก่อนสมัคร ใช้ **Guest Login** ได้ แต่ฟีเจอร์บางอย่างจะถูกจำกัด
 :::
 
@@ -57,7 +57,7 @@ description: วิธีติดตั้งแอป EPIC Things และต
 
 ### 5.2 ผ่าน Wi-Fi Bridge (ระยะไกล)
 
-:::note ต้องมี Wi-Fi Bridge
+:::note[ต้องมี Wi-Fi Bridge]
 การควบคุมระยะไกลต้องใช้ **Wi-Fi Bridge** (อุปกรณ์เสริม ซื้อแยก)
 :::
 

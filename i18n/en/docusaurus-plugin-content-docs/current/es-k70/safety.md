@@ -6,7 +6,7 @@ description: Read before installing or using the ES-K70.
 
 # Safety Precautions
 
-:::caution Read first
+:::caution[Read first]
 Please read these precautions carefully. Misuse may cause injury, lock failure, or void your warranty.
 :::
 

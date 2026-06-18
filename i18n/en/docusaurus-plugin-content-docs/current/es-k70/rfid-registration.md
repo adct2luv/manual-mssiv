@@ -11,11 +11,12 @@ The ES-K70 supports up to **100 RFID cards**. There are two modes:
 - **All-at-once** — register multiple cards without assigning specific slot numbers. Fastest when you only need a few cards.
 - **One-by-one** — assign each card to a specific 3-digit slot number (001 – 100). Useful when you want to delete a single lost card later.
 
-:::tip Compatibility
+:::tip[Compatibility]
 Only EPIC-compatible 13.56 MHz RFID cards work with this lock. Cards included in the original box are pre-registered as a courtesy in some regions, but the manual states that **in-box cards are not registered by default** — register them yourself.
 :::
 
-:::caution Always register with the door open. If something goes wrong, you don't want to be locked out.
+:::caution[Always register with the door open]
+If something goes wrong, you don't want to be locked out.
 :::
 
 ---
