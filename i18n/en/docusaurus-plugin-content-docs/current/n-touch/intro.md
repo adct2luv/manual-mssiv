@@ -14,7 +14,7 @@ PIN-only digital lock, simple and easy to use.
 
 - **📷 Brochure image: n-touch.png**
 
-:::warning Installation by professional required
+:::warning[Installation by professional required]
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

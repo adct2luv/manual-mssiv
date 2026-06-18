@@ -14,7 +14,7 @@ Digital lock for glass doors. Supports PIN and RFID. Easy installation with auto
 
 - **📷 Brochure image: es-303g.png**
 
-:::warning Installation by professional required
+:::warning[Installation by professional required]
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

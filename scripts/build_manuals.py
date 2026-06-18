@@ -316,7 +316,7 @@ def gen_overview(model, slug, th_title, en_title, th_desc, en_desc,
     th_lines.append(th_desc)
     th_lines.append("")
     if consolidated_manual:
-        th_lines.append(f":::tip คู่มือฉบับรวม")
+        th_lines.append(f":::tip[คู่มือฉบับรวม]")
         th_lines.append(f"รุ่นนี้ใช้คู่มือฉบับรวม [Consolidated Manual Rev.09](/consolidated-manual-rev-09/intro)")
         th_lines.append(f"ดูตารางเปรียบเทียบฟีเจอร์ของทุกรุ่นในคู่มือฉบับรวม")
         th_lines.append(":::")
@@ -327,7 +327,7 @@ def gen_overview(model, slug, th_title, en_title, th_desc, en_desc,
         for f in features:
             th_lines.append(f"- **{f}**")
         th_lines.append("")
-    th_lines.append(f":::warning ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ")
+    th_lines.append(f":::warning[ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ]")
     th_lines.append(f"ผลิตภัณฑ์นี้ต้องติดตั้งโดย **ช่างผู้เชี่ยวชาญเท่านั้น** เพื่อให้ได้รับการรับประกันเต็มรูปแบบ ห้ามติดตั้งด้วยตัวเอง")
     th_lines.append(":::")
     th_lines.append("")
@@ -347,7 +347,7 @@ def gen_overview(model, slug, th_title, en_title, th_desc, en_desc,
     en_lines.append(en_desc)
     en_lines.append("")
     if consolidated_manual:
-        en_lines.append(f":::tip Consolidated manual")
+        en_lines.append(f":::tip[Consolidated manual]")
         en_lines.append(f"This model uses the [Consolidated Manual Rev.09](/en/consolidated-manual-rev-09/intro)")
         en_lines.append(f"See the feature comparison table for all models in the consolidated manual")
         en_lines.append(":::")
@@ -358,7 +358,7 @@ def gen_overview(model, slug, th_title, en_title, th_desc, en_desc,
         for f in features:
             en_lines.append(f"- **{f}**")
         en_lines.append("")
-    en_lines.append(f":::warning Installation by professional required")
+    en_lines.append(f":::warning[Installation by professional required]")
     en_lines.append(f"This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.")
     en_lines.append(":::")
     en_lines.append("")
@@ -477,7 +477,7 @@ def gen_pin_registration(model, default_pin="1, 2, 3, 4", pin_length="4~12"):
         "",
         f"# การลงทะเบียนรหัส PIN",
         "",
-        f":::caution ข้อควรทราบก่อนเริ่มตั้งค่า",
+        f":::caution[ข้อควรทราบก่อนเริ่มตั้งค่า]",
         f"- กรุณาทำการลงทะเบียนรหัส PIN **ในขณะที่ประตูเปิดอยู่เสมอ** เพื่อป้องกันการล็อกนอกบ้านโดยไม่ตั้งใจ",
         f"- รหัส PIN เริ่มต้นจากโรงงานคือ **`{default_pin}`** โปรดเปลี่ยนเป็นรหัสของคุณเองก่อนเริ่มใช้งานครั้งแรก",
         f"- รหัส PIN ควรประกอบด้วยตัวเลขจำนวน {pin_length} หลัก และควรหลีกเลี่ยงรหัสผ่านที่คาดเดาได้ง่าย เช่น `1111`, `1234` หรือวัน/เดือน/ปีเกิด",
@@ -493,7 +493,7 @@ def gen_pin_registration(model, default_pin="1, 2, 3, 4", pin_length="4~12"):
         "5. ป้อนรหัส PIN ใหม่ซ้ำอีกครั้งเพื่อยืนยัน จากนั้นตามด้วยปุ่ม `*`",
         "6. ตัวล็อกจะส่งเสียงสัญญาณเมโลดี้เพื่อยืนยันว่าการลงทะเบียนรหัสผ่านใหม่เสร็จสิ้นสมบูรณ์",
         "",
-        ":::note หมายเหตุ",
+        ":::note[หมายเหตุ]",
         "แต่ละขั้นตอนตั้งค่าจะต้องดำเนินการภายใน 10 วินาที หากเกินเวลาที่กำหนด ระบบจะยกเลิกขั้นตอนโดยอัตโนมัติและต้องเริ่มต้นใหม่อีกครั้ง",
         ":::",
     ]
@@ -502,7 +502,7 @@ def gen_pin_registration(model, default_pin="1, 2, 3, 4", pin_length="4~12"):
         "",
         f"# PIN Registration",
         "",
-        f":::caution Before you start",
+        f":::caution[Before you start]",
         f"- Always register PIN **while door is open**",
         f"- Default PIN is **`{default_pin}`** — change before first use",
         f"- Choose a {pin_length}-digit PIN. Avoid obvious patterns like `1111`, `1234`, birth year",
@@ -532,11 +532,13 @@ def gen_rfid_registration(model, max_cards=100, has_individual=True):
         "",
         f"# การลงทะเบียนบัตร RFID",
         "",
-        f":::tip บัตรที่รองรับ",
+        f":::tip[บัตรที่รองรับ]",
         f"รองรับเฉพาะบัตรหรือแท็ก RFID ความถี่ 13.56 MHz ที่ผ่านการรับรองความเข้ากันได้กับระบบของ EPIC เท่านั้น (การ์ดหรือแท็กที่แถมมาในกล่องจะต้องทำการลงทะเบียนเข้ากับตัวเครื่องก่อนจึงจะเปิดประตูได้)",
         ":::",
         "",
-        f":::caution ข้อควรระวัง: ประตูต้องเปิดอยู่ตลอดเวลาในขณะทำการลงทะเบียน :::",
+        f":::caution[ข้อควรระวัง]",
+        f"ประตูต้องเปิดอยู่ตลอดเวลาในขณะทำการลงทะเบียน",
+        f":::",
         "",
         "## โหมดลงทะเบียนการ์ดแบบทั่วไป (ลงทะเบียนทั้งหมดพร้อมกัน)",
         "",
@@ -553,11 +555,11 @@ def gen_rfid_registration(model, max_cards=100, has_individual=True):
         "",
         f"# RFID Card Registration",
         "",
-        f":::tip Compatibility",
+        f":::tip[Compatibility]",
         f"Only 13.56 MHz RFID cards compatible with EPIC work with this lock. Cards included in the box must be registered manually.",
         ":::",
         "",
-        f":::caution Door must be open during registration",
+        f":::caution[Door must be open during registration]",
         ":::",
         "",
         "## Mode A — Register all at once",
@@ -614,7 +616,7 @@ def gen_rfid_deletion(model):
         "4. เมื่อระบบลบข้อมูลเสร็จสิ้น ตัวเลขทั้งหมดบนคีย์แพดจะสว่างขึ้น",
         "5. หากการลบเสร็จสิ้นหรือไม่มีการ์ดอื่นต้องการลบแล้ว ให้กดปุ่ม **Registration** เพื่อสิ้นสุดขั้นตอนและออกจากโหมด",
         "",
-        ":::warning ข้อควรระวัง",
+        ":::warning[ข้อควรระวัง]",
         "การลบข้อมูลบัตรจะไม่สามารถยกเลิกได้ คุณจะต้องนำบัตรดังกล่าวมาทำการลงทะเบียนใหม่อีกครั้งหากต้องการใช้งานต่อ",
         ":::",
     ]
@@ -652,7 +654,7 @@ def gen_fingerprint_registration(model, max_fp=100):
         "",
         f"# การลงทะเบียนลายนิ้วมือ",
         "",
-        f":::caution ข้อควรทราบ",
+        f":::caution[ข้อควรทราบ]",
         f"การลบลายนิ้วมือสำหรับระบบปกติจะสามารถลบข้อมูลทั้งหมดพร้อมกันเท่านั้น (Delete All) และเมื่อมีการลงทะเบียนลายนิ้วมือครบโควตาสูงสุด **{max_fp} ลายนิ้วมือ** แล้ว จะไม่สามารถเพิ่มลายนิ้วมือใหม่ได้อีกจนกว่าจะล้างข้อมูลลายนิ้วมือชุดเก่าออก",
         ":::",
         "",
@@ -665,7 +667,7 @@ def gen_fingerprint_registration(model, max_fp=100):
         "5. เมื่อลงทะเบียนเสร็จสมบูรณ์ จะมีเสียงสัญญาณบี๊บดังขึ้นยืนยัน",
         "6. กดปุ่ม **Registration** อีกครั้งเพื่อเสร็จสิ้นขั้นตอน",
         "",
-        ":::note ข้อแนะนำและสถานะการสแกน",
+        ":::note[ข้อแนะนำและสถานะการสแกน]",
         "- การสแกนครั้งที่ 1 สำเร็จ: ตัวเลข [1][2][3] บนแป้นคีย์แพดจะแสดงขึ้น โดยตัวเลข `[2]` จะกะพริบเพื่อรอรับการสแกนครั้งถัดไป",
         "- การสแกนครั้งที่ 2 สำเร็จ: ตัวเลข [1][2][3] บนแป้นคีย์แพดจะแสดงขึ้น โดยตัวเลข `[3]` จะกะพริบเพื่อรอรับการสแกนครั้งถัดไป",
         "- การสแกนครั้งที่ 3 สำเร็จ: ตัวเครื่องส่งสัญญาณว่าบันทึกลายนิ้วมือสำเร็จเรียบร้อย",
@@ -723,7 +725,7 @@ def gen_fingerprint_deletion(model):
         "4. เมื่อระบบลบข้อมูลเสร็จสิ้น จะมีเสียงสัญญาณแจ้งเตือนยืนยัน",
         "5. กดปุ่ม **Registration** อีกครั้งเพื่อสิ้นสุดขั้นตอน",
         "",
-        ":::warning ข้อควรระวัง",
+        ":::warning[ข้อควรระวัง]",
         "การลบข้อมูลลายนิ้วมือจะไม่สามารถยกเลิกได้ คุณจะต้องสแกนลายนิ้วมือเพื่อลงทะเบียนใหม่อีกครั้งหากต้องการใช้งานต่อ",
         ":::",
     ]

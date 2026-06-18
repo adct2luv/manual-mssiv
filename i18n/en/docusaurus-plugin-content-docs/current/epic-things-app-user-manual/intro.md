@@ -10,7 +10,7 @@ User manual for the EPIC Things mobile app for controlling smart locks via smart
 
 ## Key Features
 
-:::warning Installation by professional required
+:::warning[Installation by professional required]
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

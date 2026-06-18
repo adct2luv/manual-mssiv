@@ -6,11 +6,11 @@ description: How to register RFID cards on ES-F7000Kr
 
 # RFID Card Registration
 
-:::tip Compatibility
+:::tip[Compatibility]
 Only 13.56 MHz RFID cards compatible with EPIC work with this lock. Cards included in the box must be registered manually.
 :::
 
-:::caution Door must be open during registration
+:::caution[Door must be open during registration]
 :::
 
 ## Mode A — Register all at once

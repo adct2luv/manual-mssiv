@@ -10,7 +10,7 @@ Digital lock supporting PIN, Smart Key, and emergency mechanical key.
 
 ## Key Features
 
-:::warning Installation by professional required
+:::warning[Installation by professional required]
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

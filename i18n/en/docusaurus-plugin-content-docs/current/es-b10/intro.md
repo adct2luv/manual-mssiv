@@ -14,7 +14,7 @@ A digital lock that can be opened by PIN number, random number feature, and manu
 
 - **📷 Brochure image: es-b10.png**
 
-:::warning Installation by professional required
+:::warning[Installation by professional required]
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

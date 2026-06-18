@@ -14,7 +14,7 @@ POPscan digital lock in black. Supports fast scanning.
 
 - **📷 Brochure image: popscan.png**
 
-:::warning Installation by professional required
+:::warning[Installation by professional required]
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

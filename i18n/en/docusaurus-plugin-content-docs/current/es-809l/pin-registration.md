@@ -6,7 +6,7 @@ description: How to change PIN on ES-809L
 
 # PIN Registration
 
-:::caution Before you start
+:::caution[Before you start]
 - Always register PIN **while door is open**
 - Default PIN is **`1, 2, 3, 4`** — change before first use
 - Choose a 4~12-digit PIN. Avoid obvious patterns like `1111`, `1234`, birth year

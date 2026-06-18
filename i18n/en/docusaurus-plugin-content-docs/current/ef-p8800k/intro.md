@@ -14,7 +14,7 @@ Main type digital lock supporting PIN, RFID, Fingerprint, and Remote Control.
 
 - **📷 Brochure image: ef-p8800k.png**
 
-:::warning Installation by professional required
+:::warning[Installation by professional required]
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 
