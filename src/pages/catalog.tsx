@@ -111,7 +111,7 @@ export default function Catalog(): ReactNode {
 
         <p className="margin-top--xl">
           <small>
-            ทุกคู่มือเป็นแบบสองภาษา (ไทย/อังกฤษ) คลิกปุ่มเปลี่ยนภาษาที่มุมขวาบน หรือเพิ่ม <code>/en/</code> ต่อท้าย URL
+            แหล่งข้อมูลต้นฉบับ: <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual</a> · เว็บไซต์นี้ให้บริการโดย Massive System Co.,Ltd.
           </small>
         </p>
       </main>

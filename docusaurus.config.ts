@@ -107,7 +107,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} EPIC Door Lock. Built with Docusaurus.`,
+      copyright: `Copyright © 2026 Massive System Co.,Ltd. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

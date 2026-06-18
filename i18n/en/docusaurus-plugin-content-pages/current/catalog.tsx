@@ -111,7 +111,7 @@ export default function Catalog(): ReactNode {
 
         <p className="margin-top--xl">
           <small>
-            All manuals are bilingual (Thai/English). Click the language switcher in the top-right, or prepend <code>/en/</code> to any URL.
+            Source: <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual</a> · This site is operated by Massive System Co.,Ltd.
           </small>
         </p>
       </main>
