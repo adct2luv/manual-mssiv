@@ -244,6 +244,39 @@ PRODUCT_FEATURES = {
 }
 
 
+CONSOLIDATED_MODELS = {
+    "es-s100dr", "es-f300dr", "es-f301d", "es-f501d",
+    "es-ff730gr", "es-ff731g", "es-s740d",
+    "es-f7000kr", "es-f9000kr", "es-p8800k",
+}
+
+TIER_AB_DIRS = {
+    "es-b10": "ES-B10",
+    "es-l200": "ES-L200",
+    "os300h": "OS300H",
+    "popscan": "POPscan",
+    "consolidated-manual-rev-09": "Consolidated-Manual-Rev.09",
+    "epic-things-app-user-manual": "EPIC-Things-APP-User-Manual"
+}
+
+
+def _read_json_file(path):
+    """
+    Reads a JSON file from the given path.
+    Checks if the path exists, reads using UTF-8 encoding, and handles json.JSONDecodeError.
+    Returns:
+        dict/list: Parsed JSON object, or None if the path doesn't exist or is malformed.
+    """
+    if not path.exists():
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        print(f"Error: Malformed JSON file at {path}: {e}")
+        return None
+
+
 def load_source_json(slug):
     """
     Loads the source JSON file for a given slug.
@@ -251,33 +284,19 @@ def load_source_json(slug):
         (dict, str): Parsed JSON object and a string type ("vision", "product", "consolidated")
                      or (None, None) if not found.
     """
-    consolidated_models = {
-        "es-s100dr", "es-f300dr", "es-f301d", "es-f501d",
-        "es-ff730gr", "es-ff731g", "es-s740d",
-        "es-f7000kr", "es-f9000kr", "es-p8800k",
-    }
-    
     # 1. Consolidated models
-    if slug in consolidated_models:
+    if slug in CONSOLIDATED_MODELS:
         path = KB / "products" / "Consolidated-Manual-Rev.09" / "product.json"
-        if path.exists():
-            with open(path, "r", encoding="utf-8") as f:
-                return json.load(f), "consolidated"
+        data = _read_json_file(path)
+        if data is not None:
+            return data, "consolidated"
                 
     # 2. Tier A+B models
-    tier_ab_dirs = {
-        "es-b10": "ES-B10",
-        "es-l200": "ES-L200",
-        "os300h": "OS300H",
-        "popscan": "POPscan",
-        "consolidated-manual-rev-09": "Consolidated-Manual-Rev.09",
-        "epic-things-app-user-manual": "EPIC-Things-APP-User-Manual"
-    }
-    if slug in tier_ab_dirs:
-        path = KB / "products" / tier_ab_dirs[slug] / "product.json"
-        if path.exists():
-            with open(path, "r", encoding="utf-8") as f:
-                return json.load(f), "product"
+    if slug in TIER_AB_DIRS:
+        path = KB / "products" / TIER_AB_DIRS[slug] / "product.json"
+        data = _read_json_file(path)
+        if data is not None:
+            return data, "product"
                 
     # 3. Tier C models
     if slug == "triplex-2way":
@@ -290,17 +309,17 @@ def load_source_json(slug):
         filename = f"Manual_{model_up}.json"
         
     path = KB / "extracted" / "vision" / filename
-    if path.exists():
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f), "vision"
+    data = _read_json_file(path)
+    if data is not None:
+        return data, "vision"
             
     # Try hyphenated fallback if underscore file wasn't found (for vision models)
     if slug != "triplex-2way" and slug != "triplex-3way":
         model_up_hyphen = slug.upper()
         path_hyphen = KB / "extracted" / "vision" / f"Manual_{model_up_hyphen}.json"
-        if path_hyphen.exists():
-            with open(path_hyphen, "r", encoding="utf-8") as f:
-                return json.load(f), "vision"
+        data = _read_json_file(path_hyphen)
+        if data is not None:
+            return data, "vision"
                 
     return None, None
 
@@ -1213,13 +1232,6 @@ def main():
     print(f"TH docs dir: {DOCS_TH}")
     print(f"EN docs dir: {DOCS_EN}")
 
-    # Models in consolidated manual Rev.09
-    consolidated_models = {
-        "es-s100dr", "es-f300dr", "es-f301d", "es-f501d",
-        "es-ff730gr", "es-ff731g", "es-s740d",
-        "es-f7000kr", "es-f9000kr", "es-p8800k",
-    }
-
     for entry in MANUALS:
         slug, model, th_title, en_title, th_desc, en_desc, brochure_key, specs_override, manual_url = entry
         print(f"  → {slug} ({model})")
@@ -1233,7 +1245,7 @@ def main():
             max_cards = 100 if slug != "popscan" else 200
 
         # Link to consolidated manual for new models
-        consolidated = "consolidated-manual-rev-09" if slug in consolidated_models else None
+        consolidated = "consolidated-manual-rev-09" if slug in CONSOLIDATED_MODELS else None
 
         pages = generate_manual_pages(
             slug=slug, model=model,
