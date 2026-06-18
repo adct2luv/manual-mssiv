@@ -243,6 +243,68 @@ PRODUCT_FEATURES = {
     "epic-things-app-user-manual": ["app"],
 }
 
+
+def load_source_json(slug):
+    """
+    Loads the source JSON file for a given slug.
+    Returns:
+        (dict, str): Parsed JSON object and a string type ("vision", "product", "consolidated")
+                     or (None, None) if not found.
+    """
+    consolidated_models = {
+        "es-s100dr", "es-f300dr", "es-f301d", "es-f501d",
+        "es-ff730gr", "es-ff731g", "es-s740d",
+        "es-f7000kr", "es-f9000kr", "es-p8800k",
+    }
+    
+    # 1. Consolidated models
+    if slug in consolidated_models:
+        path = KB / "products" / "Consolidated-Manual-Rev.09" / "product.json"
+        if path.exists():
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f), "consolidated"
+                
+    # 2. Tier A+B models
+    tier_ab_dirs = {
+        "es-b10": "ES-B10",
+        "es-l200": "ES-L200",
+        "os300h": "OS300H",
+        "popscan": "POPscan",
+        "consolidated-manual-rev-09": "Consolidated-Manual-Rev.09",
+        "epic-things-app-user-manual": "EPIC-Things-APP-User-Manual"
+    }
+    if slug in tier_ab_dirs:
+        path = KB / "products" / tier_ab_dirs[slug] / "product.json"
+        if path.exists():
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f), "product"
+                
+    # 3. Tier C models
+    if slug == "triplex-2way":
+        filename = "Manual_TRIPLEX 2way.json"
+    elif slug == "triplex-3way":
+        filename = "Manual_TRIPLEX 3way.json"
+    else:
+        # Uppercase with hyphens replaced by underscores
+        model_up = slug.upper().replace("-", "_")
+        filename = f"Manual_{model_up}.json"
+        
+    path = KB / "extracted" / "vision" / filename
+    if path.exists():
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f), "vision"
+            
+    # Try hyphenated fallback if underscore file wasn't found (for vision models)
+    if slug != "triplex-2way" and slug != "triplex-3way":
+        model_up_hyphen = slug.upper()
+        path_hyphen = KB / "extracted" / "vision" / f"Manual_{model_up_hyphen}.json"
+        if path_hyphen.exists():
+            with open(path_hyphen, "r", encoding="utf-8") as f:
+                return json.load(f), "vision"
+                
+    return None, None
+
+
 # Determine what pages to generate per product
 def get_pages_for_product(slug):
     features = PRODUCT_FEATURES.get(slug, ["pin"])
@@ -1033,6 +1095,7 @@ MANUALS = [
      "กุญแจดิจิทัลสำหรับประตูกระจก รองรับ PIN และบัตร RFID ติดตั้งง่ายด้วยระบบจดจำซ้ายขวาอัตโนมัติ",
      "Digital lock for glass doors. Supports PIN and RFID. Easy installation with automatic left/right detection.",
      "es-303g", None, "https://www.epic.co.kr/home/manual/"),
+    ("es-k70", "ES-K70", "กุญแจดิจิทัล ES-K70", "ES-K70 Digital Lock", "กุญแจดิจิทัล Rim Type รองรับ PIN และบัตร RFID พร้อมกุญแจกลไกสำรอง", "Rim-type digital lock supporting PIN, RFID, and backup mechanical key.", "es-k70", None, "https://www.epic.co.kr/home/manual/"),
     ("ef-p8800k", "EF-P8800K", "กุญแจดิจิทัล EF-P8800K", "EF-P8800K Digital Lock",
      "กุญแจดิจิทัล Main Type รองรับ PIN, บัตร RFID, ลายนิ้วมือ และรีโมทคอนโทรล",
      "Main type digital lock supporting PIN, RFID, Fingerprint, and Remote Control.",
