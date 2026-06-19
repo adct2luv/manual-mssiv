@@ -62,14 +62,17 @@ hide_table_of_contents: true
 | 25 | [ES-F9000Kr](/es-f9000kr/intro) | Mortise | PIN + Card + FP + Key |
 | 26 | [ES-P8800K](/es-p8800k/intro) | Push Pull | PIN + Card + Fingerprint |
 
-## 📚 คู่มือติดตั้งและอ้างอิง (6 เล่ม)
+## 📚 คู่มือติดตั้งและอ้างอิง (4 เล่ม)
 
 - [Assembly Guide for Key Tail](/assembly-guide-for-key-tail/intro) — คู่มือประกอบหางกุญแจ
-- [Consolidated Manual Rev.09](/consolidated-manual-rev-09/intro) — คู่มือรวม 10 รุ่น (มีตารางเปรียบเทียบ)
-- [EPIC Things APP](/epic-things-app-user-manual/intro) — คู่มือแอป
 - [IR Sensor for Face ID](/ir-sensor-usage-guide-for-face-id/intro) — คู่มือใช้งาน IR Sensor
 - [Outer Body Cable Management](/outer-body-cable-management-guide/intro) — คู่มือจัดการสาย
 - [Remote Control Module Compatibility](/remote-control-module-compatibility-guide/intro) — ตารางความเข้ากันได้
+
+## 📱 App & Consolidated (2 เล่ม)
+
+- [Consolidated Manual Rev.09](/consolidated-manual-rev-09/intro) — คู่มือรวม 10 รุ่น (มีตารางเปรียบเทียบ)
+- [EPIC Things APP](/epic-things-app-user-manual/intro) — คู่มือแอป
 
 ---
 

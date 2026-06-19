@@ -34,6 +34,5 @@ description: Components of EPIC Things APP User Manual
 - Outer body
 - Inner body
 - Strike plate & fixing hardware
-- Mechanical keys
 - Batteries
 - User manual

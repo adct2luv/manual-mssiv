@@ -6,26 +6,75 @@ description: Special features of ES-M50
 
 # Special Features
 
-## Random Number Feature
+## Guest PIN Registration
 
-Add random digits before/after your PIN to prevent shoulder-surfing. Total entry can include up to 20 digits.
+:::note
+Random number feature is enabled in default. This is a security feature that keeps the pin number from being exposed by the additional random number that is added before or after the original pin number. The number to be entered including the pin number should not exceed 20 digits.
+:::
 
-## Multi-touch Security
+## forced_lock
 
-After entering your PIN, the lock displays 3 random digits. Press those digits to unlock. This prevents fingerprint-pattern leakage on the keypad.
+Inside double lock - When enabled will not allow Pin, Card, entry from outside.
 
-## Dual-mode Security
+### Steps
 
-After entering your PIN, the lock requires a second authentication (Card or Fingerprint) before unlocking. Maximum security for sensitive areas.
+1. After closing the door.
+2. Press [Safety button] located on the inner body for 3 seconds. Melody will be heard, and setting is complete.
 
-## Auto/Manual Lock Mode
+**Cancellation:** Turn the inner body handle in downward motion inside, and the double lock setting will be cancelled.
 
-Toggle between automatic locking (locks 2 seconds after door closes) and manual locking (you touch the keypad to lock).
+## forced_lock
 
-## Sound Volume Control
+Inside double lock - When enabled will not allow Pin, Card, entry from outside.
 
-Adjust operation sound across 7 levels via the keypad.
+### Steps
 
-## Sound Mute
+1. After closing the door.
+2. Press [Safety button] located on the inner body for 3 seconds. Melody will be heard, and setting is complete.
 
-Mute the operation sound for one use (e.g. late at night). Sound returns automatically afterward.
+**Cancellation:** Turn the inner body handle in downward motion inside, and the double lock setting will be cancelled.
+
+## sound_volume
+
+This feature allows the user to adjust the operation sound volume per level. (perform while door closed) ※ Sound can be adjusted up to 7 levels.
+
+### Steps
+
+1. Touch the number pad.
+2. Enter registered Pin number.
+3. Press [✱] button.
+4. Press [3] or [6] button.
+
+:::note
+Press [3] button to increase sound. Press [6] button to decrease sound. In mute mode the number pad will blink, when you press a number. The volume level is set on high in default.
+:::
+
+## sound_mute
+
+Regardless of the volume setting, This feature lets you mute the operation melody. This is per 1 time usage only. The operation sound will occur on next operation.
+
+### Steps
+
+1. Touch the number pad, press the [✱] button (in mute state).
+2. Enter Pin number, press [✱] button, door will open. (Number pad will blink)
+
+## auto_manual_lock
+
+An optional feature that lets you set the lock in automatic and manual Lock mode.
+
+### Steps
+
+1. Press the [Open/Close] button when the deadbolt comes out of the mortise.
+2. Touch the number pad.
+3. Enter Pin number. Press [✱] button 2 times.
+4. Press [4] for Automatic Mode. Press [7] for Manual Mode.
+
+## Dual-mode Security Setting
+
+:::note
+Random number feature is enabled in default. This is a security feature that keeps the pin number from being exposed by the additional random number that is added before or after the original pin number. The number to be entered including the pin number should not exceed 20 digits.
+:::
+
+## Home Network Module & Remote Control
+
+

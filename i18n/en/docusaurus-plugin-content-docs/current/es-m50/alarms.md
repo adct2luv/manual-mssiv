@@ -21,7 +21,3 @@ After 5 consecutive failed PIN/Card/Fingerprint attempts, the lock stops respond
 ## Replace Battery Alarm
 
 When battery is low, the Battery Replacement LED lights up and a notification melody plays.
-
-## Emergency Mechanical Key
-
-When the lock is not functioning normally, use the mechanical key to open the door. Keep keys in an accessible but secure location.

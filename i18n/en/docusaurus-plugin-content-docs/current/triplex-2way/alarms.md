@@ -6,22 +6,24 @@ description: Alarms and safety of TRIPLEX 2way
 
 # Alarms & Safety
 
-## Anti-Hacking Alarm
+## anti_prank
 
-If the lock detects forced entry from inside or outside, it activates a loud alarm. Cancelled by entering valid PIN or Card.
+5 times repeated failed [Pin Number] entry will activate a series of alarm and the lock will not function for 1 minute.
 
-## Fire Sensor Alarm
+## deadbolt_error
 
-If internal temperature reaches 62°C±5°C, the lock automatically unlocks and sounds an alarm to allow safe evacuation.
+When the door is not closed properly or the deadbolt is jammed. A series of alarm will be activated 3 times.
 
-## Anti-Prank & 1-Minute Lockout
+## replace_battery
 
-After 5 consecutive failed PIN/Card/Fingerprint attempts, the lock stops responding for 1 minute and emits a warning tone.
+During normal operation and a series of alarm is heard, it indicates the need for battery replacement. Please replace all battery with new ones at this time.
 
-## Replace Battery Alarm
+## emergency_battery
 
-When battery is low, the Battery Replacement LED lights up and a notification melody plays.
+### Steps
 
-## Emergency Mechanical Key
-
-When the lock is not functioning normally, use the mechanical key to open the door. Keep keys in an accessible but secure location.
+1. 9V battery is purchased separately
+2. Place on the 9V battery terminal located at the front body
+3. Press the [✱] button
+4. Enter the [Pin Number]
+5. Press the [✱] button again and the door will open

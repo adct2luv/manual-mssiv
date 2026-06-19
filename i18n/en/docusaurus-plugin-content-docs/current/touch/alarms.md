@@ -6,22 +6,28 @@ description: Alarms and safety of TOUCH
 
 # Alarms & Safety
 
-## Anti-Hacking Alarm
+## anti_hacking
 
-If the lock detects forced entry from inside or outside, it activates a loud alarm. Cancelled by entering valid PIN or Card.
+When the door detects abnormal operation or forceful opening from the outside, the lock will generate a loud 80(db) alarm.
 
-## Fire Sensor Alarm
+## fire_alarm
 
-If internal temperature reaches 62°C±5°C, the lock automatically unlocks and sounds an alarm to allow safe evacuation.
+When the inside temperature rise to (62°C±5°C), the lock will generate an alarm and automatically unlocks the door.
 
-## Anti-Prank & 1-Minute Lockout
+## anti_prank
 
-After 5 consecutive failed PIN/Card/Fingerprint attempts, the lock stops responding for 1 minute and emits a warning tone.
+5 Times repeated failed pin number entry will activate a series of alarm and the lock will not function for 1 minute
 
-## Replace Battery Alarm
+## replace_battery
 
-When battery is low, the Battery Replacement LED lights up and a notification melody plays.
+During normal operation and a series of alarm is heard, it indicates the need for battery replacement. Please remove replace all battery with new ones at this time.
 
-## Emergency Mechanical Key
+## emergency_battery
 
-When the lock is not functioning normally, use the mechanical key to open the door. Keep keys in an accessible but secure location.
+### Steps
+
+1. 9V battery is purchased separately
+2. Place on the 9V battery terminal located at the bottom of the outbody
+3. Press the [✱] button
+4. Enter the pin number
+5. Press the [✱] button again and the door will open

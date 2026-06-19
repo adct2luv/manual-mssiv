@@ -855,6 +855,717 @@ def parse_components_from_json(slug, data, source_type):
     return outer_parts, inner_parts, in_box
 
 
+# =============================================================================
+# Translation and Panel Extraction Helpers
+# =============================================================================
+
+def super_normalize(text):
+    if not isinstance(text, str):
+        return ""
+    text = text.replace("\u2731", "*").replace("✱", "*").replace("★", "*")
+    text = text.replace("\u2192", "->").replace("→", "->")
+    text = text.replace("\u2014", "-").replace("※", "*").replace("–", "-")
+    text = text.replace("“", "\"").replace("”", "\"").replace("‘", "'").replace("’", "'")
+    text = text.replace("~", "-")
+    text = text.replace("±", "+-")
+    text = text.replace("°c", "").replace("°C", "").replace("°", "")
+    text = text.lower()
+    text = re.sub(r"[^\w\s\*#\-\[\]>\+]", "", text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+RAW_MAP = {
+    "1min_lock_warning": "ระบบระงับการใช้งานชั่วคราว 1 นาที",
+    "alarms_battery": "สัญญาณเตือนและแบตเตอรี่",
+    "anti_hacking": "สัญญาณเตือนการงัดแงะ",
+    "anti_prank": "สัญญาณเตือนป้องกันการเดารหัสผ่าน",
+    "auto_manual_lock": "โหมดล็อกอัตโนมัติ / ล็อกด้วยตนเอง",
+    "deadbolt_jammed": "สัญญาณเตือนสลักกลอนติดขัด",
+    "door_opening_notification": "การแจ้งเตือนสถานะประตูเปิด",
+    "dual_mode": "ระบบยืนยันตัวตนสองชั้น",
+    "emergency_battery": "แบตเตอรี่ฉุกเฉิน",
+    "etiquette_setting": "โหมดปิดเสียงชั่วคราว (Etiquette Mode)",
+    "fire_sensor": "เซ็นเซอร์ตรวจจับไฟไหม้",
+    "force_lock": "โหมดล็อกบังคับ",
+    "force_lock_inside": "โหมดล็อกบังคับจากด้านใน",
+    "force_lock_outside": "โหมดล็อกบังคับจากด้านนอก",
+    "guest_pin": "รหัส PIN สำหรับผู้มาเยือน",
+    "guest_pin_dual_mode": "รหัส PIN สำหรับผู้มาเยือนและระบบยืนยันสองชั้น",
+    "home_network": "โมดูลเครือข่ายในบ้านและรีโมทคอนโทรล",
+    "home_network_mechanical_key": "โมดูลเครือข่ายในบ้านและกุญแจกลไก",
+    "low_battery_warning": "สัญญาณเตือนเมื่อแบตเตอรี่อ่อน",
+    "melody": "เสียงเพลงเมโลดี้",
+    "multi_touch": "ระบบสัมผัสหลายจุด (Multi-touch)",
+    "multi_touch_random": "ระบบสัมผัสสุ่มตัวเลข",
+    "normal_safe_open": "โหมดเปิดประตูแบบปกติและแบบนิรภัย",
+    "replace_battery": "สัญญาณเตือนเปลี่ยนแบตเตอรี่",
+    "rfid_auto_manual": "การสแกนบัตร RFID อัตโนมัติ / ด้วยตนเอง",
+    "self_diagnosis": "ระบบวินิจฉัยข้อผิดพลาดด้วยตนเอง (Self-diagnosis)",
+    "settings_features": "คุณสมบัติและการตั้งค่า",
+    "settings_misc": "การตั้งค่าทั่วไป",
+    "sound_mute": "การปิดเสียงปุ่มกดชั่วคราว (Sound Mute)",
+    "sound_volume": "การปรับระดับเสียงการทำงาน",
+    "voice_buzzer": "โหมดเสียงพูดแนะนำ / เสียงบี๊บเตือน",
+    
+    # Buttons/Actions for steps split
+    "press [*] button": "กดปุ่ม [✱]",
+    "press [✱] button": "กดปุ่ม [✱]",
+    "press [*] button twice": "กดปุ่ม [✱] 2 ครั้ง",
+    "press [✱] button twice": "กดปุ่ม [✱] 2 ครั้ง",
+    "press [*] button thrice": "กดปุ่ม [✱] 3 ครั้ง",
+    "press [✱] button thrice": "กดปุ่ม [✱] 3 ครั้ง",
+    "touch the number pad": "สัมผัสคีย์แพดตัวเลข",
+    "touch the number pad on the outer body": "สัมผัสคีย์แพดตัวเลขที่แผงตัวเครื่องด้านนอก",
+    "enter pin number": "ป้อนรหัส PIN",
+    "enter pin number then press [*] button 2 times": "ป้อนรหัส PIN จากนั้นกดปุ่ม [✱] 2 ครั้ง",
+    "enter user pin number": "ป้อนรหัส PIN ผู้ใช้",
+    
+    # Sentences
+    "optional settings this feature lets you open the door remotely via home network devices and remote control": "(ตั้งค่าเพิ่มเติม) ฟังก์ชันนี้ช่วยให้คุณเปิดประตูจากระยะไกลผ่านอุปกรณ์ระบบเครือข่ายในบ้านและรีโมทคอนโทรล",
+    "5 consecutive failed pin number and smart keytag entry will activate an alarm and the lock will not function for 1 minute": "การป้อนรหัส PIN หรือการทาบคีย์แท็กผิดติดต่อกัน 5 ครั้ง จะเปิดใช้งานสัญญาณเตือน และตัวล็อกจะไม่ทำงานเป็นเวลา 1 นาที",
+    "5 consecutive failed pin number card and fingerprint entry will result to 1minute suspension of authentication": "การป้อนรหัส PIN, การทาบบัตร หรือการสแกนลายนิ้วมือผิดติดต่อกัน 5 ครั้ง จะส่งผลให้ระบบระงับการตรวจสอบสิทธิ์เป็นเวลา 1 นาที",
+    "5 times repeated failed [pin number] entry will activate a series of alarm and the lock will not function for 1 minute": "การป้อนรหัส PIN ผิดติดต่อกัน 5 ครั้ง จะส่งผลให้สัญญาณเตือนภัยดังขึ้นและระบบล็อกจะไม่ทำงานเป็นเวลา 1 นาที",
+    "9v battery is purchased separately": "แบตเตอรี่ 9V ต้องซื้อแยกต่างหาก",
+    "after entering the user pin press the led [#] button twice basic features setting on": "หลังจากป้อนรหัส PIN ผู้ใช้แล้ว ให้กดปุ่ม [#] บนหน้าจอ LED สองครั้ง เพื่อเปิดโหมดตั้งค่าคุณสมบัติพื้นฐาน",
+    "after entering user pin number press led [#] button once to enter basic function setting mode": "หลังจากป้อนรหัส PIN ผู้ใช้แล้ว ให้กดปุ่ม [#] บนหน้าจอ LED หนึ่งครั้ง เพื่อเข้าสู่โหมดตั้งค่าฟังก์ชันพื้นฐาน",
+    "after entering user pin number press [#] button once to enter basic function setting mode": "หลังจากป้อนรหัส PIN ผู้ใช้แล้ว ให้กดปุ่ม [#] หนึ่งครั้ง เพื่อเข้าสู่โหมดตั้งค่าฟังก์ชันพื้นฐาน",
+    "after the alarm sounds for 7 seconds operation stops for 1 minute": "หลังจากเสียงเตือนดังขึ้นเป็นเวลา 7 วินาที ระบบจะหยุดทำงานเป็นเวลา 1 นาที",
+    "after the door was opened the melody will not be heard": "หลังจากประตูเปิดแล้ว จะไม่ได้ยินเสียงเพลงเมโลดี้",
+    "after the melody is heard and the door is not closed but a new function is performed the melody will be off": "หลังจากได้ยินเสียงเพลงเมโลดี้แล้ว หากยังไม่ได้ปิดประตูแต่มีการใช้งานฟังก์ชันใหม่ เสียงเพลงเมโลดี้จะปิดลง",
+    "anti-hacking invasion alarm": "สัญญาณเตือนการบุกรุก (การงัดแงะ)",
+    "anti-prank alarm 1 minute lock": "สัญญาณเตือนป้องกันการเดารหัสและการล็อก 1 นาที",
+    "auto manual lock mode setting": "การตั้งค่าโหมดล็อกอัตโนมัติ / ล็อกด้วยตนเอง",
+    "automatic detection settings": "การตั้งค่าตรวจจับการ์ดอัตโนมัติ",
+    "automatic lock mode": "โหมดล็อกอัตโนมัติ",
+    "automatic mode is enable in default": "โหมดอัตโนมัติถูกเปิดใช้งานเป็นค่าเริ่มต้น",
+    "automatic mode is set in default when you set the manual lock the door will not automatically lock after closing the door you need to press [open/close] button inside or touch the number pad outside to close the door": "โหมดล็อกอัตโนมัติจะถูกตั้งค่าเป็นค่าเริ่มต้น เมื่อคุณตั้งค่าล็อกด้วยตนเอง ประตูจะไม่ล็อกอัตโนมัติหลังจากประตูปิด คุณต้องกดปุ่ม [Open/Close] ด้านใน หรือสัมผัสคีย์แพดตัวเลขด้านนอกเพื่อล็อกประตู",
+    "check if the numbers [1 2 3 4 5] has been lighted on the number pad press [4] button": "ตรวจสอบว่ามีไฟสว่างที่ตัวเลข [1, 2, 3, 4, 5] บนคีย์แพดตัวเลข จากนั้นกดปุ่ม [4]",
+    "check if the numbers [1 2 3 7 8 9 0 #] has been lighted on the number pad and registration is complete": "ตรวจสอบว่ามีไฟสว่างที่ตัวเลข [1, 2, 3, 7, 8, 9, 0, #] บนคีย์แพดตัวเลข และการลงทะเบียนเสร็จสมบูรณ์",
+    "check if the numbers [1 2 3 7 8 9 0 #] has been lighted on the number pad press number [3] button": "ตรวจสอบว่ามีไฟสว่างที่ตัวเลข [1, 2, 3, 7, 8, 9, 0, #] บนคีย์แพดตัวเลข จากนั้นกดปุ่มหมายเลข [3]",
+    "check if the numbers [1 2 3 7 8 9 0 #] has been lighted press [0] button": "ตรวจสอบว่ามีไฟสว่างที่ตัวเลข [1, 2, 3, 7, 8, 9, 0, #] จากนั้นกดปุ่ม [0]",
+    "check if the numbers [1 2 3] has been lighted on the number pad press number [3] button": "ตรวจสอบว่ามีไฟสว่างที่ตัวเลข [1, 2, 3] บนคีย์แพดตัวเลข จากนั้นกดปุ่มหมายเลข [3]",
+    "controls all volume except [alarm volume] and [door opening melody volume]": "ควบคุมระดับเสียงทั้งหมด ยกเว้น [ระดับเสียงเตือนภัย] และ [เสียงเพลงเมโลดี้เปิดประตู]",
+    "deadbolt jammed alarm": "สัญญาณเตือนสลักกลอนติดขัด",
+    "do not mix batteries of different brand": "ห้ามใช้แบตเตอรี่ต่างยี่ห้อร่วมกัน",
+    "do not mix new and old batteries": "ห้ามใช้แบตเตอรี่เก่าและใหม่ร่วมกัน",
+    "dual-mode security feature setting": "การตั้งค่าระบบความปลอดภัยแบบยืนยันตัวตนสองชั้น",
+    "during 1 minute lock operation card and remote control operation will not work": "ในระหว่างการล็อก 1 นาที ระบบการแตะบัตรและรีโมทคอนโทรลจะไม่ทำงาน",
+    "during 1 minute lock operation an error sound occurs when authentication is attempted": "ในระหว่างการล็อก 1 นาที หากพยายามตรวจสอบสิทธิ์จะมีเสียงเตือนข้อผิดพลาดดังขึ้น",
+    "during dual-mode security setting when the confirmation sound is heard everything will be turned-off": "ในระหว่างการตั้งค่าระบบยืนยันตัวตนสองชั้น เมื่อได้ยินเสียงยืนยัน หน้าจอและไฟแสดงสถานะทั้งหมดจะดับลง",
+    "during normal operation and a series of alarm is heard it indicates the need for battery replacement please replace all battery with new ones at this time": "หากมีเสียงเตือนดังขึ้นในระหว่างการใช้งานปกติ แสดงว่าถึงเวลาที่ต้องเปลี่ยนแบตเตอรี่ โปรดเปลี่ยนแบตเตอรี่ใหม่ทั้งหมดในเวลานี้",
+    "during open and close operation if the detection sensor is not working an error sound will be heard": "ระหว่างการเปิดและปิดประตู หากเซ็นเซอร์ตรวจจับไม่ทำงาน จะมีเสียงเตือนแสดงข้อผิดพลาดดังขึ้น",
+    "during purchase of item the manual lock number pad is set in default": "เมื่อซื้อสินค้า โหมดล็อกด้วยตนเองจะถูกตั้งค่าเป็นค่าเริ่มต้น",
+    "emergency battery": "แบตเตอรี่ฉุกเฉิน",
+    "enter new guest pin number to be registered 4-12 digits and press [*] button to complete the registration": "ป้อนรหัส PIN สำหรับผู้มาเยือนที่ต้องการลงทะเบียน (4~12 หลัก) จากนั้นกดปุ่ม [*] เพื่อเสร็จสิ้นขั้นตอนการลงทะเบียน",
+    "enter new guest pin number to be registered 4-12 digits press [*] button on the number pad a melody will be heard and the registration is complete": "ป้อนรหัส PIN สำหรับผู้มาเยือนที่ต้องการลงทะเบียน (4~12 หลัก) จากนั้นกดปุ่ม [*] บนคีย์แพดตัวเลข เมื่อได้ยินเสียงเพลงเมโลดี้ แสดงว่าการลงทะเบียนเสร็จสิ้น",
+    "enter pin number": "ป้อนรหัส PIN",
+    "enter pin number then press [*] button 2 times": "ป้อนรหัส PIN จากนั้นกดปุ่ม [✱] 2 ครั้ง",
+    "enter current pin number followed by [*] button": "ป้อนรหัส PIN ปัจจุบันตามด้วยปุ่ม [✱]",
+    "enter current pin number followed by [*] button check if the number [1 2 3 4 8 9] is lighted on the number pad press [3] before the number pad turns off": "ป้อนรหัส PIN ปัจจุบันตามด้วยปุ่ม [✱] ตรวจสอบว่าตัวเลข [1, 2, 3, 4, 8, 9] สว่างขึ้นบนคีย์แพด แล้วกดปุ่ม [3] ก่อนที่คีย์แพดจะดับลง",
+    "enter current pin number followed by [*] button check if the numbers [1 2 3 7 8 9 0 #] has been lighted on the number pad press number 3 button": "ป้อนรหัส PIN ปัจจุบันตามด้วยปุ่ม [✱] ตรวจสอบว่าตัวเลข [1, 2, 3, 7, 8, 9, 0, #] สว่างขึ้นบนคีย์แพด แล้วกดปุ่มหมายเลข [3]",
+    "enter current pin number when you press [*] button the front panel led will blink and light-up": "ป้อนรหัส PIN ปัจจุบัน เมื่อคุณกดปุ่ม [✱] ไฟ LED แผงด้านหน้าจะกะพริบและสว่างขึ้น",
+    "enter current user password when you press [*] button the front panel led will blink and light-up": "ป้อนรหัสผ่านปัจจุบัน เมื่อคุณกดปุ่ม [✱] ไฟ LED แผงด้านหน้าจะกะพริบและสว่างขึ้น",
+    "enter guest pin number again press [registration] button and the registration of guest pin number is complete": "ป้อนรหัส PIN สำหรับผู้มาเยือนอีกครั้งเพื่อยืนยัน จากนั้นกดปุ่ม [Registration] เพื่อเสร็จสิ้นขั้นตอน",
+    "enter new guest pin number to be registered 4-12 digits press [*] button on the number pad - a melody will be heard and the registration is complete": "ป้อนรหัส PIN สำหรับผู้มาเยือนที่ต้องการลงทะเบียน (4~12 หลัก) จากนั้นกดปุ่ม [✱] บนคีย์แพดตัวเลข จะมีเสียงเพลงเมโลดี้ดังขึ้นและการลงทะเบียนเสร็จสมบูรณ์",
+    "enter pin number followed by [#] button": "ป้อนรหัส PIN ตามด้วยปุ่ม [#]",
+    "enter the [pin number]": "ป้อนรหัส PIN",
+    "enter the user pin number press [#] once basic feature setting on": "ป้อนรหัส PIN ผู้ใช้ จากนั้นกดปุ่ม [#] หนึ่งครั้ง เพื่อเข้าสู่โหมดตั้งค่าคุณสมบัติพื้นฐาน",
+    "even in 'force lock' status the door will automatically open when temperature returns to normal the lock will return to it's normal operation status": "แม้ว่าจะอยู่ในสถานะโหมดล็อกบังคับ (Force Lock) ประตูจะปลดล็อกโดยอัตโนมัติ และเมื่ออุณหภูมิกลับมาเป็นปกติ ตัวล็อกจะกลับสู่สถานะการทำงานปกติ",
+    "fire sensor alarm": "สัญญาณเตือนเซ็นเซอร์ตรวจจับไฟไหม้",
+    "for models without voice mode it is always set to buzzer mode": "สำหรับรุ่นที่ไม่มีโหมดเสียงพูดแนะนำ ระบบจะตั้งค่าเป็นโหมดเสียงบี๊บเตือนเสมอ",
+    "for registration of additional remote control repeat step number 2 up to 5 remote controls can be registered": "สำหรับการลงทะเบียนรีโมทคอนโทรลเพิ่มเติม ให้ทำซ้ำขั้นตอนที่ 2 สามารถลงทะเบียนรีโมทได้สูงสุด 5 อัน",
+    "for registration of additional remote control repeat step number 2": "สำหรับการลงทะเบียนรีโมทคอนโทรลเพิ่มเติม ให้ทำซ้ำขั้นตอนที่ 2",
+    "force lock setting (inside force lock)": "การตั้งค่าโหมดล็อกบังคับจากด้านใน (ล็อกสองชั้น)",
+    "force lock setting (outside force lock)": "การตั้งค่าโหมดล็อกบังคับจากด้านนอก",
+    "guest pin number registration": "การลงทะเบียนรหัส PIN สำหรับผู้มาเยือน (Guest PIN)",
+    "home network module & remote control setting": "การตั้งค่าโมดูลระบบเครือข่ายในบ้านและรีโมทคอนโทรล",
+    "home network module / remote control registration press [registration] button / press [open] button": "การลงทะเบียนโมดูลเครือข่ายในบ้าน / รีโมทคอนโทรล: กดปุ่ม [Registration] / กดปุ่ม [Open] บนรีโมทคอนโทรล",
+    "home network module press [reg] button remote control press [open] button": "การลงทะเบียนโมดูลเครือข่ายในบ้าน: กดปุ่ม [Reg] / รีโมทคอนโทรล: กดปุ่ม [Open] บนรีโมทคอนโทรล",
+    "home network module press [registration] button remote control press [open] button": "การลงทะเบียนโมดูลเครือข่ายในบ้าน: กดปุ่ม [Registration] / รีโมทคอนโทรล: กดปุ่ม [OPEN] บนรีโมทคอนโทรล",
+    "however a warning sound will occur after 5 successive authentication failures": "อย่างไรก็ตาม จะมีเสียงเตือนแจ้งเตือนเกิดขึ้นหากป้อนข้อมูลผิดติดต่อกันครบ 5 ครั้ง",
+    "if new pin number is not registered after pressing registration button the registration mode will be cancelled": "หากไม่มีการลงทะเบียนรหัสผ่านใหม่หลังจากกดปุ่มลงทะเบียน โหมดการลงทะเบียนจะถูกยกเลิกโดยอัตโนมัติ",
+    "if the user's secondary authentication is not registered dual-mode security authentication can not be turned on and the led [2] button flashes with an error tone": "หากยังไม่ได้ลงทะเบียนระบบยืนยันตัวตนขั้นที่สองของผู้ใช้ จะไม่สามารถเปิดใช้งานการยืนยันตัวตนแบบสองชั้นได้ และปุ่ม LED [2] จะกะพริบพร้อมเสียงเตือนข้อผิดพลาด",
+    "if you register a new guest pin number the old one will be deleted": "หากคุณลงทะเบียนรหัส PIN สำหรับผู้มาเยือนใหม่ รหัสเก่าจะถูกลบออกโดยอัตโนมัติ",
+    "in automatic mode place the rfid card on the reader and the door will open": "ในโหมดอัตโนมัติ: ทาบบัตร RFID บนตัวเครื่องอ่านเพื่อปลดล็อกเปิดประตู",
+    "in automatic mode place the rfid card on the card reader and the door will open": "ในโหมดอัตโนมัติ: ทาบบัตร RFID บนตัวเครื่องอ่านเพื่อปลดล็อกเปิดประตู",
+    "in manual mode touch the number pad place the rfid card on the reader and the door will open": "ในโหมดด้วยตนเอง: สัมผัสหน้าจอคีย์แพดตัวเลข จากนั้นทาบบัตร RFID บนตัวเครื่องอ่านเพื่อเปิดประตู",
+    "in manual mode touch the number pad place the rfid card on the card reader and the door will open": "ในโหมดด้วยตนเอง: สัมผัสหน้าจอคีย์แพดตัวเลข จากนั้นทาบบัตร RFID บนตัวเครื่องอ่านเพื่อเปิดประตู",
+    "in case the alarm doesn't stop contact customer service and ask for assistance service cost may occur based on service location": "ในกรณีที่เสียงสัญญาณเตือนไม่หยุดทำงาน โปรดติดต่อฝ่ายบริการลูกค้าเพื่อขอความช่วยเหลือ อาจมีค่าใช้จ่ายในการบริการขึ้นอยู่กับสถานที่",
+    "in manual lock mode the door will not lock after closing the door to lock inside press [open/close] button or touch the number pad outside enter [*] button and the door will lock": "ในโหมดล็อกด้วยตนเอง ประตูจะไม่ล็อกโดยอัตโนมัติหลังจากประตูปิดลง หากต้องการล็อกประตูจากด้านใน ให้กดปุ่ม [Open/Close] หรือสัมผัสหน้าจอคีย์แพดตัวเลขด้านนอกแล้วกดปุ่ม [*] เพื่อล็อกประตู",
+    "in the case of pin authentication there is a maximum of 5 correct re-entry chance": "ในกรณีการตรวจสอบสิทธิ์ด้วยรหัส PIN ระบบจะจำกัดจำนวนครั้งการป้อนรหัสผ่านใหม่สูงสุด 5 ครั้ง",
+    "incase of emergency such as battery discharged lost password or smart cards or other failures and you cannot open the door you can open the door using the emergency key": "ในกรณีฉุกเฉิน เช่น แบตเตอรี่หมด ลืมรหัสผ่าน ทำบัตรสมาร์ทคีย์หาย หรือเกิดความขัดข้องอื่นๆ ทำให้ไม่สามารถเปิดประตูได้ คุณสามารถเปิดประตูได้โดยใช้กุญแจกลไกสำรองฉุกเฉิน",
+    "insert the emergency key in the emergency key hole open the door by turning the emergency key": "เสียบกุญแจฉุกเฉินเข้ากับช่องเสียบกุญแจกลไก จากนั้นหมุนกุญแจฉุกเฉินเพื่อเปิดประตู",
+    "insert the emergency key in the hole turn from right to left": "เสียบกุญแจสำรองฉุกเฉินเข้ากับช่องกุญแจ จากนั้นบิดหมุนกุญแจจากขวาไปซ้าย",
+    "led [0] fingerprint module error": "LED [0]: เกิดข้อผิดพลาดที่โมดูลสแกนลายนิ้วมือ",
+    "led [2] automatic mode led [5] manual mode": "LED [2]: โหมดอัตโนมัติ, LED [5]: โหมดด้วยตนเอง",
+    "led [2] dual-mode security authentication on": "LED [2]: เปิดใช้งานการยืนยันตัวตนแบบสองชั้น",
+    "led [2] registration deletion error pin card fingerprint remote control dual-mode security authentication on setting failed": "LED [2]: ข้อผิดพลาดในการลงทะเบียนหรือการลบ (รหัส PIN, บัตร, ลายนิ้วมือ, รีโมทคอนโทรล หรือการเปิดโหมดตรวจสอบสิทธิ์สองชั้นล้มเหลว)",
+    "led [3] registration error pin card fingerprint number of remote control registration full or no registered fingerprint": "LED [3]: ข้อผิดพลาดในการลงทะเบียน (จำนวนรหัส PIN, การ์ด, ลายนิ้วมือ หรือจำนวนรีโมทคอนโทรลที่ลงทะเบียนเต็มโควตา หรือไม่มีข้อมูลลายนิ้วมือที่ลงทะเบียนไว้)",
+    "led [3] increase volume led [6] decrease volume": "LED [3]: เพิ่มระดับเสียง, LED [6]: ลดระดับเสียง",
+    "led [4] deadbolt operation error": "LED [4]: ข้อผิดพลาดในการทำงานของสลักล็อก (Deadbolt)",
+    "led [5] dual-mode security authentication off": "LED [5]: ปิดการใช้งานการยืนยันตัวตนแบบสองชั้น",
+    "led [5] intrusion alarm": "LED [5]: สัญญาณเตือนภัยการบุกรุก",
+    "led [6] authentication error unregistered pin card fingerprint": "LED [6]: เกิดข้อผิดพลาดในการตรวจสอบสิทธิ์ (รหัส PIN, บัตร หรือลายนิ้วมือที่ป้อนไม่ได้รับการลงทะเบียน)",
+    "led [7] in the registration mode the number placement already registered card fingerprint remote control": "LED [7]: ในโหมดลงทะเบียน ตัวเลขช่องข้อมูลนี้ได้ถูกลงทะเบียนแล้ว (บัตร, ลายนิ้วมือ หรือรีโมทคอนโทรล)",
+    "led [8] fire alarm": "LED [8]: สัญญาณเตือนภัยอัคคีภัย",
+    "led [9] internal external force lock setting": "LED [9]: การตั้งค่าโหมดล็อกบังคับจากด้านใน / ด้านนอก",
+    "low voltage 45v": "แรงดันไฟฟ้าต่ำ: 4.5V",
+    "manual detection settings": "การตั้งค่าตรวจจับการ์ดแบบด้วยตนเอง",
+    "manual lock mode": "โหมดล็อกด้วยตนเอง (Manual Lock)",
+    "melody settings": "การตั้งค่าเสียงเพลงเมโลดี้",
+    "multi-touch safe feature setting": "การตั้งค่าฟังก์ชันความปลอดภัยแบบสัมผัสหลายจุด (Multi-Touch)",
+    "multi-touch feature": "ฟังก์ชันสัมผัสหลายจุด (Multi-Touch)",
+    "multi-touch safe feature is the security feature that enables user to enter additional series of number after entering pin number it erases fingerprint traces left on the number pad protects the pin number from being exposed": "ฟังก์ชันความปลอดภัย Multi-Touch ช่วยให้ผู้ใช้สามารถใส่ตัวเลขเพิ่มเติมหลังจากป้อนรหัส PIN เพื่อช่วยลบรอยนิ้วมือบนแผงปุ่มกด และป้องกันไม่ให้รหัส PIN ถูกแอบมอง",
+    "multi-touch security feature settings": "การตั้งค่าฟังก์ชันความปลอดภัยสัมผัสหลายจุด (Multi-Touch)",
+    "new registration of single remote control will delete previously registered ones this method can be used as alternative in deleting remote control": "การลงทะเบียนรีโมทคอนโทรลใหม่จะทำการลบรีโมทคอนโทรลทั้งหมดที่เคยลงทะเบียนไว้ก่อนหน้า สามารถใช้วิธีนี้ทดแทนการลบรีโมทคอนโทรลได้",
+    "new registration will delete old guest pin number": "การตั้งค่ารหัส PIN สำหรับผู้มาเยือนใหม่จะทำการลบรหัสผ่านเก่าออก",
+    "new registration will delete old registered pin number": "การลงทะเบียนใหม่จะทำการลบรหัส PIN เดิมที่เคยลงทะเบียนไว้",
+    "normal safe open mode setting": "การตั้งค่าโหมดเปิดประตูแบบปกติและโหมดนิรภัย (Normal & Safe Open)",
+    "normal mode settings": "การตั้งค่าโหมดปกติ (Normal Mode)",
+    "on and off setting is set by pressing alternately": "ตั้งค่าเปิดและปิดการทำงานโดยการกดสลับกัน",
+    "only 1 guest pin number can be saved it will be deleted after 1 usage": "สามารถบันทึกรหัส PIN สำหรับผู้มาเยือนได้เพียง 1 ชุดเท่านั้น และจะถูกลบออกโดยอัตโนมัติหลังจากใช้งาน 1 ครั้ง",
+    "only the one time pin card and fingerprint authentication will be silent regardless of buzzer alert notification volume setting": "เฉพาะการยืนยันตัวตนด้วยรหัส PIN, บัตร หรือลายนิ้วมือครั้งถัดไปเท่านั้นที่จะไม่มีเสียงการทำงาน โดยไม่มีผลกระทบต่อ [ระดับเสียงแจ้งเตือนและระดับเสียงแจ้งสถานะ]",
+    "only the one time pin card and fingerprint authentication will be silent regardless of [buzzer alert notification volume setting]": "เฉพาะการยืนยันตัวตนด้วยรหัส PIN, บัตร หรือลายนิ้วมือครั้งถัดไปเท่านั้นที่จะไม่มีเสียงการทำงาน โดยไม่มีผลกระทบต่อ [ระดับเสียงแจ้งเตือนและระดับเสียงแจ้งสถานะ]",
+    "open battery compartment cover press [registration] button once beep sound will be heard": "เปิดฝาครอบช่องใส่แบตเตอรี่ จากนั้นกดปุ่ม [Registration] 1 ครั้ง จะมีเสียงสัญญาณบี๊บดังขึ้น",
+    "open battery compartment cover press [registration] button once -beep sound will be heard": "เปิดฝาครอบช่องใส่แบตเตอรี่ กดปุ่ม [Registration] 1 ครั้ง จะมีเสียงสัญญาณบี๊บดังขึ้น",
+    "open battery cover press [registration] button and beep sound will be heard": "เปิดฝาครอบแบตเตอรี่ กดปุ่ม [Registration] 1 ครั้ง และจะมีเสียงสัญญาณบี๊บดังขึ้น",
+    "open battery cover press [registration] button once beep sound will be heard": "เปิดฝาครอบแบตเตอรี่ กดปุ่ม [Registration] 1 ครั้ง จะมีเสียงสัญญาณบี๊บดังขึ้น",
+    "open battery cover press [registration] button once -beep sound will be heard": "เปิดฝาครอบแบตเตอรี่ กดปุ่ม [Registration] 1 ครั้ง จะมีเสียงสัญญาณบี๊บดังขึ้น",
+    "open the [battery cover] press [registration] button once the 'beep' sound will be heard": "เปิดฝาครอบแบตเตอรี่ (ตัวเครื่องด้านใน) จากนั้นกดปุ่ม [Registration] 1 ครั้ง จะมีเสียงสัญญาณบี๊บดังขึ้น",
+    "open the door by pin number and the [force lock] setting will be cancelled": "เมื่อปลดล็อกและเปิดประตูด้วยรหัส PIN ระบบจะยกเลิกการตั้งค่าโหมดล็อกบังคับ (Force Lock) ทันที",
+    "open the door by the [manual lock/unlock knob] or by the [open/close] button inside and the [force lock] will be cancelled": "เมื่อเปิดประตูโดยใช้ปุ่มหมุนล็อก/ปลดล็อก หรือกดปุ่ม [Open/Close] ด้านใน โหมดล็อกบังคับ (Force Lock) จะถูกยกเลิก",
+    "open the door using manual lock / unlock lever and force lock setting will be cancelled": "เปิดประตูโดยใช้ก้านหมุนล็อก/ปลดล็อก และการตั้งค่าโหมดล็อกบังคับจะถูกยกเลิก",
+    "open the door using manual lock/unlock knob or pressing [open/close] button inside and force lock setting will be cancelled": "เมื่อเปิดประตูโดยใช้ปุ่มบิดล็อกด้วยตนเอง หรือกดปุ่ม [Open/Close] ด้านใน ระบบจะยกเลิกการตั้งค่าล็อกบังคับ (Force Lock)",
+    "open the emergency key cover outside": "เปิดฝาครอบรูกุญแจฉุกเฉินด้านนอก",
+    "open the emergency key hole located at the top of the front body handle by pushing cover to the right direction": "เปิดฝาครอบรูกุญแจฉุกเฉินซึ่งอยู่ส่วนบนของที่จับหน้าเครื่องด้านนอก โดยผลักดันฝาครอบไปทางด้านขวา",
+    "opening the door when the lock is not functioning normally": "การเปิดประตูในกรณีที่ระบบล็อกอิเล็กทรอนิกส์ทำงานผิดปกติ",
+    "pin number + (fingerprint or rfid card)": "รหัส PIN + (ลายนิ้วมือ หรือ บัตร RFID)",
+    "pin number + rfid card": "รหัส PIN + บัตร RFID",
+    "place battery on the 9v battery terminal": "แตะขั่วแบตเตอรี่ 9V เข้ากับขั้วสัมผัสแบตเตอรี่ฉุกเฉิน",
+    "place on the 9v battery terminal located at the front body": "แตะขั้วแบตเตอรี่ 9V เข้ากับขั้วสัมผัสแบตเตอรี่ฉุกเฉินที่แผงตัวเครื่องด้านหน้า",
+    "please make sure the emergency keys are well kept outside or in an accessible area": "โปรดตรวจสอบให้แน่ใจว่าได้เก็บกุญแจกลไกสำรองฉุกเฉินไว้ด้านนอกบ้านหรือในพื้นที่ที่สามารถนำมาใช้งานได้สะดวกหากจำเป็น",
+    "please replace all batteries all-at-once": "โปรดเปลี่ยนแบตเตอรี่ทั้งหมดพร้อมกันในครั้งเดียว",
+    "press led [2] button or led [5] button press [registration] button setting is complete": "กดปุ่ม LED [2] หรือปุ่ม LED [5] จากนั้นกดปุ่ม [Registration] เพื่อเสร็จสิ้นขั้นตอนการตั้งค่า",
+    "press led [2] button or press led [5] button followed by [registration] button and setting is complete": "กดปุ่ม LED [2] หรือกดปุ่ม LED [5] แล้วตามด้วยปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า",
+    "press led [7] button followed by [registration] button to complete the setting and exit the setting mode": "กดปุ่ม LED [7] แล้วตามด้วยปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่าและออกจากโหมดการตั้งค่า",
+    "press [#] button": "กดปุ่ม [#]",
+    "press [0] button": "กดปุ่ม [0]",
+    "press [1] button or [4] button press [registration] button and setting is complete": "กดปุ่ม [1] หรือปุ่ม [4] จากนั้นกดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า",
+    "press [1] button to turn-off dual-mode security press [3] button to turn-on dual-mode security": "กดปุ่ม [1] เพื่อปิดการทำงานระบบความปลอดภัยสองชั้น กดปุ่ม [3] เพื่อเปิดการทำงานระบบความปลอดภัยสองชั้น",
+    "press [1] button to turn-off dual-mode security press [3] button to turn-on dual-mode security during dual-mode security setting when the confirmation sound is heard everything will be turned-off": "กดปุ่ม [1] เพื่อปิดโหมดยืนยันตัวตนสองชั้น หรือกดปุ่ม [3] เพื่อเปิดโหมด เมื่อได้ยินเสียงยืนยัน หน้าจอและระบบจะปิดลงเสร็จสมบูรณ์",
+    "press [3] to increase sound press [6] to decrease the sound": "กดปุ่ม [3] เพื่อเพิ่มระดับเสียง กดปุ่ม [6] เพื่อลดระดับเสียง",
+    "press [4] button auto lock setting press [7] button manual lock setting": "กดปุ่ม [4]: ตั้งค่าล็อกอัตโนมัติ กดปุ่ม [7]: ตั้งค่าล็อกด้วยตนเอง",
+    "press [8] button followed by [registration] button to complete the setting and exit the setting mode": "กดปุ่ม [8] แล้วตามด้วยปุ่ม [Registration] เพื่อเสร็จสิ้นขั้นตอนและออกจากโหมดตั้งค่า",
+    "press [open/close] button": "กดปุ่ม [Open/Close]",
+    "press [reg] button enter pin number followed by [*] button": "กดปุ่ม [Reg] ป้อนรหัส PIN แล้วตามด้วยปุ่ม [*]",
+    "press [register] button for 5 seconds the entire led will light up after 3 seconds the alarm will stop and after 2 seconds it will be on again": "กดปุ่ม [Register] ค้างไว้ 5 วินาที ไฟ LED ทั้งหมดจะสว่างขึ้น หลังจาก 3 วินาทีเสียงเตือนจะหยุด และอีก 2 วินาทีไฟจะเปิดขึ้นมาอีกครั้ง",
+    "press [registration] button for 5 seconds the entire led will light up after 3 seconds the alarm will stop and after 2 seconds it will be on again": "กดปุ่ม [Registration] ค้างไว้ 5 วินาที ไฟ LED ทั้งหมดจะสว่างขึ้น หลังจาก 3 วินาทีเสียงเตือนจะหยุด และอีก 2 วินาทีไฟจะเปิดขึ้นมาอีกครั้ง",
+    "press [registration] button once enter current pin number followed by [*] button": "กดปุ่ม [Registration] 1 ครั้ง ป้อนรหัส PIN ปัจจุบันแล้วตามด้วยปุ่ม [*]",
+    "press [registration] button enter pin number followed by [*] button": "กดปุ่ม [Registration] ป้อนรหัส PIN แล้วตามด้วยปุ่ม [*]",
+    "press [*] button for 5 seconds when the melody is heard deletion is complete": "กดปุ่ม [*] ค้างไว้ 5 วินาที เมื่อได้ยินเสียงเพลงเมโลดี้ดังขึ้น การลบเสร็จสมบูรณ์",
+    "press [*] button on the number pad -beep melody will be heard and registration is complete": "กดปุ่ม [*] บนคีย์แพดตัวเลข จะได้ยินเสียงสัญญาณเพลงเมโลดี้ และการลงทะเบียนเสร็จสมบูรณ์",
+    "press [*] button on the number pad beep melody will be heard and registration is complete": "กดปุ่ม [*] บนคีย์แพดตัวเลข จะได้ยินเสียงสัญญาณเพลงเมโลดี้ และการลงทะเบียนเสร็จสมบูรณ์",
+    "press [*] button followed by [0] button": "กดปุ่ม [*] แล้วตามด้วยปุ่ม [0]",
+    "press number 3 button": "กดปุ่มหมายเลข [3]",
+    "press number [3] button": "กดปุ่มหมายเลข [3]",
+    "press number pad outside enter pin number press [*] button": "กดหน้าจอคีย์แพดภายนอก ป้อนรหัส PIN แล้วกดปุ่ม [*]",
+    "press the led [3] button or the led [6] button": "กดปุ่ม LED [3] หรือปุ่ม LED [6]",
+    "press the [5] button on the number pad a melody will be heard and multi-touch feature setting is complete": "กดปุ่ม [5] บนคีย์แพดตัวเลข จะได้ยินเสียงเพลงเมโลดี้และสิ้นสุดการตั้งค่าฟังก์ชัน Multi-Touch",
+    "press the [registration] button to complete the setting and exit the setting mode": "กดปุ่ม [Registration] เพื่อสิ้นสุดขั้นตอนและออกจากโหมดตั้งค่า",
+    "press the [safety button] for 3 seconds when the melody is heard the setting is complete": "กดปุ่มนิรภัย [Safety] ค้างไว้ 3 วินาที เมื่อได้ยินเสียงเพลงเมโลดี้ดังขึ้น การตั้งค่าเสร็จสมบูรณ์",
+    "press the [*] button": "กดปุ่ม [*]",
+    "press the [*] button again and the door will open": "กดปุ่ม [*] อีกครั้งเพื่อเปิดประตู",
+    "pressing [force lock] button and [open / close] button continuously this enhances the security unlock feature": "การกดปุ่ม [Force Lock] และปุ่ม [OPEN / CLOSE] ต่อเนื่องกัน ช่วยเพิ่มประสิทธิภาพความปลอดภัยของฟังก์ชันการปลดล็อกภายใน",
+    "pressing [open / close] button will cancel the alarm": "กดปุ่ม [Open / Close] เพื่อปิดการทำงานของเสียงเตือน",
+    "prolonged exposure of the main body to direct sunlight can activate fire sensor alarm": "การที่ตัวเครื่องโดนแสงแดดส่องโดยตรงเป็นเวลานานอาจทำให้เซ็นเซอร์ตรวจจับความร้อนและเปิดเสียงสัญญาณเตือนภัยได้",
+    "push the emergency key hole cover to close": "ผลักดันปิดฝาครอบรูกุญแจฉุกเฉิน",
+    "registering less than 4 digits will result to error no [2] button will be flashing": "การลงทะเบียนรหัสผ่านที่มีจำนวนตัวเลขน้อยกว่า 4 หลัก จะส่งผลให้เกิดข้อผิดพลาดและปุ่มหมายเลข [2] กะพริบแจ้งเตือน",
+    "registering less than 4 digits will result to error no[2] button will be flashing": "การลงทะเบียนรหัสผ่านที่มีจำนวนตัวเลขน้อยกว่า 4 หลัก จะเกิดข้อผิดพลาดและปุ่มหมายเลข [2] จะกะพริบ",
+    "registering more than 12 digits will result to error no[2] button will be flashing": "การลงทะเบียนรหัสผ่านที่มีจำนวนตัวเลขมากกว่า 12 หลัก จะเกิดข้อผิดพลาดและปุ่มหมายเลข [2] จะกะพริบ",
+    "registering more than 12 digits will result to error no [2] button will be flashing": "การลงทะเบียนรหัสผ่านที่มีจำนวนตัวเลขมากกว่า 12 หลัก จะส่งผลให้เกิดข้อผิดพลาดและปุ่มหมายเลข [2] กะพริบแจ้งเตือน",
+    "remove the batteries or enter the registered pin or card and the alarm can be cancelled": "ถอดแบตเตอรี่ออก หรือป้อนรหัส PIN หรือทาบบัตรที่ลงทะเบียนเพื่อปิดสัญญาณเตือนภัย",
+    "repeat process to toggle between voice mode / buzzer mode setting": "ทำซ้ำขั้นตอนเพื่อสลับระหว่างโหมดเสียงคำแนะนำและโหมดเสียงบี๊บ",
+    "replace battery alarm": "สัญญาณแจ้งเตือนการเปลี่ยนแบตเตอรี่",
+    "rfid card auto / manual detection setting": "การตั้งค่าโหมดสแกนการ์ดแบบอัตโนมัติ / แบบตรวจสอบหน้าจอกด",
+    "safe mode settings": "การตั้งค่าโหมดนิรภัย (Safe Mode)",
+    "select from the menu - press [7] to turn off melody press [8] to decrease press [9] to increase": "เลือกจากเมนู — กดปุ่ม [7] เพื่อปิดเสียงเพลงเมโลดี้ กดปุ่ม [8] เพื่อลดเสียง และกดปุ่ม [9] เพื่อเพิ่มเสียง",
+    "set the door to automatic or manual lock mode": "ตั้งค่าระบบล็อกประตูเป็นโหมดล็อกอัตโนมัติหรือล็อกด้วยตนเอง",
+    "sets the door locking mode to manual or automatic lock mode": "สลับโหมดล็อกประตูเป็นโหมดอัตโนมัติหรือโหมดล็อกด้วยตนเอง",
+    "sets the rfid card detection to auto or manual mode": "ตั้งค่าโหมดการสแกนบัตร RFID เป็นแบบอัตโนมัติหรือแบบตรวจสอบสิทธิ์หน้าจอ",
+    "sound can be adjusted up to 7 levels": "สามารถปรับระดับเสียงการทำงานได้สูงสุด 7 ระดับ",
+    "sound mute setting": "การตั้งค่าปิดเสียงชั่วคราว (Sound Mute)",
+    "sound volume setting": "การตั้งค่าระดับเสียงการทำงาน",
+    "the alarm can be released with the internal handle": "สามารถยกเลิกและปิดเสียงเตือนได้โดยการใช้ที่จับประตูด้านใน",
+    "the guest pin number doesnt need 2nd authentication just enter and the door will open": "รหัส PIN สำหรับผู้มาเยือนไม่จำเป็นต้องทำการตรวจสอบสิทธิ์ครั้งที่สอง สามารถใช้เปิดประตูได้ทันที",
+    "the guest pin number is 1 time entry only": "รหัส PIN สำหรับผู้มาเยือนใช้สำหรับผ่านเข้าประตูได้เพียง 1 ครั้งเท่านั้น",
+    "the guest pin number is for 1 time entry only": "รหัส PIN สำหรับผู้มาเยือนใช้สำหรับผ่านเข้าประตูได้เพียง 1 ครั้งเท่านั้น",
+    "the pin number & rfid card should be registered first before setting this feature": "ต้องทำการลงทะเบียนรหัส PIN และการ์ด RFID ก่อนเปิดใช้งานฟังก์ชันนี้",
+    "the pin number & smart card should be registered first before setting this feature": "ต้องทำการลงทะเบียนรหัส PIN และการ์ด RFID ก่อนเปิดใช้งานฟังก์ชันนี้",
+    "the pin number & smart key should be registered first before setting this feature": "ต้องทำการลงทะเบียนรหัส PIN และบัตรสมาร์ทคีย์ก่อนเปิดใช้งานฟังก์ชันนี้",
+    "the pin number must be entered after the random number": "ต้องป้อนรหัส PIN หลังการกดตัวเลขสุ่ม",
+    "the pin number fingerprint & rfid card should be registered first before setting this feature": "ต้องทำการลงทะเบียนรหัส PIN, ลายนิ้วมือ และบัตร RFID ให้เรียบร้อยก่อนเปิดใช้งานฟังก์ชันนี้",
+    "the remote control guest pin number bluetooth can open the deadbolt lock without secondary authentication": "รีโมทคอนโทรล, รหัส PIN สำหรับผู้มาเยือน และระบบ Bluetooth สามารถสั่งปลดล็อกเปิดสลักกลอนได้โดยไม่ต้องยืนยันตัวตนขั้นที่สอง",
+    "this feature allows the user to adjust the operation sound volume per level (perform while door is closed)": "ฟังก์ชันนี้ช่วยให้ผู้ใช้งานสามารถปรับเปลี่ยนระดับเสียงการทำงานของระบบล็อกทีละระดับ (โปรดดำเนินการในขณะที่ประตูปิดสนิท)",
+    "this feature lets you open the door remotely via home network devices and remote control (optional) * home network module and remote control setting procedure is the same": "ฟังก์ชันนี้ช่วยให้คุณสามารถสั่งเปิดประตูได้จากระยะไกลผ่านอุปกรณ์ระบบเครือข่ายภายในบ้านและรีโมทคอนโทรล (อุปกรณ์เสริม) * ขั้นตอนการลงทะเบียนโมดูลเครือข่ายในบ้านและรีโมทคอนโทรลใช้วิธีเดียวกัน",
+    "this is a security feature that prevents the password from being exposed by removing traces of fingerprint patterns on the number pad the multi-touch feature is disabled in default": "ฟังก์ชันความปลอดภัย Multi-Touch ช่วยปกป้องรหัสผ่านของคุณจากการถูกเปิดเผยหรือคาดเดาจากร่องรอยนิ้วมือที่หลงเหลือบนแผงหน้าจอคีย์แพดตัวเลข โดยฟังก์ชันนี้จะถูกปิดการทำงานเป็นค่าเริ่มต้น",
+    "this is a security feature that prevents the pin number from being exposed by removing traces of fingerprint patterns on the number pad the multi-touch feature is disable in default": "ฟังก์ชันความปลอดภัย Multi-Touch ช่วยปกป้องรหัสผ่านของคุณจากการถูกเปิดเผยหรือคาดเดาจากร่องรอยนิ้วมือที่หลงเหลือบนแผงหน้าจอคีย์แพดตัวเลข โดยฟังก์ชันนี้จะถูกปิดการทำงานเป็นค่าเริ่มต้น",
+    "this is a security feature that prevents the pin number from being exposed by removing traces of fingerprint patterns on the number pad the multi-touch feature is disabled in default": "ฟังก์ชันความปลอดภัย Multi-Touch ช่วยปกป้องรหัสผ่านของคุณจากการถูกเปิดเผยหรือคาดเดาจากร่องรอยนิ้วมือที่หลงเหลือบนแผงหน้าจอคีย์แพดตัวเลข โดยฟังก์ชันนี้จะถูกปิดการทำงานเป็นค่าเริ่มต้น",
+    "this security setting will disable the use of [open/close] button inside": "ระบบความปลอดภัยนี้จะปิดการใช้งานการสั่งปลดล็อกผ่านปุ่ม [Open/Close] ที่ตัวเครื่องด้านในห้อง",
+    "this security setting will not allow any forms of entry from outside (pin number and rfid card)": "โหมดความปลอดภัยนี้จะไม่ยินยอมให้มีการปลดล็อกประตูจากภายนอกทุกช่องทาง (ทั้งรหัส PIN และบัตร RFID)",
+    "this will function in manual lock mode only": "ฟังก์ชันนี้จะทำงานเฉพาะในโหมดล็อกด้วยตนเองเท่านั้น",
+    "this will retry for up to 3 times": "ระบบจะดำเนินการซ้ำสูงสุด 3 ครั้ง",
+    "to cancel the setting just repeat steps 1 2": "หากต้องการยกเลิกการตั้งค่า ให้ทำซ้ำตามขั้นตอนวิธีการเดิมอีกครั้งระบบจะปิดการทำงานลง",
+    "to disable setting just repeat same setting procedure and it will be disabled": "หากต้องการยกเลิกการตั้งค่า ให้ทำซ้ำตามขั้นตอนวิธีการเดิมอีกครั้งระบบจะปิดการทำงานลง",
+    "touch external number pad press [*] button enter pin number and the mute setting (keypad tone and door operation tone) will be mute this feature is 1 time operation only": "สัมผัสหน้าจอคีย์แพดภายนอก กดปุ่ม [*] จากนั้นป้อนรหัส PIN การป้อนรหัสผ่านและการทำงานของตัวล็อกครั้งนี้จะเงียบสนิทไม่มีเสียงใดๆ (เสียงกดปุ่มและเสียงบิดล็อกจะถูกปิดชั่วคราว) โดยฟังก์ชันปิดเสียงนี้ใช้ได้สำหรับครั้งเดียวเท่านั้น",
+    "touch the [*] button and touch the [0] button": "กดปุ่ม [*] แล้วตามด้วยปุ่ม [0]",
+    "touch the [number pad] on the outbody enter the pin number press the [*] button": "สัมผัสคีย์แพดตัวเลขที่แผงตัวเครื่องด้านนอก ป้อนรหัส PIN แล้วตามด้วยปุ่ม [*]",
+    "touch the [number pad] on the outer body enter the pin number press the [*] button": "สัมผัสคีย์แพดตัวเลขที่แผงตัวเครื่องด้านนอก ป้อนรหัส PIN แล้วตามด้วยปุ่ม [*]",
+    "touch the number pad": "สัมผัสคีย์แพดตัวเลข",
+    "touch the number pad on the outer body enter the pin number press the [*] button": "สัมผัสคีย์แพดตัวเลขที่แผงตัวเครื่องด้านนอก ป้อนรหัส PIN แล้วตามด้วยปุ่ม [*]",
+    "touch the number pad enter any random number enter pin number press [*] button or enter pin number first then enter any random number then press [*] button and the door will open": "สัมผัสหน้าจอคีย์แพด ป้อนตัวเลขสุ่มใดๆ ก่อนหรือหลังรหัส PIN จริง แล้วกดปุ่ม [*] เมื่อมีเสียงเพลงเมโลดี้ดังขึ้น ประตูจะปลดล็อกเปิดออก",
+    "touch the number pad enter pin number press [*] button for 3 times": "สัมผัสคีย์แพดตัวเลข ป้อนรหัส PIN แล้วกดปุ่ม [*] 3 ครั้ง",
+    "turn the handle downward": "กดดึงที่จับประตูลงด้านล่าง",
+    "up to 20 digits can be entered including the original pin numbe": "สามารถป้อนตัวเลขสุ่มและรหัส PIN รวมกันได้สูงสุด 20 หลัก",
+    "up to 5 remote controls can be registered": "สามารถลงทะเบียนรีโมทคอนโทรลได้สูงสุด 5 อัน",
+    "volume can be set to 8 levels (1 level silent - 8 level 80db)": "สามารถตั้งค่าระดับเสียงการทำงานได้ถึง 8 ระดับ (ระดับ 1: ปิดเสียง ~ ระดับ 8: 80dB)",
+    "when deadbolt auto lock is set the operation is executed automatically according to the state of the sensor": "เมื่อมีการตั้งค่าโหมดล็อกอัตโนมัติ สลักล็อกหลัก (Deadbolt) จะทำงานล็อกประตูโดยอัตเนมัติตามสถานะการตรวจสอบของเซ็นเซอร์ประตู",
+    "when deadbolt is set to manual touch the number pad to execute the lock action": "เมื่อตั้งค่าสลักกลอนประตูเป็นโหมดด้วยตนเอง ให้สัมผัสหน้าจอแป้นคีย์แพดตัวเลขเพื่อดำเนินการล็อกประตู",
+    "when in security mode entry please press a key within 10 seconds or it will turn off": "เมื่อเข้าสู่ขั้นตอนการตั้งค่าความปลอดภัย โปรดดำเนินการกดปุ่มป้อนข้อมูลภายใน 10 วินาที มิฉะนั้นโหมดการตั้งค่าจะปิดตัวลงโดยอัตโนมัติ",
+    "when led is all lighted enter guest pin number to be registered enter 4-12 digits number and press [#] button": "เมื่อมีไฟสว่างขึ้นทุกปุ่มบนคีย์แพด ให้ป้อนรหัส PIN สำหรับผู้มาเยือนจำนวน 4~12 หลัก จากนั้นกดปุ่ม [#]",
+    "when low battery is detected the [battery replacement] led lights up when low battery is detected a notification melody will be heard": "เมื่อระบบตรวจพบว่าแบตเตอรี่อ่อน ไฟ LED [แจ้งเตือนเปลี่ยนแบตเตอรี่] จะสว่างขึ้น และตัวเครื่องจะส่งเสียงเพลงสัญญาณเมโลดี้แจ้งเตือนผู้ใช้งาน",
+    "when multi-touch feature is enabled after entering pin number press the 3 digit number that is displayed on the screen press [*] button and the door will open when this feature is enabled the random number feature is cancelled": "เมื่อเปิดใช้ระบบความปลอดภัย Multi-Touch หลังจากกดปุ่มรหัส PIN จะปรากฏตัวเลขสุ่ม 3 ตัวขึ้นมาบนหน้าจอ ให้ป้อนตัวเลขสุ่ม 3 ตัวนั้นแล้วกดปุ่ม [*] เพื่อปลดล็อกเข้าประตู ซึ่งระบบนี้จะช่วยปิดการทำงานระบบความปลอดภัยสุ่มตัวเลขแบบอื่นโดยอัตโนมัติ",
+    "when multi-touch feature is enabled after entering pin number press the 3 digits number that is displayed on the screen press [*] button and the door will open when this feature is enabled the random number feature is cancelled": "เมื่อเปิดใช้ระบบความปลอดภัย Multi-Touch หลังจากกดปุ่มรหัส PIN จะปรากฏตัวเลขสุ่ม 3 ตัวนั้นแล้วกดปุ่ม [*] เพื่อปลดล็อกเข้าประตู ซึ่งระบบนี้จะช่วยปิดการทำงานระบบความปลอดภัยสุ่มตัวเลขแบบอื่นโดยอัตโนมัติ",
+    "when multi-touch security feature is enabled \"random number\" feature is disabled and when \"random number\" feature is enabled multi-touch security feature is disabled": "เมื่อเปิดใช้ระบบความปลอดภัย Multi-Touch ระบบจะปิดการทำงานของระบบสุ่มตัวเลขแบบอื่น และหากสุ่มตัวเลขทำงานอยู่ ระบบ Multi-Touch จะถูกปิดการทำงาน",
+    "when multi-touch security is enabled after entering pin number. press the 3 random number that is displayed on the screen. press [✱] button and the door will open.": "เมื่อเปิดใช้ระบบความปลอดภัย Multi-Touch หลังจากกดปุ่มรหัส PIN จะปรากฏตัวเลขสุ่ม 3 ตัวขึ้นมาบนหน้าจอ ให้ป้อนตัวเลขสุ่ม 3 ตัวนั้นแล้วกดปุ่ม [✱] เพื่อปลดล็อกเข้าประตู",
+    "when multi-touch security is enabled after entering pin number press the 3 random number that is displayed on the screen press [*] button and the door will open": "เมื่อเปิดใช้ระบบความปลอดภัย Multi-Touch หลังจากกดปุ่มรหัส PIN จะปรากฏตัวเลขสุ่ม 3 ตัวขึ้นมาบนหน้าจอ ให้ป้อนตัวเลขสุ่ม 3 ตัวนั้นแล้วกดปุ่ม [✱] เพื่อปลดล็อกเข้าประตู",
+    "when on is set [deadbolt auto lock setting] is in progress and the latched has reacted at least once when the dead bolt is open the buzzer will be heard for 3 times every 7 seconds": "เมื่อตั้งค่าเปิดใช้ [โหมดแจ้งสถานะประตูเปิด] หากสลักล็อกไม่ได้ถูกปิดลงสมบูรณ์และลิ้นล็อกมีการทำงานแล้วอย่างน้อยหนึ่งครั้ง ตัวเครื่องจะส่งเสียงแจ้งเตือนสัญญาณบี๊บ 3 ครั้งในทุกๆ 7 วินาที",
+    "when registration mode is cancelled old pin number will be restored": "หากยกเลิกโหมดการตั้งค่า รหัส PIN เดิมจะถูกกู้คืนและนำกลับมาใช้งานปกติ",
+    "when registration mode is cancelled old pin will be restored": "หากยกเลิกโหมดการตั้งค่า รหัส PIN เดิมจะถูกกู้คืนและนำกลับมาใช้งานปกติ",
+    "when sound mute is set when you enter a number on the number pad it will be blinking this is 1 time operation after 1 usage the sound will come back to normal": "เมื่อเปิดใช้ฟังก์ชันปิดเสียงชั่วคราว หน้าจอคีย์แพดตัวเลขจะกะพริบเมื่อสัมผัสปุ่มกดเพื่อป้อนตัวเลข ระบบนี้จะทำงานสำหรับการเปิดประตูด้านนอกเพียงครั้งเดียวเท่านั้น หลังจากการใช้งานเสร็จสิ้นเสียงระบบทำงานจะกลับมาเป็นปกติ",
+    "when the 'tik' sound is heard and the deadbolt has moved in default position remove": "เมื่อได้ยินเสียงสัญญาณ \"ติ๊ก\" และสลักล็อกได้เคลื่อนตัวออกสู่ตำแหน่งล็อกเริ่มต้นแล้ว ให้ปล่อยมือ",
+    "when the batteries run out the door can be opened using emergency battery (9v battery is purchased separately)": "เมื่อแบตเตอรี่หลักในตัวล็อกหมดลง ประตูสามารถปลดล็อกเปิดได้โดยใช้แบตเตอรี่สำรองฉุกเฉิน (ผู้ใช้งานต้องจัดหาซื้อแบตเตอรี่อัลคาไลน์ 9V แยกต่างหาก)",
+    "when the door is not closed properly or the deadbolt is jammed a series of alarm will be activated 3 times": "เมื่อประตูปิดสนิทไม่เรียบร้อยหรือสลักล็อกประตูด้านใน (Deadbolt) มีความติดขัดทำงานไม่สะดวก ระบบจะส่งสัญญาณเสียงแจ้งเตือนข้อผิดพลาด 3 ครั้งติดต่อกัน",
+    "when the inside temperature rises to 62c+-5c the lock will generate an alarm and automatically unlocks the door": "เมื่อตรวจพบระดับความร้อนอุณหภูมิภายในตัวห้องสูงขึ้นถึงประมาณ (62°C±5°C) สัญญาณแจ้งเตือนความร้อนภัยจะทำงานและระบบจะปลดล็อกล็อกประตูอัตโนมัติทันทีเพื่อให้ปลอดภัย",
+    "when the inside temperature rises to 62+-5 the lock will generate an alarm and automatically unlocks the door": "เมื่อตรวจพบระดับความร้อนอุณหภูมิภายในตัวห้องสูงขึ้นถึงประมาณ (62°C±5°C) สัญญาณแจ้งเตือนความร้อนภัยจะทำงานและระบบจะปลดล็อกล็อกประตูอัตโนมัติทันทีเพื่อให้ปลอดภัย",
+    "when the lock detects forceful entry from inside or outside it will activate a series of alarm": "เมื่อระบบตรวจพบความพยายามในการงัดแงะทำลายตัวเครื่องล็อกประตูไม่ว่าจะเป็นจากทางฝั่งด้านในหรือด้านนอกห้อง ตัวเครื่องจะส่งเสียงไซเรนแจ้งเตือนเหตุงัดแงะระดับสูงดังขึ้น",
+    "when the melody is heard the setting is complete (the [open/close] button is disabled)": "เมื่อได้ยินเสียงเพลงเมโลดี้ดังขึ้นเสร็จสิ้นขั้นตอนการตั้งค่า (โดยจะปิดใช้งานการกดปุ่ม [Open/Close] ที่ตัวล็อกฝั่งในห้อง)",
+    "when the secondary authentication (card or fingerprint) of the user is not registered (or all of them are deleted), the deadbolt lock is released only by the user's primary authentication (pin number)": "หากข้อมูลการยืนยันสิทธิ์ขั้นสอง (บัตรหรือลายนิ้วมือ) ยังไม่ลงทะเบียน ระบบจะปลดล็อกเปิดประตูด้วยรหัสผ่าน PIN เท่านั้น",
+    "when the voltage returns to 55v the alarm is released": "เมื่อระดับแรงดันไฟฟ้าในแบตเตอรี่กลับเข้าสู่ระดับปกติที่ 5.5V สัญญาณเตือนจะปิดและหยุดทำงาน",
+    "when this is set the door cannot be opened from the inside [open/close] button is disable": "เมื่อตั้งค่าโหมดนี้แล้ว จะส่งผลให้ไม่สามารถกดสั่งเปิดล็อกประตูจากปุ่ม [Open/Close] ด้านในได้",
+    "when this is set the door cannot be opened from the outside pin number entry is disabled": "เมื่อเปิดใช้การล็อกบังคับจากด้านใน จะไม่ยินยอมให้เข้าประตูจากภายนอกทุกวิธี แม้แต่การป้อนรหัส PIN ก็จะปิดการใช้งาน",
+    "when you purchase the product for the first time it is set in normal mode": "เมื่อคุณซื้อผลิตภัณฑ์เป็นครั้งแรก ตัวล็อกจะถูกตั้งค่าการทำงานไว้ที่โหมดปกติเริ่มต้น",
+    "while door is closed press [open/close] button for 3 seconds when the confirmation tone is heard the setting is complete": "ในขณะที่ประตูปิดสนิท ให้กดปุ่ม [Open/Close] ที่ตัวล็อกด้านในค้างไว้เป็นเวลา 3 วินาที เมื่อมีเสียงสัญญาณยืนยันดังขึ้น การตั้งค่าล็อกสองชั้นจะเสร็จสมบูรณ์",
+    "while the door is closed": "ในขณะที่ประตูปิดอยู่",
+    "while the door is closed touch the [number pad]": "ในขณะที่ประตูปิดสนิท ให้สัมผัสแป้นคีย์แพดตัวเลข",
+    "while the door is closed touch the number pad enter registered pin number": "ในขณะที่ประตูปิดสนิท ให้สัมผัสแป้นหน้าจอตัวเลข ป้อนรหัส PIN ที่ลงทะเบียนไว้",
+    "you can open the door by pressing [force lock] button then press the [open / close] button within one second": "คุณสามารถเปิดประตูได้โดยการกดปุ่ม [Force Lock] จากนั้นกดปุ่ม [OPEN / CLOSE] ตามลงไปทันทีภายในระยะเวลา 1 วินาที",
+    "you can open the door by pressing [open / close] button inside": "คุณสามารถปลดล็อกเปิดประตูได้ง่ายๆ เพียงกดปุ่ม [OPEN / CLOSE] ที่ตัวเครื่องด้านในห้อง",
+    "[1] automatic mode [4] manual mode": "LED [1]: โหมดอัตโนมัติ, LED [4]: โหมดด้วยตนเอง",
+    "double security authentication is on and the secondary authentication of the registered user if you delete all dual-mode security authentication will be off": "เมื่อเปิดใช้โหมดยืนยันตัวตนสองชั้นร่วมกับบัตรหรือลายนิ้วมือ หากข้อมูลการยืนยันสิทธิ์ขั้นสองเหล่านี้ถูกลบออกไป ระบบจะยกเลิกการใช้โหมดยืนยันตัวตนสองชั้นโดยอัตโนมัติ",
+    "random number feature is enabled in default this is a security feature that keeps the pin number from being exposed by the additional random number that is added before or after the original pin number the number to be entered including the pin number should not exceed 20 digits": "※ ฟังก์ชันตัวเลขสุ่มถูกเปิดการใช้งานเป็นค่าเริ่มต้นของโรงงาน ซึ่งเป็นระบบความปลอดภัยที่ยอดเยี่ยมเพื่อป้องกันมิให้บุคคลภายนอกล่วงรู้รหัส PIN จริงของคุณ โดยคุณสามารถบิดกดตัวเลขสุ่มใดๆ ก่อนหรือหลังจากป้อนรหัส PIN จริง ทั้งนี้จำนวนหลักทั้งหมดรวมรหัสผ่านจริงแล้วต้องไม่เกิน 20 หลัก",
+    "cancel force lock / set force lock": "ยกเลิกโหมดล็อกบังคับ / ตั้งค่าโหมดล็อกบังคับ",
+}
+
+TRANSLATION_MAP = {super_normalize(k): v for k, v in RAW_MAP.items()}
+
+def translate_text(text, slug=None):
+    if not text:
+        return ""
+    if not isinstance(text, str):
+        return str(text)
+    
+    normalized_arrows_text = text.replace("\u2192", "->").replace("→", "->")
+    if "->" in normalized_arrows_text:
+        parts = normalized_arrows_text.split("->")
+        translated_parts = []
+        for part in parts:
+            part = part.strip()
+            translated_part = translate_single_phrase(part)
+            translated_parts.append(translated_part)
+        return " → ".join(translated_parts)
+    
+    return translate_single_phrase(text)
+
+def translate_single_phrase(text):
+    norm = super_normalize(text)
+    if not norm:
+        return text
+    if norm.isdigit():
+        return f"[{norm}]" if len(norm) == 1 else norm
+    if norm in TRANSLATION_MAP:
+        return TRANSLATION_MAP[norm]
+    return text
+
+def collect_panels(data):
+    panels = []
+    if not isinstance(data, dict):
+        return panels
+        
+    for page in data.get("pages", []):
+        if isinstance(page, dict):
+            for p in page.get("panels", []):
+                if isinstance(p, dict):
+                    panels.append(p)
+            if "panel" in page:
+                panels.append(page)
+            for k, v in page.items():
+                if k not in ("panels", "page", "panel") and isinstance(v, dict):
+                    if "panel" in v:
+                        panels.append(v)
+                    else:
+                        temp = dict(v)
+                        temp["panel"] = k
+                        panels.append(temp)
+                        
+    inferred = data.get("inferred_sections_pages_8_to_28", {})
+    if isinstance(inferred, dict):
+        for k, v in inferred.items():
+            if isinstance(v, dict):
+                if "panels" in v and isinstance(v["panels"], list):
+                    for p in v["panels"]:
+                        if isinstance(p, dict):
+                            panels.append(p)
+                elif "panel" in v:
+                    panels.append(v)
+                else:
+                    temp = dict(v)
+                    temp["panel"] = k
+                    panels.append(temp)
+            elif isinstance(v, list):
+                for item in v:
+                    if isinstance(item, dict) and "panel" in item:
+                        panels.append(item)
+                        
+    for k, v in data.items():
+        if k not in ("pages", "inferred_sections_pages_8_to_28", "model", "source_pdf", "extraction_method", "extracted_at") and isinstance(v, dict):
+            if "panel" in v:
+                panels.append(v)
+            else:
+                temp = dict(v)
+                temp["panel"] = k
+                panels.append(temp)
+                
+    return panels
+
+def find_feature_data(panels, feature_key):
+    synonyms = {
+        "guest_pin": ["guest_pin", "guest_pin_dual_mode", "page_9_guest_pin", "guest pin"],
+        "force_lock_outside": ["force_lock_outside", "outside_force_lock", "force_lock", "forced_lock", "outer_force_lock"],
+        "force_lock_inside": ["force_lock_inside", "inside_force_lock", "forced_lock_inside", "close_inside_forced_lock", "force_lock", "forced_lock", "inner_force_lock", "internal_force_lock", "inside_double_lock"],
+        "sound_volume": ["sound_volume", "volume", "sound", "rfid_setting_sound"],
+        "sound_mute": ["sound_mute", "mute", "rfid_setting_sound"],
+        "auto_manual_lock": ["auto_manual_lock", "automatic_manual_lock", "lock_mode", "settings", "settings_features", "auto_manual_lock_setting", "automatic_manual_lock_setting"],
+        "rfid_auto_manual": ["rfid_auto_manual", "card_detection", "detection", "rfid_auto_manual_detection", "rfid_card_auto_manual_detection"],
+        "normal_safe_open": ["normal_safe_open", "safe_open", "normal_safe_open_mode", "safety_open_mode"],
+        "multi_touch": ["multi_touch", "multi_touch_random", "multi_touch_safe", "settings_features", "multi_touch_security"],
+        "dual_mode": ["dual_mode", "dual_mode_security", "guest_pin_dual_mode", "dual_mode_security_authentication"],
+        "melody": ["melody", "melody_settings", "melody_setting"],
+        "home_network": ["home_network", "home_network_mechanical_key", "home_network_setting", "home_network_module"],
+        "anti_hacking": ["anti_hacking", "intrusion", "anti-hacking", "invasion", "anti_hacking_alarm"],
+        "fire_sensor": ["fire_sensor", "fire_alarm", "fire", "fire_sensor_alarm"],
+        "anti_prank": ["anti_prank", "1_minute_lockout", "anti_prank_alarm"],
+        "deadbolt_jammed": ["deadbolt_jammed", "deadbolt_error", "deadbolt_jammed_alarm"],
+        "replace_battery": ["replace_battery", "low_battery", "replace_battery_alarm"],
+        "emergency_battery": ["emergency_battery", "emergency_battery_setting"],
+        "emergency_key": ["emergency_key", "mech_key", "mechanical_key"]
+    }
+    
+    candidates = synonyms.get(feature_key, [feature_key])
+    
+    for panel in panels:
+        p_name = panel.get("panel", "").lower()
+        
+        for c in candidates:
+            if c != "panel" and c in panel:
+                if feature_key == "force_lock_outside" and c in ("force_lock", "forced_lock"):
+                    desc_text = str(panel.get("description", "")).lower() + " " + str(panel.get(c, {}).get("description", "")).lower()
+                    if "inside" in desc_text or "internal" in desc_text or "inner" in desc_text:
+                        continue
+                if feature_key == "force_lock_inside" and c in ("force_lock", "forced_lock"):
+                    desc_text = str(panel.get("description", "")).lower() + " " + str(panel.get(c, {}).get("description", "")).lower() + " " + p_name
+                    if not ("inside" in desc_text or "internal" in desc_text or "inner" in desc_text):
+                        continue
+                        
+                val = panel[c]
+                if isinstance(val, dict):
+                    return val, val.get("title") or panel.get("title") or c
+                elif isinstance(val, list):
+                    return {"steps": val}, panel.get("title") or c
+                elif isinstance(val, str):
+                    return {"description": val}, panel.get("title") or c
+                    
+        if any(c in p_name for c in candidates):
+            if feature_key == "force_lock_outside" and p_name in ("force_lock", "forced_lock"):
+                desc_text = str(panel.get("description", "")).lower()
+                if "inside" in desc_text or "internal" in desc_text or "inner" in desc_text:
+                    continue
+            if feature_key == "force_lock_inside" and p_name in ("force_lock", "forced_lock"):
+                desc_text = str(panel.get("description", "")).lower()
+                if not ("inside" in desc_text or "internal" in desc_text or "inner" in desc_text):
+                    continue
+                    
+            for c in candidates:
+                if c != "panel" and c in panel and isinstance(panel[c], dict):
+                    return panel[c], panel.get("title") or c
+            return panel, panel.get("title")
+            
+    return None, None
+
+def compile_markdown(title, panel_data, is_th=False):
+    lines = []
+    
+    desc = panel_data.get("description")
+    if not desc and "purpose" in panel_data:
+        desc = panel_data["purpose"]
+    if desc:
+        desc_str = str(desc).strip()
+        if is_th:
+            desc_str = translate_text(desc_str)
+        lines.append(desc_str)
+        lines.append("")
+        
+    modes = panel_data.get("modes")
+    if modes and isinstance(modes, list):
+        for mode in modes:
+            if isinstance(mode, dict):
+                m_name = mode.get("name", "")
+                m_desc = mode.get("description", "")
+                m_steps = mode.get("steps") or mode.get("setting_steps")
+                
+                if is_th:
+                    m_name = translate_text(m_name)
+                    if m_desc:
+                        m_desc = translate_text(m_desc)
+                        
+                lines.append(f"### {m_name}")
+                lines.append("")
+                if m_desc:
+                    lines.append(m_desc)
+                    lines.append("")
+                if m_steps and isinstance(m_steps, list):
+                    for idx, step in enumerate(m_steps, 1):
+                        step_str = str(step).strip()
+                        if is_th:
+                            step_str = translate_text(step_str)
+                        lines.append(f"{idx}. {step_str}")
+                    lines.append("")
+            elif isinstance(mode, str):
+                mode_str = str(mode).strip()
+                if is_th:
+                    mode_str = translate_text(mode_str)
+                lines.append(f"- {mode_str}")
+        if modes:
+            lines.append("")
+
+    reg_steps = panel_data.get("steps") or panel_data.get("setting_steps") or panel_data.get("registration_steps")
+    if reg_steps and isinstance(reg_steps, list):
+        if is_th:
+            lines.append("### ขั้นตอนการลงทะเบียน" if panel_data.get("panel") == "home_network" else "### ขั้นตอน")
+        else:
+            lines.append("### Registration" if panel_data.get("panel") == "home_network" else "### Steps")
+        lines.append("")
+        for idx, step in enumerate(reg_steps, 1):
+            step_str = str(step).strip()
+            if is_th:
+                step_str = translate_text(step_str)
+            lines.append(f"{idx}. {step_str}")
+        lines.append("")
+        
+    del_steps = panel_data.get("deletion_steps")
+    if del_steps and isinstance(del_steps, list):
+        if is_th:
+            lines.append("### ขั้นตอนการลบข้อมูล")
+        else:
+            lines.append("### Deletion Steps")
+        lines.append("")
+        for idx, step in enumerate(del_steps, 1):
+            step_str = str(step).strip()
+            if is_th:
+                step_str = translate_text(step_str)
+            lines.append(f"{idx}. {step_str}")
+        lines.append("")
+        
+    cancel = panel_data.get("cancellation")
+    if cancel:
+        cancel_str = str(cancel).strip()
+        if is_th:
+            cancel_str = translate_text(cancel_str)
+            lines.append(f"**การยกเลิก:** {cancel_str}")
+        else:
+            lines.append(f"**Cancellation:** {cancel_str}")
+        lines.append("")
+        
+    how_to_open = panel_data.get("how_to_open")
+    if how_to_open:
+        hto_str = str(how_to_open).strip()
+        if is_th:
+            hto_str = translate_text(hto_str)
+            lines.append(f"**วิธีเปิดประตู:** {hto_str}")
+        else:
+            lines.append(f"**How to Open:** {hto_str}")
+        lines.append("")
+        
+    controls = panel_data.get("controls")
+    if controls:
+        ctrl_str = str(controls).strip()
+        if is_th:
+            ctrl_str = translate_text(ctrl_str)
+            lines.append(f"**การควบคุม:** {ctrl_str}")
+        else:
+            lines.append(f"**Controls:** {ctrl_str}")
+        lines.append("")
+
+    notes_raw = panel_data.get("notes") or panel_data.get("note") or panel_data.get("registration_note") or panel_data.get("deletion_note") or panel_data.get("random_number_note")
+    if notes_raw:
+        notes = notes_raw if isinstance(notes_raw, list) else [notes_raw]
+        for note in notes:
+            note_str = str(note).strip()
+            if is_th:
+                note_str = translate_text(note_str)
+                lines.append(":::note[หมายเหตุ]")
+            else:
+                lines.append(":::note")
+            lines.append(note_str)
+            lines.append(":::")
+            lines.append("")
+            
+    cautions_raw = panel_data.get("cautions") or panel_data.get("caution")
+    if cautions_raw:
+        cautions = cautions_raw if isinstance(cautions_raw, list) else [cautions_raw]
+        for caution in cautions:
+            caution_str = str(caution).strip()
+            if is_th:
+                caution_str = translate_text(caution_str)
+                lines.append(":::caution[ข้อควรระวัง]")
+            else:
+                lines.append(":::caution")
+            lines.append(caution_str)
+            lines.append(":::")
+            lines.append("")
+            
+    return "\n".join(lines).strip()
+
+FEATURE_CANONICAL_NAMES = {
+    "guest_pin": ("Guest PIN Registration", "การลงทะเบียนรหัส PIN สำหรับผู้มาเยือน (Guest PIN)"),
+    "force_lock_outside": ("Outside Force Lock", "โหมดล็อกบังคับจากด้านนอก (Outside Force Lock)"),
+    "force_lock_inside": ("Inside Force Lock", "โหมดล็อกบังคับจากด้านใน (Inside Force Lock)"),
+    "sound_volume": ("Sound Volume Setting", "การตั้งค่าระดับเสียงการทำงาน"),
+    "sound_mute": ("Sound Mute Setting", "การตั้งค่าปิดเสียงชั่วคราว (Sound Mute)"),
+    "auto_manual_lock": ("Auto / Manual Lock Setting", "การตั้งค่าโหมดล็อกอัตโนมัติ / ล็อกด้วยตนเอง"),
+    "rfid_auto_manual": ("RFID Auto / Manual Detection", "การสแกนบัตร RFID อัตโนมัติ / ด้วยตนเอง"),
+    "normal_safe_open": ("Normal & Safe Open Mode", "การตั้งค่าโหมดเปิดประตูแบบปกติและโหมดนิรภัย"),
+    "multi_touch": ("Multi-touch Security Setting", "การตั้งค่าระบบสัมผัสหลายจุด (Multi-touch)"),
+    "dual_mode": ("Dual-mode Security Setting", "การตั้งค่าระบบยืนยันตัวตนสองชั้น"),
+    "melody": ("Melody Settings", "การตั้งค่าเสียงเพลงเมโลดี้"),
+    "home_network": ("Home Network Module & Remote Control", "การตั้งค่าโมดูลระบบเครือข่ายในบ้านและรีโมทคอนโทรล")
+}
+
+ALARM_CANONICAL_NAMES = {
+    "anti_hacking": ("Anti-Hacking Alarm", "สัญญาณเตือนการงัดแงะ (Anti-Hacking)"),
+    "fire_sensor": ("Fire Sensor Alarm", "สัญญาณเตือนเซ็นเซอร์ตรวจจับไฟไหม้"),
+    "anti_prank": ("Anti-Prank Alarm & 1-Minute Lockout", "สัญญาณเตือนป้องกันการสะเดาะรหัสและล็อก 1 นาที"),
+    "deadbolt_jammed": ("Deadbolt Jammed Alarm", "สัญญาณเตือนสลักกลอนติดขัด (Deadbolt Error)"),
+    "replace_battery": ("Replace Battery Alarm", "สัญญาณเตือนเปลี่ยนแบตเตอรี่"),
+    "emergency_battery": ("Emergency Battery", "การใช้งานแบตเตอรี่ฉุกเฉิน (9V)"),
+    "emergency_key": ("Emergency Mechanical Key", "กุญแจกลไกฉุกเฉิน")
+}
+
+def parse_features_from_json(slug, data, source_type):
+    features_list = []
+    
+    if source_type == "vision" and data:
+        panels = collect_panels(data)
+        
+        target_features = [
+            "guest_pin",
+            "force_lock_outside",
+            "force_lock_inside",
+            "sound_volume",
+            "sound_mute",
+            "auto_manual_lock",
+            "rfid_auto_manual",
+            "normal_safe_open",
+            "multi_touch",
+            "dual_mode",
+            "melody",
+            "home_network"
+        ]
+        
+        for fkey in target_features:
+            panel_data, title = find_feature_data(panels, fkey)
+            if panel_data:
+                name_en = title or FEATURE_CANONICAL_NAMES[fkey][0]
+                name_th = translate_text(name_en)
+                
+                desc_en = compile_markdown(name_en, panel_data, is_th=False)
+                desc_th = compile_markdown(name_en, panel_data, is_th=True)
+                
+                features_list.append((name_en, desc_en, name_th, desc_th))
+                
+    if not features_list:
+        return get_fallback_features(slug)
+        
+    return features_list
+
+def parse_alarms_from_json(slug, data, source_type):
+    alarms_list = []
+    
+    if source_type == "vision" and data:
+        panels = collect_panels(data)
+        
+        target_alarms = [
+            "anti_hacking",
+            "fire_sensor",
+            "anti_prank",
+            "deadbolt_jammed",
+            "replace_battery",
+            "emergency_battery"
+        ]
+        if "mechanical_key" in PRODUCT_FEATURES.get(slug, []):
+            target_alarms.append("emergency_key")
+            
+        for akey in target_alarms:
+            panel_data, title = find_feature_data(panels, akey)
+            if panel_data:
+                name_en = title or ALARM_CANONICAL_NAMES[akey][0]
+                name_th = translate_text(name_en)
+                
+                desc_en = compile_markdown(name_en, panel_data, is_th=False)
+                desc_th = compile_markdown(name_en, panel_data, is_th=True)
+                
+                alarms_list.append((name_en, desc_en, name_th, desc_th))
+                
+    if not alarms_list:
+        return get_fallback_alarms(slug)
+        
+    return alarms_list
+
+def get_fallback_features(slug):
+    features = PRODUCT_FEATURES.get(slug, [])
+    has_rfid = any(f in features for f in ("rfid", "smart_card", "smart_key"))
+    has_fp = "fingerprint" in features
+    
+    fallback_feats = []
+    for item in COMMON_FEATURES:
+        feat_en = item[0]
+        if feat_en == "Dual-mode Security" and not (has_rfid or has_fp):
+            continue
+        fallback_feats.append(item)
+    return fallback_feats
+
+def get_fallback_alarms(slug):
+    features = PRODUCT_FEATURES.get(slug, [])
+    has_key = "mechanical_key" in features
+    
+    fallback_alrs = []
+    for item in COMMON_ALARMS:
+        alarm_en = item[0]
+        if alarm_en == "Emergency Mechanical Key" and not has_key:
+            continue
+        fallback_alrs.append(item)
+    return fallback_alrs
+
+
 # Determine what pages to generate per product
 def get_pages_for_product(slug):
     features = PRODUCT_FEATURES.get(slug, ["pin"])
@@ -1618,13 +2329,13 @@ def generate_manual_pages(slug, model, th_title, en_title, th_desc, en_desc,
 
     # features
     if "features" in pages_to_gen:
-        feats = extra_features or COMMON_FEATURES
+        feats = parse_features_from_json(slug, source_data, source_type)
         pages["features"] = {}
         pages["features"]["th"], pages["features"]["en"] = gen_features(model, feats)
 
     # alarms
     if "alarms" in pages_to_gen:
-        alr = extra_alarms or COMMON_ALARMS
+        alr = parse_alarms_from_json(slug, source_data, source_type)
         pages["alarms"] = {}
         pages["alarms"]["th"], pages["alarms"]["en"] = gen_alarms(model, alr)
 

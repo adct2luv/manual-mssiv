@@ -37,3 +37,4 @@ description: Components of ES-FF731G
 - Mechanical keys
 - Batteries
 - User manual
+- RFID Card 4EA

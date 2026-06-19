@@ -6,26 +6,15 @@ description: Special features of EF-8000L
 
 # Special Features
 
-## Random Number Feature
+## Guest PIN Registration
 
-Add random digits before/after your PIN to prevent shoulder-surfing. Total entry can include up to 20 digits.
+### Steps
 
-## Multi-touch Security
+1. Open battery compartment cover. Press [Registration] button once. ~beep sound will be heard.
+2. Enter pin number, followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad. Press [3] button.
+3. Enter New Guest Pin number to be registered 4~12 digits.
+4. Press [✱] button on the number pad. A melody will be heard, and the registration is complete.
 
-After entering your PIN, the lock displays 3 random digits. Press those digits to unlock. This prevents fingerprint-pattern leakage on the keypad.
-
-## Dual-mode Security
-
-After entering your PIN, the lock requires a second authentication (Card or Fingerprint) before unlocking. Maximum security for sensitive areas.
-
-## Auto/Manual Lock Mode
-
-Toggle between automatic locking (locks 2 seconds after door closes) and manual locking (you touch the keypad to lock).
-
-## Sound Volume Control
-
-Adjust operation sound across 7 levels via the keypad.
-
-## Sound Mute
-
-Mute the operation sound for one use (e.g. late at night). Sound returns automatically afterward.
+:::caution
+THE GUEST PASSWORD IS FOR 1 TIME ENTRY ONLY
+:::

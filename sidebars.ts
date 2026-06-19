@@ -30,8 +30,12 @@ const PRODUCT_MANUALS = [
 ];
 
 const REFERENCE_GUIDES = [
+  'assembly-guide-for-key-tail',
   'consolidated-manual-rev-09',
   'epic-things-app-user-manual',
+  'ir-sensor-usage-guide-for-face-id',
+  'outer-body-cable-management-guide',
+  'remote-control-module-compatibility-guide',
 ];
 
 const PRODUCT_GROUPS = PRODUCT_MANUALS.map((slug) => ({
@@ -61,7 +65,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '📚 Installation & Reference Guides (2)',
+      label: '📚 Installation & Reference Guides (6)',
       collapsed: false,
       items: REFERENCE_GROUP,
     },

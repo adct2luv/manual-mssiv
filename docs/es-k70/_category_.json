@@ -1,8 +1,8 @@
 {
-  "label": "ES-K70 Digital Door Lock",
+  "label": "กุญแจดิจิทัล ES-K70",
   "position": 1,
   "link": {
     "type": "generated-index",
-    "description": "คู่มือการใช้งาน ES-K70 — รองรับ PIN, RFID Card และกุญแจกลไก"
+    "description": "กุญแจดิจิทัล Rim Type รองรับ PIN และบัตร RFID พร้อมกุญแจกลไกสำรอง"
   }
 }

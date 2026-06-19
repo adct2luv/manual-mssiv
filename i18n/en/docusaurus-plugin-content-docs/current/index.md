@@ -62,7 +62,14 @@ Click any model to read its full manual:
 | 25 | [ES-F9000Kr](/en/es-f9000kr/intro) | Mortise | PIN + Card + FP + Key |
 | 26 | [ES-P8800K](/en/es-p8800k/intro) | Push Pull | PIN + Card + Fingerprint |
 
-## 📚 App &amp; Consolidated (2)
+## 📚 Installation & Reference Guides (4)
+
+- [Assembly Guide for Key Tail](/en/assembly-guide-for-key-tail/intro) — Assembly Guide for Key Tail
+- [IR Sensor for Face ID](/en/ir-sensor-usage-guide-for-face-id/intro) — IR Sensor Usage Guide
+- [Outer Body Cable Management](/en/outer-body-cable-management-guide/intro) — Outer Body Cable Management
+- [Remote Control Compatibility](/en/remote-control-module-compatibility-guide/intro) — Remote Control Compatibility Guide
+
+## 📱 App &amp; Consolidated (2)
 
 - [Consolidated Manual Rev.09](/en/consolidated-manual-rev-09/intro) — 10 models in one manual (with comparison table)
 - [EPIC Things APP](/en/epic-things-app-user-manual/intro) — App manual

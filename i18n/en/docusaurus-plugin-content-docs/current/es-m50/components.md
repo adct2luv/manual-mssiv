@@ -10,30 +10,24 @@ description: Components of ES-M50
 
 | # | Part | Function |
 |---|---|---|
-| 1 | **Number Pad** | Enter PIN or programming codes (1-9, *, 0, #) |
-| 2 | **Status LED Lamp** | Shows lock status (idle / locked / error) |
-| 3 | **Battery Lamp** | Lights up when battery is low |
-| 4 | **RFID Card Reader** | Tap registered card here |
-| 5 | **Reset Button** | Reset lock to factory defaults (rarely used) |
-| 6 | **Emergency Battery Terminal** | Touch 9V battery here if lock is dead |
-| 7 | **Outer Body Handle** | Pull down to retract bolt after unlock |
+| 1 | **Status LED lamp** |  |
+| 2 | **Number pad** |  |
+| 3 | **RFID Card Reader** | Tap registered card here |
+| 4 | **Reset Button** | Reset lock to factory defaults (rarely used) |
+| 5 | **Battery lamp** |  |
+| 6 | **Outer Body Handle** | Pull down to retract bolt after unlock |
+| 7 | **Emergency Battery Terminal** | Touch 9V battery here if lock is dead |
 
 ## Inner body
 
 | # | Part | Function |
 |---|---|---|
 | 1 | **Battery Cover** | Slide off to access battery compartment |
-| 2 | **Registration Button** | Used when registering PIN, Card or Fingerprint |
-| 3 | **Open/Close Button** | One-touch unlock from inside |
-| 4 | **Dual Lock Button** | Privacy mode - blocks outside access |
-| 5 | **Inner Body Handle** | Pull down to retract bolt from inside |
-| 6 | **Alkaline AA Battery** | Main power source |
-| 7 | **Manual Lock Button** | Used to close the door in manual mode |
+| 2 | **Alkaline AA Battery (×8)** |  |
+| 3 | **Registration Button** | Used when registering PIN, Card or Fingerprint |
+| 4 | **Open/Close Button** | One-touch unlock from inside |
+| 5 | **Dual Lock Button** | Privacy mode - blocks outside access |
+| 6 | **Inner Body Handle** | Pull down to retract bolt from inside |
 
 ## In the box
-- Outer body
-- Inner body
-- Strike plate & fixing hardware
-- Mechanical keys
-- Batteries
-- User manual
+- RFID Card 4EA

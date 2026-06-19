@@ -16,7 +16,6 @@ description: Components of ES-S100Dr
 | 4 | **RFID Card Reader** | Tap registered card here |
 | 5 | **Reset Button** | Reset lock to factory defaults (rarely used) |
 | 6 | **Emergency Battery Terminal** | Touch 9V battery here if lock is dead |
-| 7 | **Outer Body Handle** | Pull down to retract bolt after unlock |
 
 ## Inner body
 
@@ -26,14 +25,13 @@ description: Components of ES-S100Dr
 | 2 | **Registration Button** | Used when registering PIN, Card or Fingerprint |
 | 3 | **Open/Close Button** | One-touch unlock from inside |
 | 4 | **Dual Lock Button** | Privacy mode - blocks outside access |
-| 5 | **Inner Body Handle** | Pull down to retract bolt from inside |
-| 6 | **Alkaline AA Battery** | Main power source |
-| 7 | **Manual Lock Button** | Used to close the door in manual mode |
+| 5 | **Alkaline AA Battery** | Main power source |
+| 6 | **Manual Lock Button** | Used to close the door in manual mode |
 
 ## In the box
 - Outer body
 - Inner body
 - Strike plate & fixing hardware
-- Mechanical keys
 - Batteries
 - User manual
+- RFID Card 4EA

@@ -1,0 +1,8 @@
+{
+  "label": "IR Sensor Usage Guide for Face ID",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Technical reference and installation guide for the infrared movement sensor (IR Sensor) used to trigger Face ID in models ES-S740D and ES-S510D/H."
+  }
+}

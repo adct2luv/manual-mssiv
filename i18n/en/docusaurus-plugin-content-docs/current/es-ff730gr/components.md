@@ -37,3 +37,4 @@ description: Components of ES-FF730Gr
 - Mechanical keys
 - Batteries
 - User manual
+- RFID Card 4EA

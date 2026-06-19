@@ -34,6 +34,6 @@ description: Components of ES-F7000Kr
 - Outer body
 - Inner body
 - Strike plate & fixing hardware
-- Mechanical keys
 - Batteries
 - User manual
+- RFID Card 4EA

@@ -37,3 +37,4 @@ description: Components of ES-S740D
 - Mechanical keys
 - Batteries
 - User manual
+- RFID Card 4EA

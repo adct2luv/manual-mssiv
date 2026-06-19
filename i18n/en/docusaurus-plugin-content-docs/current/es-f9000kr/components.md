@@ -37,3 +37,4 @@ description: Components of ES-F9000Kr
 - Mechanical keys
 - Batteries
 - User manual
+- RFID Card 4EA

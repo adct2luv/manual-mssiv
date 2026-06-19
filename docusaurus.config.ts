@@ -174,7 +174,7 @@ const config: Config = {
           title: 'EPIC Manuals',
           items: [
             {label: 'คู่มือทั้งหมด', to: '/catalog'},
-            {label: 'English Version', to: '/en/catalog'},
+            {label: 'English Version', href: 'pathname:///en/catalog'},
           ],
         },
         {

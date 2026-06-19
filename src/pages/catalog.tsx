@@ -41,6 +41,13 @@ const PRODUCT_MANUALS: Manual[] = [
 ];
 
 const REFERENCE_GUIDES: Manual[] = [
+  {title: 'คู่มือประกอบ Key Tail', slug: 'assembly-guide-for-key-tail', category: 'guide', size: '0.4 MB'},
+  {title: 'IR Sensor สำหรับ Face ID', slug: 'ir-sensor-usage-guide-for-face-id', category: 'guide', size: '0.5 MB'},
+  {title: 'การจัดการสายของตัวล็อกด้านนอก', slug: 'outer-body-cable-management-guide', category: 'guide', size: '0.1 MB'},
+  {title: 'ตารางความเข้ากันได้ของ Remote Control', slug: 'remote-control-module-compatibility-guide', category: 'guide', size: '0.1 MB'},
+];
+
+const APP_AND_CONSOLIDATED: Manual[] = [
   {title: 'Consolidated Manual (Rev.09)', slug: 'consolidated-manual-rev-09', category: 'consolidated', size: '5.7 MB'},
   {title: 'EPIC Things APP', slug: 'epic-things-app-user-manual', category: 'app', size: '9.4 MB'},
 ];
@@ -85,12 +92,12 @@ export default function Catalog(): ReactNode {
   return (
     <Layout
       title="สารบัญคู่มือทั้งหมด"
-      description="สารบัญคู่มือ EPIC ทั้ง 28 เล่ม — สินค้า คู่มืออ้างอิง และแอป"
+      description="สารบัญคู่มือ EPIC ทั้ง 32 เล่ม — สินค้า คู่มืออ้างอิง และแอป"
     >
       <main className="container margin-vert--lg">
         <Heading as="h1">สารบัญคู่มือทั้งหมด</Heading>
         <p>
-          คู่มือทั้งหมด <strong>{PRODUCT_MANUALS.length + REFERENCE_GUIDES.length} เล่ม</strong> จาก <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual/</a>
+          คู่มือทั้งหมด <strong>{PRODUCT_MANUALS.length + REFERENCE_GUIDES.length + APP_AND_CONSOLIDATED.length} เล่ม</strong> จาก <a href="https://www.epic.co.kr/home/manual/" target="_blank" rel="noopener noreferrer">epic.co.kr/home/manual/</a>
           {' '}— ปรับปรุงล่าสุด 2026-06-17
         </p>
 
@@ -101,9 +108,15 @@ export default function Catalog(): ReactNode {
         </section>
 
         <section className="margin-top--lg">
-          <Heading as="h2">App และ Consolidated ({REFERENCE_GUIDES.length})</Heading>
-          <p>คู่มือแอปและคู่มือรวม</p>
+          <Heading as="h2">คู่มือติดตั้งและอ้างอิง ({REFERENCE_GUIDES.length})</Heading>
+          <p>คู่มือข้ามรุ่นสำหรับการติดตั้งและความเข้ากันได้</p>
           <ManualGrid manuals={REFERENCE_GUIDES} />
+        </section>
+
+        <section className="margin-top--lg">
+          <Heading as="h2">App และ Consolidated ({APP_AND_CONSOLIDATED.length})</Heading>
+          <p>คู่มือแอปและคู่มือรวม</p>
+          <ManualGrid manuals={APP_AND_CONSOLIDATED} />
         </section>
 
         <p className="margin-top--xl">
