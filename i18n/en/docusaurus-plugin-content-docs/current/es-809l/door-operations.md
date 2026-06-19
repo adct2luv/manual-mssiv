@@ -1,49 +1,50 @@
 ---
 sidebar_position: 6
-title: Door Operations
-description: How to open and close ES-809L
+title: Opening & Closing the Door
+description: How to open and close the door on ES-809L
 ---
 
-# Door Operations
+# Opening & Closing the Door
 
 ## Opening Door Outside
 
-### Opening by Pin number
+### Opening by PIN Code
 
-1. Touch the number pad to wake up the screen.
-2. Enter your registered PIN number followed by the [*] button.
-3. After the melody is heard, the door will open.
+1. Touch the number pad.
+2. Enter [Pin Number] And Press [✱] button.
+3. After the melody is heard, The door will open.
 
-### Opening by RFID Card
+### Opening with Random Number Feature
 
-1. Place registered RFID Card/Tag on the reader area.
-2. After the melody is heard, the door will open.
+Same as EF-8000L: Enter random numbers before/after PIN, max 20 digits total.
 
+### Opening by Smart Key
+
+1. Automatic Detection: Place smart key on sensor. Door opens.
+2. Manual Detection: Touch number pad, then place smart key. Door opens.
 
 ## Closing Door Outside
 
-### Automatic Lock Mode
+### Auto
 
-The door will lock automatically after 2 seconds of closing the door.
+locks 2 sec after close
 
-### Manual Lock Mode
+### Manual
 
-1. Touch the keypad to lock the door.
-
+touch number pad
 
 ## Opening Door Inside
 
-### Normal Opening
+### Opening by Handle
 
-1. Press the [Open/Close] button or turn the manual lock knob / handle to open the door.
-
+Turn handle down to open
 
 ## Closing Door Inside
 
-### Automatic Lock Mode
+### Manual
 
-The door will lock automatically after 2 seconds of closing the door.
+Press [Open/Close] button
 
-### Manual Lock Mode
+### Auto
 
-1. Press the [Open/Close] button or turn the manual lock knob to lock the door.
+locks automatically

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 6
 title: Opening & Closing the Door
-description: How to open and close the door on ES-F300Dr
+description: How to open and close the door on Consolidated Manual Rev.09
 ---
 
 # Opening & Closing the Door
@@ -13,19 +13,19 @@ description: How to open and close the door on ES-F300Dr
 1. Touch the number pad to turn on the screen.
 2. Enter the registered PIN code (default is 1, 2, 3, 4).
 3. Press the [✱] button.
-4. Push or pull the door to open.
+4. Pull down the handle to open the door.
 
 ### Opening by RFID Card / Key Tag
 
 1. Place the registered RFID card or key tag on the card reader.
 2. Melody will sound and the door will unlock.
-3. Push or pull the door to open.
+3. Pull down the handle to open the door.
 
 ### Opening by Fingerprint
 
 1. Place the registered finger on the fingerprint reader.
 2. Melody will sound and the door will unlock.
-3. Push or pull the door to open.
+3. Pull down the handle to open the door.
 
 ## Closing Door Outside
 
@@ -42,15 +42,9 @@ In manual mode, the door does not lock automatically when closed.
 
 ## Opening Door Inside
 
-### Opening by Open/Close Button
+### Opening by Handle
 
-1. While the door is locked, press the [Open/Close] button on the inner body.
-2. The door will unlock, then push or pull to open.
-
-### Opening by Manual Lock/Unlock Knob
-
-1. Turn the manual lock/unlock knob on the inner body to the [Open] direction.
-2. The door will unlock, then push or pull to open.
+Pull down or push the inner body handle to retract the deadbolt and open the door.
 
 ## Closing Door Inside
 

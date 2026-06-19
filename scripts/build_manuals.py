@@ -1164,6 +1164,136 @@ RAW_MAP = {
     "double security authentication is on and the secondary authentication of the registered user if you delete all dual-mode security authentication will be off": "เมื่อเปิดใช้โหมดยืนยันตัวตนสองชั้นร่วมกับบัตรหรือลายนิ้วมือ หากข้อมูลการยืนยันสิทธิ์ขั้นสองเหล่านี้ถูกลบออกไป ระบบจะยกเลิกการใช้โหมดยืนยันตัวตนสองชั้นโดยอัตโนมัติ",
     "random number feature is enabled in default this is a security feature that keeps the pin number from being exposed by the additional random number that is added before or after the original pin number the number to be entered including the pin number should not exceed 20 digits": "※ ฟังก์ชันตัวเลขสุ่มถูกเปิดการใช้งานเป็นค่าเริ่มต้นของโรงงาน ซึ่งเป็นระบบความปลอดภัยที่ยอดเยี่ยมเพื่อป้องกันมิให้บุคคลภายนอกล่วงรู้รหัส PIN จริงของคุณ โดยคุณสามารถบิดกดตัวเลขสุ่มใดๆ ก่อนหรือหลังจากป้อนรหัส PIN จริง ทั้งนี้จำนวนหลักทั้งหมดรวมรหัสผ่านจริงแล้วต้องไม่เกิน 20 หลัก",
     "cancel force lock / set force lock": "ยกเลิกโหมดล็อกบังคับ / ตั้งค่าโหมดล็อกบังคับ",
+    "Opening Door Outside": "การเปิดประตูจากด้านนอก",
+    "Opening Door Inside": "การเปิดประตูจากด้านใน",
+    "Closing Door Outside": "การปิดประตูจากด้านนอก",
+    "Closing Door Inside": "การปิดประตูจากด้านใน",
+    "Opening by Pin number": "เปิดด้วยรหัส PIN",
+    "Opening by RFID Card": "เปิดด้วยบัตร RFID",
+    "Opening with Random Number Feature": "เปิดด้วยฟังก์ชันสุ่มตัวเลข",
+    "Normal Mode": "โหมดปกติ",
+    "Safety Lock Mode": "โหมดล็อกนิรภัย",
+    "Closing the door manually": "การปิดประตูด้วยตนเอง",
+    "Opening by PIN Code": "เปิดด้วยรหัส PIN",
+    "Touch the number pad to turn on the screen.": "แตะแป้นคีย์แพดตัวเลขเพื่อเปิดไฟหน้าจอ",
+    "Enter the registered PIN code (default is 1, 2, 3, 4).": "ป้อนรหัส PIN ที่ลงทะเบียนไว้ (ค่าเริ่มต้นคือ 1, 2, 3, 4)",
+    "Press the [✱] button.": "กดปุ่ม [✱]",
+    "Pull down the handle to open the door.": "ดึงหรือกดที่จับประตูด้านนอกลงเพื่อเปิดประตู",
+    "Push or pull the door to open.": "ผลักหรือดึงประตูเพื่อเปิด",
+    "Opening by RFID Card / Key Tag": "เปิดด้วยบัตร RFID / คีย์แทก",
+    "Place the registered RFID card or key tag on the card reader.": "ทาบบัตร RFID หรือคีย์แทกที่ลงทะเบียนไว้บนเครื่องอ่านการ์ด",
+    "Melody will sound and the door will unlock.": "เมื่อได้ยินเสียงเพลงเมโลดี้ ประตูจะปลดล็อก",
+    "Opening by Fingerprint": "เปิดด้วยลายนิ้วมือ",
+    "Place the registered finger on the fingerprint reader.": "แตะหรือวางนิ้วมือที่ลงทะเบียนไว้บนเครื่องอ่านลายนิ้วมือ",
+    "Opening by Mechanical Key (Emergency)": "เปิดด้วยกุญแจกลไก (กรณีฉุกเฉิน)",
+    "Open the mechanical key cover.": "เปิดฝาครอบช่องเสียบกุญแจกลไกสำรอง",
+    "Open the mechanical key hole cover (usually located at the bottom of the outer body).": "เปิดฝาครอบช่องเสียบกุญแจกลไกสำรอง (มักอยู่บริเวณด้านล่างของตัวเครื่องนอกบ้าน)",
+    "Insert the emergency mechanical key and turn it to unlock the door.": "เสียบกุญแจกลไกฉุกเฉินแล้วบิดหมุนเพื่อปลดล็อกประตู",
+    "Automatic Lock Mode": "โหมดล็อกอัตโนมัติ",
+    "The door will lock automatically after 2 seconds of closing the door.": "ประตูจะล็อกโดยอัตโนมัติภายใน 2 วินาทีหลังจากประตูปิดสนิท",
+    "Manual Lock Mode": "โหมดล็อกด้วยตนเอง",
+    "In manual mode, the door does not lock automatically when closed.": "ในโหมดล็อกด้วยตนเอง ประตูจะไม่ล็อกโดยอัตโนมัติเมื่อปิด",
+    "Close the door.": "ปิดประตูให้สนิท",
+    "Touch the outer number pad or press the [✱] button to lock the door.": "สัมผัสคีย์แพดตัวเลขด้านนอก หรือกดปุ่ม [✱] เพื่อทำการล็อกประตู",
+    "Opening by Handle": "เปิดด้วยมือจับประตูด้านใน",
+    "Pull down or push the inner body handle to retract the deadbolt and open the door.": "ดึงหรือกดที่จับประตูด้านในลงเพื่อปลดล็อกสลักเกลียว (Deadbolt) และเปิดประตู",
+    "Opening by Open/Close Button": "เปิดด้วยปุ่ม Open/Close",
+    "While the door is locked, press the [Open/Close] button on the inner body.": "ในขณะที่ประตูล็อกอยู่ ให้กดปุ่ม [Open/Close] ที่ตัวเครื่องด้านใน",
+    "The door will unlock, then push or pull to open.": "ประตูจะปลดล็อก จากนั้นผลักหรือดึงเพื่อเปิดประตู",
+    "Opening by Manual Lock/Unlock Knob": "เปิดด้วยปุ่มบิดล็อกด้วยตนเอง",
+    "Turn the manual lock/unlock knob on the inner body to the [Open] direction.": "บิดหมุนปุ่มบิดล็อก/ปลดล็อกด้วยตนเอง (Manual Lock/Unlock Knob) ไปที่ทิศทางเปิด [Open]",
+    "Press the [Open/Close] button (if available) or turn the manual lock knob/button to lock.": "กดปุ่ม [Open/Close] (ถ้ามี) หรือหมุนปุ่มบิดล็อกด้านในเพื่อทำการล็อกประตู",
+    "Press the [Open/Close] button or turn the manual lock knob/button to lock the door.": "กดปุ่ม [Open/Close] หรือหมุนปุ่มบิดล็อกด้านในเพื่อทำการล็อกประตู",
+    "(Before) Enter any random number + Enter pin number + [✱] button. (After) Enter pin number + Enter any random number + [✱] button. Either way, when the melody is heard. The door will open.": "ป้อนรหัสสุ่มใดๆ + ป้อนรหัส PIN + ปุ่ม [✱] หรือ ป้อนรหัส PIN + ป้อนรหัสสุ่มใดๆ + ปุ่ม [✱] ไม่ว่าจะวิธีใด เมื่อเสียงเพลงเมโลดี้ดังขึ้น ประตูจะเปิดออก",
+    "(Before) Enter any random number + Enter pin number + [✱] button. (After) Enter pin number + Enter any random number + [✱] button. Either way, when the melody is heard, the door open.": "ป้อนรหัสสุ่มใดๆ + ป้อนรหัส PIN + ปุ่ม [✱] หรือ ป้อนรหัส PIN + ป้อนรหัสสุ่มใดๆ + ปุ่ม [✱] ไม่ว่าจะวิธีใด เมื่อเสียงเพลงเมโลดี้ดังขึ้น ประตูจะเปิดออก",
+    "5 consecutive failed fingerprint entry will enable the 1 minute lock. Open the fingerprint cover either by pushing the sensor cover or touching the [Function Sensor Bar].": "การสแกนลายนิ้วมือผิดพลาดติดต่อกัน 5 ครั้ง จะปิดล็อกเครื่องเป็นเวลา 1 นาที โดยสามารถเปิดฝาครอบสแกนได้โดยการผลักฝาครอบหรือสัมผัส [Function Sensor Bar]",
+    "A melody will be heard. And the door will open.": "เมื่อได้ยินเสียงเพลงเมโลดี้ ประตูจะเปิดออก",
+    "After closing the door": "หลังจากประตูปิดแล้ว",
+    "After closing the door, press [Open/Close] button and the door will lock.": "หลังจากประตูปิดแล้ว ให้กดปุ่ม [Open/Close] ประตูจะล็อก",
+    "After closing the door, press the [Close] button and the door will lock.": "หลังจากประตูปิดแล้ว ให้กดปุ่ม [Close] ประตูจะล็อก",
+    "After closing the door.": "หลังจากประตูปิดแล้ว",
+    "After closing the door. Press [Open/Close] button. And the door will lock.": "หลังจากประตูปิดแล้ว ให้กดปุ่ม [Open/Close] ประตูจะล็อก",
+    "After closing the door. Turn the [Manual Lock Knob] To [Close] direction. And the door will lock.": "หลังจากประตูปิดแล้ว ให้หมุนลูกบิดล็อกด้วยตนเอง [Manual Lock Knob] ไปที่ทิศทางปิด [Close] ประตูจะล็อก",
+    "After the melody is heard, The door will open.": "เมื่อได้ยินเสียงเพลงเมโลดี้ ประตูจะเปิดออก",
+    "After the melody is heard, the door will open": "เมื่อได้ยินเสียงเพลงเมโลดี้ ประตูจะเปิดออก",
+    "After the melody is heard, the door will open.": "เมื่อได้ยินเสียงเพลงเมโลดี้ ประตูจะเปิดออก",
+    "An optional feature that lets you set the lock in automatic and manual Lock mode.": "คุณสมบัติเสริมที่ช่วยให้ตั้งค่าล็อกได้ทั้งโหมดอัตโนมัติและล็อกด้วยตนเอง",
+    "Auto: locks 2 sec after close": "ระบบอัตโนมัติ: ประตูจะล็อกภายใน 2 วินาทีหลังจากประตูปิด",
+    "Auto: locks automatically": "ระบบอัตโนมัติ: ประตูจะล็อกอัตโนมัติ",
+    "Automatic Detection: Place smart key on sensor. Door opens.": "การตรวจจับอัตโนมัติ: ทาบบัตรสมาร์ทคีย์บนเครื่องอ่านสัญญาณ ประตูจะเปิดออก",
+    "Cards included on the set as well as compatible transportation cards, credit cards, or smart phones can be registered and used. Touch the number pad, when the number pad lights up, place on the sensor and the door will open. Only compatible cards and phones can be registered and used.": "สามารถใช้การ์ดที่มาพร้อมชุดเครื่อง รวมถึงบัตรโดยสาร บัตรเครดิต หรือสมาร์ทโฟนที่รองรับร่วมกันได้ โดยแตะคีย์แพดตัวเลขให้หน้าจอสว่าง แล้วทาบการ์ดบนเซ็นเซอร์ ประตูจะเปิดออก (เฉพาะการ์ดและสมาร์ทโฟนรุ่นที่เข้ากันได้เท่านั้น)",
+    "Configure how the lock status is displayed": "การกำหนดค่าการแสดงผลสถานะการล็อกประตู",
+    "Do not install on inside-pulling doors": "ห้ามติดตั้งกับประตูที่เป็นแบบดึงเข้าด้านในห้อง",
+    "Do not install on inside-pulling doors.": "ห้ามติดตั้งกับประตูที่เป็นแบบดึงเข้าด้านในห้อง",
+    "During Automatic Detection Mode: Place registered RFID Card on the reader. Melody will be heard and the door will open.": "ในโหมดตรวจจับอัตโนมัติ: ทาบบัตร RFID ที่ลงทะเบียนไว้บนตัวเครื่องอ่านสัญญาณ เสียงเพลงเมโลดี้จะดังขึ้นและประตูจะเปิดออก",
+    "During Automatic Detection Mode: Place registered smart key on sensor. Melody will be heard and the door will open.": "ในโหมดตรวจจับอัตโนมัติ: ทาบบัตรสมาร์ทคีย์ที่ลงทะเบียนไว้บนเครื่องอ่าน เสียงเพลงเมโลดี้จะดังขึ้นและประตูจะเปิดออก",
+    "During Automatic Detection Mode: Place the RFID card to be registered on the card reader": "ในโหมดตรวจจับอัตโนมัติ: ทาบบัตร RFID บนเครื่องอ่านการ์ดเพื่อลงทะเบียน",
+    "During Automatic Detection Mode: Press registered RFID card on reader. Melody will be heard and the door will open.": "ในโหมดตรวจจับอัตโนมัติ: ทาบบัตร RFID ที่ลงทะเบียนไว้บนตัวเครื่องอ่านสัญญาณ เสียงเพลงเมโลดี้จะดังขึ้นและประตูจะเปิดออก",
+    "During Manual Detection Mode: Touch the number pad + Place the RFID card to be registered on the card reader": "ในโหมดตรวจจับด้วยตนเอง: สัมผัสคีย์แพดตัวเลข + ทาบบัตร RFID บนเครื่องอ่านการ์ดเพื่อลงทะเบียน",
+    "During Manual Detection Mode: Touch the number pad, check if the number pad lights up. Place registered RFID Card on the reader. Melody will be heard and the door will open.": "ในโหมดตรวจจับด้วยตนเอง: สัมผัสคีย์แพดตัวเลขเพื่อให้หน้าจอสว่างขึ้น จากนั้นทาบบัตร RFID ที่ลงทะเบียนบนตัวเครื่องอ่านสัญญาณ เสียงเพลงเมโลดี้จะดังขึ้นและประตูจะเปิดออก",
+    "During Manual Detection Mode: Touch the number pad, check if the number pad lights up. Place registered RFID card on the reader. Melody will be heard and the door will open.": "ในโหมดตรวจจับด้วยตนเอง: สัมผัสคีย์แพดตัวเลขเพื่อให้หน้าจอสว่างขึ้น จากนั้นทาบบัตร RFID ที่ลงทะเบียนบนตัวเครื่องอ่านสัญญาณ เสียงเพลงเมโลดี้จะดังขึ้นและประตูจะเปิดออก",
+    "During Manual Detection Mode: Touch the number pad, check if the number pad lights up. Place registered smart key on the sensor. Melody will be heard and the door will open.": "ในโหมดตรวจจับด้วยตนเอง: สัมผัสคีย์แพดตัวเลขเพื่อให้หน้าจอสว่างขึ้น จากนั้นทาบบัตรสมาร์ทคีย์ที่ลงทะเบียนไว้บนตัวเครื่องอ่านสัญญาณ เสียงเพลงเมโลดี้จะดังขึ้นและประตูจะเปิดออก",
+    "During prank or anti-hacking alarm, pressing the [Open/Close] button will cancel the alarm.": "ระหว่างที่สัญญาณเตือนเล่นตลกว่างัดแงะดังขึ้น การกดปุ่ม [Open/Close] จะเป็นการยกเลิกเสียงเตือน",
+    "Either way, when the melody is heard. The door will open.": "ไม่ว่าจะวิธีใด เมื่อเสียงเพลงเมโลดี้ดังขึ้น ประตูจะเปิดออก",
+    "Enter Pin Number + [✱] button + Place the card to be registered on the card reader": "ป้อนรหัส PIN + ปุ่ม [✱] + ทาบบัตรที่จะลงทะเบียนบนพื้นที่เครื่องอ่านการ์ด",
+    "Enter Pin number + [✱]": "ป้อนรหัส PIN + [✱]",
+    "Enter Pin number. Press [✱] button 2 times.": "ป้อนรหัส PIN จากนั้นกดปุ่ม [✱] 2 ครั้ง",
+    "Enter [Pin Number] And Press [✱] button.": "ป้อนรหัส PIN แล้วตามด้วยปุ่ม [✱]",
+    "Enter [Pin number] and Press [✱] button": "ป้อนรหัส PIN แล้วตามด้วยปุ่ม [✱]",
+    "Enter [Pin number] and press [✱] button.": "ป้อนรหัส PIN แล้วตามด้วยปุ่ม [✱]",
+    "Enter any random number + Enter pin number + [✱] button.": "ป้อนรหัสสุ่มใดๆ + ป้อนรหัส PIN + ปุ่ม [✱]",
+    "Enter pin number + Enter any random number + [✱] button.": "ป้อนรหัส PIN + ป้อนรหัสสุ่มใดๆ + ปุ่ม [✱]",
+    "In case of emergency and the [Open/Close] button doesn't work properly. Turn the [manual Lock/Unlock Knob] to open the door.": "ในกรณีฉุกเฉินและปุ่ม [Open/Close] ทำงานไม่ปกติ ให้หมุนปุ่มบิดล็อกด้วยตนเอง [Manual Lock/Unlock Knob] เพื่อเปิดประตู",
+    "In manual mode, when the [Close] button is pressed, the ~beep sound will be heard to signal that the door is locked": "ในโหมดล็อกด้วยตนเอง เมื่อกดปุ่ม [Close] จะได้ยินเสียงบี๊บดังขึ้นเพื่อส่งสัญญาณว่าประตูล็อกแล้ว",
+    "In manual mode, when the [Manual Lock] button is pressed, the ~beep sound will be heard to signal that the door is locked.": "ในโหมดล็อกด้วยตนเอง เมื่อกดปุ่ม [Manual Lock] จะได้ยินเสียงบี๊บดังขึ้นเพื่อส่งสัญญาณว่าประตูล็อกแล้ว",
+    "Inside Double Lock - It is a function to block abnormal operation of the interior handle.": "ระบบล็อกสองชั้นจากด้านใน - เป็นฟังก์ชันบล็อกการทำงานที่จับประตูด้านในเมื่อมีการดึงดิ่งแบบผิดปกติ",
+    "Inside double lock - When enabled will not allow Pin, Card, entry from outside.": "ระบบล็อกสองชั้นจากด้านใน - เมื่อเปิดใช้งานจะไม่ยอมรับรหัส PIN หรือคีย์การ์ดปลดล็อกประตูจากภายนอก",
+    "Manual Detection: Touch number pad, then place smart key. Door opens.": "การตรวจจับด้วยตนเอง: สัมผัสคีย์แพดตัวเลข จากนั้นทาบบัตรสมาร์ทคีย์บนเครื่องอ่านสัญญาณ ประตูจะเปิดออก",
+    "Manual: Press [Open/Close] button": "ล็อกด้วยตนเอง: กดปุ่ม [Open/Close]",
+    "Manual: touch number pad": "ล็อกด้วยตนเอง: สัมผัสคีย์แพดตัวเลข",
+    "On the inner body inside press the [Open/Close] button and the door will open.": "กดปุ่ม [Open/Close] ที่ตัวเครื่องด้านใน ประตูจะเปิดออก",
+    "Open the door by the [Manual Knob (lock/unlock)] or by the [Open/Close] button inside and the [Force Lock] will be cancelled.": "เปิดประตูด้วยลูกบิดบิดด้วยมือ [Manual Lock Knob] หรือกดปุ่ม [Open/Close] ด้านใน โหมดล็อกบังคับ [Force Lock] จะถูกยกเลิก",
+    "Open the door from inside by pushing the handle or activate the [Close] button and the Internal Double Lock setting will be cancelled.": "เปิดประตูจากด้านในด้วยการผลักมือจับหรือใช้ปุ่ม [Close] การตั้งค่าล็อกสองชั้นด้านในจะถูกยกเลิก",
+    "Outside Double Lock - When enabled will not allow Pin, Card, Fingerprint entry from outside.": "ระบบล็อกสองชั้นจากด้านนอก - เมื่อเปิดใช้งานจะไม่ยินยอมให้เปิดประตูจากภายนอกด้วยรหัส PIN, บัตร หรือสแกนลายนิ้วมือ",
+    "Place your registered finger on the Fingerprint reader.": "แตะนิ้วมือที่ลงทะเบียนไว้บนเครื่องอ่านลายนิ้วมือ",
+    "Place your registered finger on the fingerprint reader": "แตะนิ้วมือที่ลงทะเบียนไว้บนเครื่องอ่านลายนิ้วมือ",
+    "Press [4] for Automatic Mode. Press [7] for Manual Mode.": "กด [4] เพื่อตั้งโหมดอัตโนมัติ กด [7] เพื่อตั้งโหมดล็อกด้วยตนเอง",
+    "Press [Close] button located on the inner body for 3 seconds. Melody will be heard, and setting is complete.": "กดปุ่ม [Close] ที่ตัวเครื่องด้านในค้างไว้ 3 วินาที จะมีเสียงเพลงเมโลดี้ดังขึ้นและการตั้งค่าเสร็จสิ้น",
+    "Press [Safety button] located on the inner body for 3 seconds. Melody will be heard, and setting is complete.": "กดปุ่ม [Safety] ที่ตัวเครื่องด้านในค้างไว้ 3 วินาที จะมีเสียงเพลงเมโลดี้ดังขึ้นและการตั้งค่าเสร็จสิ้น",
+    "Press [✱] button and the door will lock. Setting: Enter Pin number + Press [✱] button thrice → 2": "กดปุ่ม [✱] แล้วประตูจะล็อก (การตั้งค่า: ป้อนรหัส PIN + กดปุ่ม [✱] 3 ครั้ง → 2)",
+    "Press [✱] button, a melody will be heard and the door will open.": "กดปุ่ม [✱] เสียงเพลงเมโลดี้จะดังขึ้นและประตูจะเปิดออก",
+    "Press the [Force Lock] button for 3 seconds. When the melody is heard, the setting is complete.": "กดปุ่ม [Force Lock] ค้างไว้ 3 วินาที เมื่อเสียงเพลงเมโลดี้ดังขึ้น การตั้งค่าเสร็จสิ้น",
+    "Press the [Open/Close] button when the deadbolt comes out of the mortise.": "กดปุ่ม [Open/Close] เมื่อสลักเดดโบลต์ยื่นออกจาก Mortise ตลับล็อก",
+    "Press the function sensor bar": "แตะแถบเซ็นเซอร์ทำงาน",
+    "Press the function sensor bar.": "แตะแถบเซ็นเซอร์ทำงาน",
+    "Push the interior handle forward. While the door is closed pushing the interior handle forward will open the door.": "ผลักที่จับประตูด้านในไปข้างหน้า ในขณะที่ประตูปิดอยู่การผลักมือจับนี้จะทำให้เปิดประตูได้ออกไปทันที",
+    "Random number feature is the random set of numbers that is added before or after the original pin number is entered. It is used to prevent the pin number from being exposed. Including the pin number up to 20 digits only can be entered During authentication with random number.": "ฟังก์ชันรหัสสุ่มคือการสุ่มชุดตัวเลขเพื่อป้อนก่อนหรือหลังรหัส PIN จริง ใช้เพื่อป้องกันการล่วงรู้รหัสผ่าน โดยจำนวนหลักทั้งหมดรวมรหัสผ่านจริงแล้วต้องไม่เกิน 20 หลัก",
+    "Random number feature is the random set of numbers that is added before or after the original pin number is entered. It is used to prevent the pin number from being exposed. Including the pin number up to 20 digits only can be entered. During authentication with random number.": "ฟังก์ชันรหัสสุ่มคือการสุ่มชุดตัวเลขเพื่อป้อนก่อนหรือหลังรหัส PIN จริง ใช้เพื่อป้องกันการล่วงรู้รหัสผ่าน โดยจำนวนหลักทั้งหมดรวมรหัสผ่านจริงแล้วต้องไม่เกิน 20 หลัก",
+    "Same as EF-8000L: Enter random numbers before/after PIN, max 20 digits total.": "เหมือนกับรุ่น EF-8000L: ป้อนรหัสสุ่มปะหน้าหรือปิดท้ายรหัส PIN จริง ความยาวรวมรหัสผ่านไม่เกิน 20 หลัก",
+    "The door will automatically lock within 2 seconds of closing the door": "ประตูจะล็อกโดยอัตโนมัติภายใน 2 วินาทีหลังจากประตูปิดสนิท",
+    "The door will automatically lock. After 2 seconds of closing the door.": "ประตูจะล็อกโดยอัตโนมัติ 2 วินาทีหลังจากประตูปิดลง",
+    "The door will lock automatically. After 2 seconds of closing the door (Please refer to page 21).": "ประตูจะล็อกโดยอัตโนมัติ 2 วินาทีหลังจากประตูปิดลง (โปรดดูคู่มือประกอบเพิ่มเติม)",
+    "Touch the Number Pad → Enter Pin number → Press [✱] button thrice → 4": "สัมผัสหน้าจอคีย์แพด → ป้อนรหัส PIN → กดปุ่ม [✱] 3 ครั้ง → 4",
+    "Touch the Number Pad → Enter Pin number → Press [✱] button thrice → 5": "สัมผัสหน้าจอคีย์แพด → ป้อนรหัส PIN → กดปุ่ม [✱] 3 ครั้ง → 5",
+    "Touch the [Number pad]. Enter the [Pin Number]": "สัมผัสคีย์แพดตัวเลข ป้อนรหัส PIN",
+    "Touch the number pad and press [✱] buttons.": "สัมผัสคีย์แพดตัวเลขแล้วกดปุ่ม [✱]",
+    "Touch the number pad and the door will lock. Setting: Enter Pin number + Press [✱] button thrice → 1": "สัมผัสคีย์แพดตัวเลขแล้วประตูจะล็อก (การตั้งค่า: ป้อนรหัส PIN + กดปุ่ม [✱] 3 ครั้ง → 1)",
+    "Touch the number pad, to close the door.": "สัมผัสคีย์แพดตัวเลขเพื่อล็อกปิดประตู",
+    "Touch the number pad. And the door will lock (Please refer to page 21).": "สัมผัสคีย์แพดตัวเลขเพื่อล็อกประตู (โปรดดูรายละเอียดคู่มือเพิ่มเติม)",
+    "Turn handle down to open": "กดที่จับลงเพื่อเปิดประตู",
+    "Turn handle down within 7 sec or door re-locks": "กดที่จับลงเพื่อเปิดประตูภายใน 7 วินาที มิฉะนั้นประตูจะล็อกกลับคืน",
+    "Turn the handle downward within 7 seconds of opening the door or the door will lock again.": "กดที่จับลงภายใน 7 วินาทีหลังจากปลดล็อก มิฉะนั้นประตูจะล็อกกลับคืน",
+    "Turn the inner body handle in downward motion inside, and the double lock setting will be cancelled.": "กดที่จับประตูด้านในลงด้านล่าง ระบบล็อกสองชั้นจะถูกยกเลิก",
+    "When Multi-touch feature is enabled. After entering pin number, 3 digit random number will be displayed on the screen, press the 3 numbers, followed by [✱] button and the door will open. When Multi-touch feature is enabled. The \"Random Number Feature\" is disabled. The \"Random Number Feature\" is enabled in default upon purchase.": "เมื่อเปิดระบบสัมผัสหลายจุด (Multi-touch) หลังจากป้อนรหัส PIN แล้ว ตัวเลขสุ่ม 3 หลักจะแสดงบนหน้าจอ ให้กดตัวเลขทั้ง 3 หลักตามด้วยปุ่ม [✱] ประตูจึงจะเปิด เมื่อเปิดระบบ Multi-touch ฟังก์ชันรหัสสุ่มปกติจะถูกปิดใช้งาน โดยฟังก์ชันรหัสสุ่มปกติจะถูกเปิดใช้งานเป็นค่าเริ่มต้น",
+    "When Multi-touch feature is enabled. After entering pin number, 3 digit random number will be displayed on the screen, press the 3 numbers, followed by [✱] button and the door will open. When Multi-touch feature is enabled. The \"Random Number Feature\" is disabled. The \"Random Number Feature\" is enabled in default upon purchase. Please refer to page 20 for the setting.": "เมื่อเปิดระบบสัมผัสหลายจุด (Multi-touch) หลังจากป้อนรหัส PIN แล้ว ตัวเลขสุ่ม 3 หลักจะแสดงบนหน้าจอ ให้กดตัวเลขทั้ง 3 หลักตามด้วยปุ่ม [✱] ประตูจึงจะเปิด เมื่อเปิดระบบ Multi-touch ฟังก์ชันรหัสสุ่มปกติจะถูกปิดใช้งาน โดยฟังก์ชันรหัสสุ่มปกติจะถูกเปิดใช้งานเป็นค่าเริ่มต้น",
+    "While door is locked. Press [Open/Close] button. And the door will open.": "เมื่อประตูล็อกอยู่ ให้กดปุ่ม [Open/Close] ประตูจะเปิดออก",
+    "While door is locked. Press [Safety] button. Then Press [Open/Close] button. And the door will open.": "เมื่อประตูล็อกอยู่ ให้กดปุ่ม [Safety] จากนั้นกดปุ่ม [Open/Close] ประตูจะเปิดออก",
+    "While door is locked. Turn the [Manual Lock Knob] To [Open] direction. And the door will open.": "เมื่อประตูล็อกอยู่ ให้หมุนลูกบิดล็อกด้วยตนเอง [Manual Lock Knob] ไปที่ทิศทางเปิด [Open] ประตูจะเปิดออก",
+    "While the door is closed, touch the number pad": "ในขณะที่ประตูปิดอยู่ ให้สัมผัสแป้นคีย์แพดตัวเลข",
+    "While the door is closed, turn the handle in downward motion and the door will open.": "ในขณะที่ประตูปิดอยู่ ให้กดที่จับลงเพื่อเปิดประตู",
+    "While the door is closed. Turn the handle in downward motion and the door will open.": "ในขณะที่ประตูปิดอยู่ ให้กดที่จับลงเพื่อเปิดประตู",
+    "Touch the number pad and the door will lock. Setting: Enter Pin number + Press [✱] button thrice": "สัมผัสคีย์แพดตัวเลขแล้วประตูจะล็อก (การตั้งค่า: ป้อนรหัส PIN + กดปุ่ม [✱] 3 ครั้ง)",
+    "Press [✱] button and the door will lock. Setting: Enter Pin number + Press [✱] button thrice": "กดปุ่ม [✱] แล้วประตูจะล็อก (การตั้งค่า: ป้อนรหัส PIN + กดปุ่ม [✱] 3 ครั้ง)",
 }
 
 TRANSLATION_MAP = {super_normalize(k): v for k, v in RAW_MAP.items()}
@@ -1316,7 +1446,10 @@ def find_feature_data(panels, feature_key):
         # Check keys in the panel first
         for c in candidates:
             if c != "panel" and c in panel:
-                if is_direction_mismatch(feature_key, p_name) or is_direction_mismatch(feature_key, c):
+                # If key explicitly specifies direction, skip parent panel name mismatch check
+                has_dir_kws_c = any(ik in c.lower() for ik in ["inside", "inner", "internal"]) or any(ok in c.lower() for ok in ["outside", "outer", "external"])
+                mismatch = is_direction_mismatch(feature_key, c) if has_dir_kws_c else (is_direction_mismatch(feature_key, p_name) or is_direction_mismatch(feature_key, c))
+                if mismatch:
                     continue
                 if feature_key == "force_lock_outside" and c in ("force_lock", "forced_lock"):
                     desc_text = str(panel.get("description", "")).lower() + " " + str(panel.get(c, {}).get("description", "")).lower()
@@ -1586,6 +1719,475 @@ def parse_alarms_from_json(slug, data, source_type):
         
     return alarms_list
 
+
+METHOD_KEY_MAP = {
+    "pin": "Opening by PIN Code",
+    "rfid": "Opening by RFID Card",
+    "smart_key": "Opening by Smart Key",
+    "fingerprint": "Opening by Fingerprint",
+    "fp": "Opening by Fingerprint",
+    "random": "Opening with Random Number Feature",
+    "random_number": "Opening with Random Number Feature",
+    "dual": "Opening by Dual-mode Security",
+    "dual_mode": "Opening by Dual-mode Security",
+    "auto": "Automatic Lock Mode",
+    "automatic": "Automatic Lock Mode",
+    "manual": "Manual Lock Mode",
+    "by_handle": "Opening by Handle",
+    "forced_lock": "Force Lock Mode",
+    "force_lock": "Force Lock Mode",
+    "inner_force_lock": "Inside Force Lock Setting",
+    "outer_force_lock": "Outside Force Lock Setting",
+    "closing_outside": "Closing Door Outside",
+    "closing_inside": "Closing Door Inside",
+    "opening_inside": "Opening Door Inside",
+    "open_outside": "Opening Door Outside"
+}
+
+def format_method_markdown(method, is_th=False):
+    lines = []
+    name = method["name"]
+    if is_th:
+        name = translate_text(name)
+    lines.append(f"### {name}")
+    lines.append("")
+    
+    desc = method.get("description", "")
+    if desc:
+        desc_val = translate_text(desc) if is_th else desc
+        lines.append(desc_val)
+        lines.append("")
+        
+    proc = method.get("procedure", "")
+    if proc:
+        proc_val = translate_text(proc) if is_th else proc
+        lines.append(proc_val)
+        lines.append("")
+        
+    steps = method.get("steps", [])
+    if steps:
+        for idx, step in enumerate(steps, 1):
+            step_val = translate_text(step) if is_th else step
+            lines.append(f"{idx}. {step_val}")
+        lines.append("")
+        
+    cautions = method.get("cautions", [])
+    if cautions:
+        if is_th:
+            lines.append(":::caution[ข้อควรระวัง]")
+        else:
+            lines.append(":::caution")
+        for c in cautions:
+            c_val = translate_text(c) if is_th else c
+            if len(cautions) == 1:
+                lines.append(c_val)
+            else:
+                lines.append(f"- {c_val}")
+        lines.append(":::")
+        lines.append("")
+        
+    notes = method.get("notes", [])
+    if notes:
+        if is_th:
+            lines.append(":::note[หมายเหตุ]")
+        else:
+            lines.append(":::note")
+        for n in notes:
+            n_val = translate_text(n) if is_th else n
+            if len(notes) == 1:
+                lines.append(n_val)
+            else:
+                lines.append(f"- {n_val}")
+        lines.append(":::")
+        lines.append("")
+        
+    return "\n".join(lines).strip()
+
+def extract_methods_for_op(op, matched_panels):
+    extracted_methods = []
+    subkeys_map = {
+        "open_outside": ["open_outside", "opening_outside", "opening_door_outside"],
+        "close_outside": ["close_outside", "closing_outside", "closing_door_outside", "close", "closing"],
+        "open_inside": ["open_inside", "opening_inside", "opening_door_inside", "by_handle", "open_close_inside"],
+        "close_inside": ["close_inside", "closing_inside", "closing_door_inside", "close", "closing"]
+    }
+    
+    for p in matched_panels:
+        target_dict = p
+        for sk in subkeys_map[op]:
+            if sk in p and isinstance(p[sk], dict):
+                target_dict = p[sk]
+                break
+                
+        if "methods" in target_dict and isinstance(target_dict["methods"], list):
+            for m in target_dict["methods"]:
+                if isinstance(m, dict):
+                    name = m.get("name", "")
+                    steps = m.get("steps") or m.get("setting_steps") or m.get("procedure")
+                    if isinstance(steps, str):
+                        steps = [steps]
+                    elif not isinstance(steps, list):
+                        steps = []
+                    description = m.get("description", "")
+                    procedure = m.get("procedure", "")
+                    cautions = m.get("cautions") or m.get("caution")
+                    if isinstance(cautions, str):
+                        cautions = [cautions]
+                    elif not isinstance(cautions, list):
+                        cautions = []
+                    notes = m.get("notes") or m.get("note")
+                    if isinstance(notes, str):
+                        notes = [notes]
+                    elif not isinstance(notes, list):
+                        notes = []
+                    extracted_methods.append({
+                        "name": name,
+                        "steps": steps,
+                        "description": description,
+                        "procedure": procedure,
+                        "cautions": cautions,
+                        "notes": notes
+                    })
+                elif isinstance(m, str):
+                    if ":" in m:
+                        name, desc = m.split(":", 1)
+                        name = name.strip()
+                        desc = desc.strip()
+                    else:
+                        name = "Method"
+                        desc = m
+                    extracted_methods.append({
+                        "name": name,
+                        "steps": [],
+                        "description": desc,
+                        "procedure": "",
+                        "cautions": [],
+                        "notes": []
+                    })
+        else:
+            method_keys = []
+            for k in target_dict.keys():
+                k_lower = k.lower()
+                if k_lower.startswith("method_") or k_lower in ("random_number", "by_handle", "by_button", "by_open_close", "auto_manual_lock", "forced_lock", "outer_force_lock", "inner_force_lock", "automatic", "manual"):
+                    method_keys.append(k)
+                    
+            if method_keys:
+                method_keys.sort()
+                for mk in method_keys:
+                    val = target_dict[mk]
+                    name_part = mk
+                    if mk.startswith("method_"):
+                        name_part = re.sub(r"^method_\d+_", "", mk)
+                    
+                    name = METHOD_KEY_MAP.get(name_part, name_part.replace("_", " ").capitalize())
+                    steps = []
+                    description = ""
+                    procedure = ""
+                    cautions = []
+                    notes = []
+                    
+                    if isinstance(val, list):
+                        steps = val
+                    elif isinstance(val, str):
+                        description = val
+                    elif isinstance(val, dict):
+                        steps = val.get("steps") or val.get("setting_steps") or []
+                        if isinstance(steps, str):
+                            steps = [steps]
+                        description = val.get("description") or ""
+                        procedure = val.get("procedure") or ""
+                        cautions = val.get("cautions") or val.get("caution") or []
+                        if isinstance(cautions, str):
+                            cautions = [cautions]
+                        notes = val.get("notes") or val.get("note") or []
+                        if isinstance(notes, str):
+                            notes = [notes]
+                            
+                    base_name = name_part.lower()
+                    for k, v in target_dict.items():
+                        k_lower = k.lower()
+                        if k_lower != mk.lower() and base_name in k_lower:
+                            if "note" in k_lower:
+                                if isinstance(v, list):
+                                    notes.extend(v)
+                                elif isinstance(v, str):
+                                    notes.append(v)
+                            elif "caution" in k_lower or "warning" in k_lower:
+                                if isinstance(v, list):
+                                    cautions.extend(v)
+                                elif isinstance(v, str):
+                                    cautions.append(v)
+                                    
+                    extracted_methods.append({
+                        "name": name,
+                        "steps": steps,
+                        "description": description,
+                        "procedure": procedure,
+                        "cautions": cautions,
+                        "notes": notes
+                    })
+            else:
+                steps = target_dict.get("steps") or target_dict.get("setting_steps") or []
+                if isinstance(steps, str):
+                    steps = [steps]
+                description = target_dict.get("description") or target_dict.get("purpose") or ""
+                procedure = target_dict.get("procedure") or ""
+                cautions = target_dict.get("cautions") or target_dict.get("caution") or []
+                if isinstance(cautions, str):
+                    cautions = [cautions]
+                notes = target_dict.get("notes") or target_dict.get("note") or []
+                if isinstance(notes, str):
+                    notes = [notes]
+                
+                if steps or description or procedure or cautions or notes:
+                    name = METHOD_KEY_MAP.get(op, op.replace("_", " ").capitalize())
+                    extracted_methods.append({
+                        "name": name,
+                        "steps": steps,
+                        "description": description,
+                        "procedure": procedure,
+                        "cautions": cautions,
+                        "notes": notes
+                    })
+                    
+    return extracted_methods
+
+def parse_door_operations_from_json(slug, data, source_type):
+    model = "EPIC"
+    for entry in MANUALS:
+        if entry[0] == slug:
+            model = entry[1]
+            break
+
+    panels = collect_panels(data) if (source_type == "vision" and data) else []
+    op_panels = {
+        "open_outside": [],
+        "close_outside": [],
+        "open_inside": [],
+        "close_inside": []
+    }
+    for p in panels:
+        p_name = str(p.get("panel", p.get("title", ""))).lower().strip()
+        if "open_outside" in p_name or "opening door outside" in p_name or "opening_door_outside" in p_name:
+            op_panels["open_outside"].append(p)
+        elif "close_outside" in p_name or "closing door outside" in p_name or "closing_door_outside" in p_name:
+            op_panels["close_outside"].append(p)
+        elif "open_inside" in p_name or "opening door inside" in p_name or "opening_door_inside" in p_name:
+            op_panels["open_inside"].append(p)
+        elif "close_inside" in p_name or "closing door inside" in p_name or "closing_door_inside" in p_name:
+            op_panels["close_inside"].append(p)
+        elif "open_close_outside" in p_name:
+            op_panels["open_outside"].append(p)
+            op_panels["close_outside"].append(p)
+        elif "close_outside_open_inside" in p_name:
+            op_panels["close_outside"].append(p)
+            op_panels["open_inside"].append(p)
+        elif "close_inside_forced_lock" in p_name:
+            op_panels["close_inside"].append(p)
+        elif "open_close_inside_force_lock" in p_name:
+            op_panels["open_inside"].append(p)
+            op_panels["close_inside"].append(p)
+
+    extracted = {}
+    for op in ["open_outside", "close_outside", "open_inside", "close_inside"]:
+        extracted[op] = extract_methods_for_op(op, op_panels[op])
+
+    has_extracted = all(len(extracted[op]) > 0 for op in ["open_outside", "close_outside", "open_inside", "close_inside"])
+
+    if not has_extracted:
+        features = PRODUCT_FEATURES.get(slug, ["pin"])
+        has_rfid = any(f in features for f in ("rfid", "smart_card", "smart_key"))
+        has_fp = "fingerprint" in features
+        has_key = "mechanical_key" in features
+        has_handle = slug not in NON_HANDLE_MODELS
+        default_pin = "1, 2, 3, 4"
+
+        pin_steps = [
+            "Touch the number pad to turn on the screen.",
+            f"Enter the registered PIN code (default is {default_pin}).",
+            "Press the [✱] button."
+        ]
+        if has_handle:
+            pin_steps.append("Pull down the handle to open the door.")
+        else:
+            pin_steps.append("Push or pull the door to open.")
+
+        extracted["open_outside"] = [{
+            "name": "Opening by PIN Code",
+            "steps": pin_steps,
+            "description": "",
+            "procedure": "",
+            "cautions": [],
+            "notes": []
+        }]
+
+        if has_rfid:
+            rfid_steps = [
+                "Place the registered RFID card or key tag on the card reader.",
+                "Melody will sound and the door will unlock."
+            ]
+            if has_handle:
+                rfid_steps.append("Pull down the handle to open the door.")
+            else:
+                rfid_steps.append("Push or pull the door to open.")
+            extracted["open_outside"].append({
+                "name": "Opening by RFID Card / Key Tag",
+                "steps": rfid_steps,
+                "description": "",
+                "procedure": "",
+                "cautions": [],
+                "notes": []
+            })
+
+        if has_fp:
+            fp_steps = [
+                "Place the registered finger on the fingerprint reader.",
+                "Melody will sound and the door will unlock."
+            ]
+            if has_handle:
+                fp_steps.append("Pull down the handle to open the door.")
+            else:
+                fp_steps.append("Push or pull the door to open.")
+            extracted["open_outside"].append({
+                "name": "Opening by Fingerprint",
+                "steps": fp_steps,
+                "description": "",
+                "procedure": "",
+                "cautions": [],
+                "notes": []
+            })
+
+        if has_key:
+            extracted["open_outside"].append({
+                "name": "Opening by Mechanical Key (Emergency)",
+                "steps": [
+                    "Open the mechanical key hole cover (usually located at the bottom of the outer body).",
+                    "Insert the emergency mechanical key and turn it to unlock the door."
+                ],
+                "description": "",
+                "procedure": "",
+                "cautions": [],
+                "notes": []
+            })
+
+        extracted["close_outside"] = [
+            {
+                "name": "Automatic Lock Mode",
+                "steps": [],
+                "description": "The door will lock automatically after 2 seconds of closing the door.",
+                "procedure": "",
+                "cautions": [],
+                "notes": []
+            },
+            {
+                "name": "Manual Lock Mode",
+                "steps": [
+                    "Close the door.",
+                    "Touch the outer number pad or press the [✱] button to lock the door."
+                ],
+                "description": "In manual mode, the door does not lock automatically when closed.",
+                "procedure": "",
+                "cautions": [],
+                "notes": []
+            }
+        ]
+
+        if has_handle:
+            extracted["open_inside"] = [{
+                "name": "Opening by Handle",
+                "steps": [],
+                "description": "Pull down or push the inner body handle to retract the deadbolt and open the door.",
+                "procedure": "",
+                "cautions": [],
+                "notes": []
+            }]
+        else:
+            extracted["open_inside"] = [
+                {
+                    "name": "Opening by Open/Close Button",
+                    "steps": [
+                        "While the door is locked, press the [Open/Close] button on the inner body.",
+                        "The door will unlock, then push or pull to open."
+                    ],
+                    "description": "",
+                    "procedure": "",
+                    "cautions": [],
+                    "notes": []
+                },
+                {
+                    "name": "Opening by Manual Lock/Unlock Knob",
+                    "steps": [
+                        "Turn the manual lock/unlock knob on the inner body to the [Open] direction.",
+                        "The door will unlock, then push or pull to open."
+                    ],
+                    "description": "",
+                    "procedure": "",
+                    "cautions": [],
+                    "notes": []
+                }
+            ]
+
+        close_inside_manual_steps = [
+            "Close the door.",
+            "Press the [Open/Close] button or turn the manual lock knob/button to lock the door."
+        ]
+        extracted["close_inside"] = [
+            {
+                "name": "Automatic Lock Mode",
+                "steps": [],
+                "description": "The door will lock automatically after 2 seconds of closing the door.",
+                "procedure": "",
+                "cautions": [],
+                "notes": []
+            },
+            {
+                "name": "Manual Lock Mode",
+                "steps": close_inside_manual_steps,
+                "description": "In manual mode, the door does not lock automatically when closed.",
+                "procedure": "",
+                "cautions": [],
+                "notes": []
+            }
+        ]
+
+    th_lines = [
+        make_frontmatter("ขั้นตอนการเปิด/ปิดประตู", f"ขั้นตอนการเปิดและปิดประตูสำหรับ {model}", 6),
+        "",
+        "# ขั้นตอนการเปิด/ปิดประตู",
+        ""
+    ]
+    en_lines = [
+        make_frontmatter("Opening & Closing the Door", f"How to open and close the door on {model}", 6),
+        "",
+        "# Opening & Closing the Door",
+        ""
+    ]
+
+    op_titles = {
+        "open_outside": ("## การเปิดประตูจากด้านนอก", "## Opening Door Outside"),
+        "close_outside": ("## การปิดประตูจากด้านนอก", "## Closing Door Outside"),
+        "open_inside": ("## การเปิดประตูจากด้านใน", "## Opening Door Inside"),
+        "close_inside": ("## การปิดประตูจากด้านใน", "## Closing Door Inside")
+    }
+
+    for op in ["open_outside", "close_outside", "open_inside", "close_inside"]:
+        th_title, en_title = op_titles[op]
+        
+        th_lines.append(th_title)
+        th_lines.append("")
+        for m in extracted[op]:
+            th_lines.append(format_method_markdown(m, is_th=True))
+            th_lines.append("")
+            
+        en_lines.append(en_title)
+        en_lines.append("")
+        for m in extracted[op]:
+            en_lines.append(format_method_markdown(m, is_th=False))
+            en_lines.append("")
+
+    return "\n".join(th_lines).strip() + "\n", "\n".join(en_lines).strip() + "\n"
+
+
 def get_fallback_features(slug):
     features = PRODUCT_FEATURES.get(slug, [])
     has_rfid = any(f in features for f in ("rfid", "smart_card", "smart_key"))
@@ -1638,6 +2240,10 @@ def get_pages_for_product(slug):
                      "remote-control-module-compatibility-guide"]:
         pages.append("features")
         pages.append("alarms")
+    if slug not in ["es-l200", "epic-things-app-user-manual", "assembly-guide-for-key-tail",
+                    "ir-sensor-usage-guide-for-face-id", "outer-body-cable-management-guide",
+                    "remote-control-module-compatibility-guide"]:
+        pages.append("door-operations")
     return pages
 
 
@@ -2384,6 +2990,11 @@ def generate_manual_pages(slug, model, th_title, en_title, th_desc, en_desc,
         alr = parse_alarms_from_json(slug, source_data, source_type)
         pages["alarms"] = {}
         pages["alarms"]["th"], pages["alarms"]["en"] = gen_alarms(model, alr)
+
+    # door-operations
+    if "door-operations" in pages_to_gen:
+        pages["door-operations"] = {}
+        pages["door-operations"]["th"], pages["door-operations"]["en"] = parse_door_operations_from_json(slug, source_data, source_type)
 
     return pages
 

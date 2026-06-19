@@ -14,14 +14,14 @@ description: คุณสมบัติพิเศษของ ES-K70
 
 ## forced_lock
 
-Inside double lock - When enabled will not allow Pin, Card, entry from outside.
+ระบบล็อกสองชั้นจากด้านใน - เมื่อเปิดใช้งานจะไม่ยอมรับรหัส PIN หรือคีย์การ์ดปลดล็อกประตูจากภายนอก
 
 ### ขั้นตอน
 
-1. After closing the door.
-2. Press [Safety button] located on the inner body for 3 seconds. Melody will be heard, and setting is complete.
+1. หลังจากประตูปิดแล้ว
+2. กดปุ่ม [Safety] ที่ตัวเครื่องด้านในค้างไว้ 3 วินาที จะมีเสียงเพลงเมโลดี้ดังขึ้นและการตั้งค่าเสร็จสิ้น
 
-**การยกเลิก:** Turn the inner body handle in downward motion inside, and the double lock setting will be cancelled.
+**การยกเลิก:** กดที่จับประตูด้านในลงด้านล่าง ระบบล็อกสองชั้นจะถูกยกเลิก
 
 ## การปรับระดับเสียงการทำงาน
 
@@ -49,14 +49,14 @@ Regardless of the volume setting, This feature lets you mute the operation melod
 
 ## โหมดล็อกอัตโนมัติ / ล็อกด้วยตนเอง
 
-An optional feature that lets you set the lock in automatic and manual Lock mode.
+คุณสมบัติเสริมที่ช่วยให้ตั้งค่าล็อกได้ทั้งโหมดอัตโนมัติและล็อกด้วยตนเอง
 
 ### ขั้นตอน
 
-1. Press the [Open/Close] button when the deadbolt comes out of the mortise.
+1. กดปุ่ม [Open/Close] เมื่อสลักเดดโบลต์ยื่นออกจาก Mortise ตลับล็อก
 2. สัมผัสคีย์แพดตัวเลข
-3. Enter Pin number. Press [✱] button 2 times.
-4. Press [4] for Automatic Mode. Press [7] for Manual Mode.
+3. ป้อนรหัส PIN จากนั้นกดปุ่ม [✱] 2 ครั้ง
+4. กด [4] เพื่อตั้งโหมดอัตโนมัติ กด [7] เพื่อตั้งโหมดล็อกด้วยตนเอง
 
 ## Dual-mode Security Setting
 

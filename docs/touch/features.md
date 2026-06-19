@@ -33,7 +33,7 @@ description: คุณสมบัติพิเศษของ TOUCH
 
 ### ขั้นตอน
 
-1. While the door is closed, touch the number pad
+1. ในขณะที่ประตูปิดอยู่ ให้สัมผัสแป้นคีย์แพดตัวเลข
 2. ป้อนรหัส PIN
 3. กดปุ่ม [*] แล้วตามด้วยปุ่ม [0]
 4. เมื่อได้ยินเสียงเพลงเมโลดี้ดังขึ้นเสร็จสิ้นขั้นตอนการตั้งค่า (โดยจะปิดใช้งานการกดปุ่ม [Open/Close] ที่ตัวล็อกฝั่งในห้อง)
@@ -47,9 +47,9 @@ description: คุณสมบัติพิเศษของ TOUCH
 ### ขั้นตอน
 
 1. ในขณะที่ประตูปิดอยู่
-2. Press the [force Lock] button for 3 seconds. When the melody is heard, the setting is complete.
+2. กดปุ่ม [Force Lock] ค้างไว้ 3 วินาที เมื่อเสียงเพลงเมโลดี้ดังขึ้น การตั้งค่าเสร็จสิ้น
 
-**การยกเลิก:** Open the door by the [Manual Knob (lock/unlock)] or by the [Open/Close] button inside and the [Force Lock] will be cancelled.
+**การยกเลิก:** เปิดประตูด้วยลูกบิดบิดด้วยมือ [Manual Lock Knob] หรือกดปุ่ม [Open/Close] ด้านใน โหมดล็อกบังคับ [Force Lock] จะถูกยกเลิก
 
 ## โหมดล็อกอัตโนมัติ / ล็อกด้วยตนเอง
 

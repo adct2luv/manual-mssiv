@@ -34,9 +34,20 @@ description: คุณสมบัติพิเศษของ ES-P9100FK
 รหัส PIN สำหรับผู้มาเยือนใช้สำหรับผ่านเข้าประตูได้เพียง 1 ครั้งเท่านั้น
 :::
 
+## outer_force_lock
+
+ระบบล็อกสองชั้นจากด้านนอก - เมื่อเปิดใช้งานจะไม่ยินยอมให้เปิดประตูจากภายนอกด้วยรหัส PIN, บัตร หรือสแกนลายนิ้วมือ
+
+### ขั้นตอน
+
+1. หลังจากประตูปิดแล้ว
+2. กดปุ่ม [Close] ที่ตัวเครื่องด้านในค้างไว้ 3 วินาที จะมีเสียงเพลงเมโลดี้ดังขึ้นและการตั้งค่าเสร็จสิ้น
+
+**การยกเลิก:** เปิดประตูจากด้านในด้วยการผลักมือจับหรือใช้ปุ่ม [Close] การตั้งค่าล็อกสองชั้นด้านในจะถูกยกเลิก
+
 ## inner_force_lock
 
-Inside Double Lock - It is a function to block abnormal operation of the interior handle.
+ระบบล็อกสองชั้นจากด้านใน - เป็นฟังก์ชันบล็อกการทำงานที่จับประตูด้านในเมื่อมีการดึงดิ่งแบบผิดปกติ
 
 **การควบคุม:** ยกเลิกโหมดล็อกบังคับ / ตั้งค่าโหมดล็อกบังคับ
 
@@ -66,13 +77,13 @@ Regardless of the volume setting, This feature lets you mute the operation melod
 
 ## โหมดล็อกอัตโนมัติ / ล็อกด้วยตนเอง
 
-An optional feature that lets you set the lock in automatic and manual Lock mode
+คุณสมบัติเสริมที่ช่วยให้ตั้งค่าล็อกได้ทั้งโหมดอัตโนมัติและล็อกด้วยตนเอง
 
 ### ขั้นตอน
 
 1. Press the [Close] button. When the deadbolt comes out of the mortise
 2. สัมผัสคีย์แพดตัวเลข
-3. Enter Pin number. Press [✱] button 2 times
+3. ป้อนรหัส PIN จากนั้นกดปุ่ม [✱] 2 ครั้ง
 4. Press [4] button for Automatic Mode. Press [7] button for Manual Mode
 
 :::note[หมายเหตุ]

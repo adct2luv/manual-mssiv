@@ -28,6 +28,6 @@ During normal operation and a series of alarm is heard, it indicates the need fo
 
 1. แบตเตอรี่ 9V ต้องซื้อแยกต่างหาก
 2. Place on the 9V battery terminal located at the bottom of the outbody
-3. กดปุ่ม [*]
+3. กดปุ่ม [✱]
 4. Enter the pin number
 5. กดปุ่ม [*] อีกครั้งเพื่อเปิดประตู

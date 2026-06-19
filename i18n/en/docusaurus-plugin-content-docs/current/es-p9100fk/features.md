@@ -34,6 +34,17 @@ IF NEW PIN NUMBER IS NOT REGISTERED AFTER PRESSING REGISTRATION BUTTON THE REGIS
 The guest pin number is for 1 time entry only
 :::
 
+## outer_force_lock
+
+Outside Double Lock - When enabled will not allow Pin, Card, Fingerprint entry from outside.
+
+### Steps
+
+1. After closing the door
+2. Press [Close] button located on the inner body for 3 seconds. Melody will be heard, and setting is complete.
+
+**Cancellation:** Open the door from inside by pushing the handle or activate the [Close] button and the Internal Double Lock setting will be cancelled.
+
 ## inner_force_lock
 
 Inside Double Lock - It is a function to block abnormal operation of the interior handle.
