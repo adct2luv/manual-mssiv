@@ -7,6 +7,7 @@ description: Components of EPIC Things APP User Manual
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

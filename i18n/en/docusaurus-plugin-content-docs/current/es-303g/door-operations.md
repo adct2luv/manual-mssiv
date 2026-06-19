@@ -16,8 +16,6 @@ description: How to open and close the door on ES-303G
 
 ### Opening with Random Number Feature
 
-(Before) Enter any random number + Enter Pin number + [✱] button. (After) Enter Pin number + Enter any random number + [✱] button. Either way, when the melody is heard, the door open.
-
 1. (Before) Enter any random number + Enter Pin number + [✱] button. (After) Enter Pin number + Enter any random number + [✱] button. Either way, when the melody is heard, the door open.
 
 :::caution

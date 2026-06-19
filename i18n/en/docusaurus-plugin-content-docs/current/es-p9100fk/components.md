@@ -7,6 +7,7 @@ description: Components of ES-P9100FK
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

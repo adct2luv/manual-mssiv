@@ -7,6 +7,7 @@ description: Components of TOUCH
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

@@ -10,16 +10,25 @@ description: How to open and close the door on ES-M50
 
 ### Opening by PIN Code
 
-1. Touch the number pad to turn on the screen.
-2. Enter the registered PIN code (default is 1, 2, 3, 4).
-3. Press the [✱] button.
-4. Pull down the handle to open the door.
+1. Touch the number pad.
+2. Enter [Pin number] and press [✱] button.
+3. After the melody is heard, the door will open.
 
-### Opening by RFID Card / Key Tag
+### Opening by RFID Card
 
-1. Place the registered RFID card or key tag on the card reader.
-2. Melody will sound and the door will unlock.
-3. Pull down the handle to open the door.
+1. During Automatic Detection Mode: Press registered RFID card on reader. Melody will be heard and the door will open.
+2. During Manual Detection Mode: Touch the number pad, check if the number pad lights up. Place registered RFID card on the reader. Melody will be heard and the door will open.
+
+### Opening with Random Number Feature
+
+1. Touch the number pad, enter any random number. Enter pin number, press [✱] button or enter pin number first, then enter any random number, then press [✱] button and the door will open.
+2. Enter any random number + Enter pin number + [✱] button.
+3. Enter pin number + Enter any random number + [✱] button.
+4. Either way, when the melody is heard. The door will open.
+
+### Opening by Dual-mode Security
+
+Enter Pin Number + [✱] button + Place the card to be registered on the card reader
 
 ## Closing Door Outside
 
@@ -29,10 +38,7 @@ The door will lock automatically after 2 seconds of closing the door.
 
 ### Manual Lock Mode
 
-In manual mode, the door does not lock automatically when closed.
-
-1. Close the door.
-2. Touch the outer number pad or press the [✱] button to lock the door.
+Touch the number pad and press [✱] buttons.
 
 ## Opening Door Inside
 
@@ -48,7 +54,8 @@ The door will lock automatically after 2 seconds of closing the door.
 
 ### Manual Lock Mode
 
-In manual mode, the door does not lock automatically when closed.
+After closing the door, press [Open/Close] button and the door will lock.
 
-1. Close the door.
-2. Press the [Open/Close] button or turn the manual lock knob/button to lock the door.
+:::note
+In manual mode, when the [Manual Lock] button is pressed, the ~beep sound will be heard to signal that the door is locked.
+:::

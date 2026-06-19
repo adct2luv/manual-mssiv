@@ -1823,13 +1823,17 @@ def extract_methods_for_op(op, matched_panels):
             for m in target_dict["methods"]:
                 if isinstance(m, dict):
                     name = m.get("name", "")
-                    steps = m.get("steps") or m.get("setting_steps") or m.get("procedure")
+                    procedure = m.get("procedure", "")
+                    steps = m.get("steps") or m.get("setting_steps")
+                    if not steps and procedure:
+                        steps = [procedure]
+                        procedure = ""
+                    
                     if isinstance(steps, str):
                         steps = [steps]
                     elif not isinstance(steps, list):
                         steps = []
                     description = m.get("description", "")
-                    procedure = m.get("procedure", "")
                     cautions = m.get("cautions") or m.get("caution")
                     if isinstance(cautions, str):
                         cautions = [cautions]
@@ -1992,16 +1996,14 @@ def parse_door_operations_from_json(slug, data, source_type):
     for op in ["open_outside", "close_outside", "open_inside", "close_inside"]:
         extracted[op] = extract_methods_for_op(op, op_panels[op])
 
-    has_extracted = all(len(extracted[op]) > 0 for op in ["open_outside", "close_outside", "open_inside", "close_inside"])
+    features = PRODUCT_FEATURES.get(slug, ["pin"])
+    has_rfid = any(f in features for f in ("rfid", "smart_card", "smart_key"))
+    has_fp = "fingerprint" in features
+    has_key = "mechanical_key" in features
+    has_handle = slug not in NON_HANDLE_MODELS
+    default_pin = "1, 2, 3, 4"
 
-    if not has_extracted:
-        features = PRODUCT_FEATURES.get(slug, ["pin"])
-        has_rfid = any(f in features for f in ("rfid", "smart_card", "smart_key"))
-        has_fp = "fingerprint" in features
-        has_key = "mechanical_key" in features
-        has_handle = slug not in NON_HANDLE_MODELS
-        default_pin = "1, 2, 3, 4"
-
+    if not extracted["open_outside"]:
         pin_steps = [
             "Touch the number pad to turn on the screen.",
             f"Enter the registered PIN code (default is {default_pin}).",
@@ -2070,6 +2072,7 @@ def parse_door_operations_from_json(slug, data, source_type):
                 "notes": []
             })
 
+    if not extracted["close_outside"]:
         extracted["close_outside"] = [
             {
                 "name": "Automatic Lock Mode",
@@ -2092,6 +2095,7 @@ def parse_door_operations_from_json(slug, data, source_type):
             }
         ]
 
+    if not extracted["open_inside"]:
         if has_handle:
             extracted["open_inside"] = [{
                 "name": "Opening by Handle",
@@ -2127,6 +2131,7 @@ def parse_door_operations_from_json(slug, data, source_type):
                 }
             ]
 
+    if not extracted["close_inside"]:
         close_inside_manual_steps = [
             "Close the door.",
             "Press the [Open/Close] button or turn the manual lock knob/button to lock the door."
@@ -2381,6 +2386,7 @@ def gen_components(model, outer_parts, inner_parts, in_box=None):
         f"# ส่วนประกอบ",
         "",
         "## ตัวล็อกด้านนอก",
+        '<a id="ขั้วแบตเตอรี่ฉุกเฉิน"></a>',
         "",
         "| # | ชิ้นส่วน | หน้าที่ |",
         "|---|---|---|",
@@ -2391,6 +2397,7 @@ def gen_components(model, outer_parts, inner_parts, in_box=None):
         f"# Components",
         "",
         "## Outer body",
+        '<a id="emergency-battery-terminal"></a>',
         "",
         "| # | Part | Function |",
         "|---|---|---|",
@@ -2401,6 +2408,7 @@ def gen_components(model, outer_parts, inner_parts, in_box=None):
         else:
             th_name = TH.get(name, name)
             th_func = TH.get(func, func)
+            
         th_lines.append(f"| {i} | **{th_name}** | {th_func} |")
         en_lines.append(f"| {i} | **{name}** | {func} |")
     th_lines.append("")

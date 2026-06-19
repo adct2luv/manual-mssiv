@@ -7,6 +7,7 @@ description: Components of Consolidated Manual Rev.09
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

@@ -7,6 +7,7 @@ description: Components of EF-8000L
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

@@ -84,6 +84,7 @@ const config: Config = {
   projectName: 'manual-mssiv',
 
   onBrokenLinks: 'warn',
+  onBrokenAnchors: 'ignore',
 
   // TH default (ลูกค้าไทย), EN secondary
   i18n: {

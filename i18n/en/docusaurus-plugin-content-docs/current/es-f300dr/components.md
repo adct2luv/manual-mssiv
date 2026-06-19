@@ -7,6 +7,7 @@ description: Components of ES-F300Dr
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

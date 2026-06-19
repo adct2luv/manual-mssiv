@@ -7,6 +7,7 @@ description: Components of ES-809L
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

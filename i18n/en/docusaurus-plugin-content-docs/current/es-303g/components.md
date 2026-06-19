@@ -7,6 +7,7 @@ description: Components of ES-303G
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

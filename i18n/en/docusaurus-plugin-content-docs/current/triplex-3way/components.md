@@ -7,6 +7,7 @@ description: Components of TRIPLEX 3way
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|

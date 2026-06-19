@@ -19,14 +19,11 @@ description: How to open and close the door on N-TOUCH
 
 ### Automatic Lock Mode
 
-The door will lock automatically after 2 seconds of closing the door.
+The door will automatically lock within 2 seconds of closing the door
 
 ### Manual Lock Mode
 
-In manual mode, the door does not lock automatically when closed.
-
-1. Close the door.
-2. Touch the outer number pad or press the [✱] button to lock the door.
+Touch the number pad, to close the door.
 
 ## Opening Door Inside
 

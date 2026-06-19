@@ -10,27 +10,18 @@ description: How to open and close the door on ES-P9100FK
 
 ### Opening by PIN Code
 
-1. Touch the number pad to turn on the screen.
-2. Enter the registered PIN code (default is 1, 2, 3, 4).
-3. Press the [✱] button.
-4. Pull down the handle to open the door.
+1. Touch the number pad
+2. Enter Pin number + [✱]
 
-### Opening by RFID Card / Key Tag
+### Opening by RFID Card
 
-1. Place the registered RFID card or key tag on the card reader.
-2. Melody will sound and the door will unlock.
-3. Pull down the handle to open the door.
+1. During Automatic Detection Mode: Place the RFID card to be registered on the card reader
+2. During Manual Detection Mode: Touch the number pad + Place the RFID card to be registered on the card reader
 
 ### Opening by Fingerprint
 
-1. Place the registered finger on the fingerprint reader.
-2. Melody will sound and the door will unlock.
-3. Pull down the handle to open the door.
-
-### Opening by Mechanical Key (Emergency)
-
-1. Open the mechanical key hole cover (usually located at the bottom of the outer body).
-2. Insert the emergency mechanical key and turn it to unlock the door.
+1. Press the function sensor bar
+2. Place your registered finger on the fingerprint reader
 
 ## Closing Door Outside
 
@@ -49,17 +40,18 @@ In manual mode, the door does not lock automatically when closed.
 
 ### Opening by Handle
 
-Pull down or push the inner body handle to retract the deadbolt and open the door.
+Push the interior handle forward. While the door is closed pushing the interior handle forward will open the door.
 
 ## Closing Door Inside
 
 ### Automatic Lock Mode
 
-The door will lock automatically after 2 seconds of closing the door.
+The door will lock automatically after 2 seconds of closing the door
 
 ### Manual Lock Mode
 
-In manual mode, the door does not lock automatically when closed.
+After closing the door, press the [Close] button and the door will lock.
 
-1. Close the door.
-2. Press the [Open/Close] button or turn the manual lock knob/button to lock the door.
+:::note
+In manual mode, when the [Close] button is pressed, the ~beep sound will be heard to signal that the door is locked
+:::

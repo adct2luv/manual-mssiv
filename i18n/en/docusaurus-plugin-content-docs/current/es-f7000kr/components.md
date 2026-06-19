@@ -7,6 +7,7 @@ description: Components of ES-F7000Kr
 # Components
 
 ## Outer body
+<a id="emergency-battery-terminal"></a>
 
 | # | Part | Function |
 |---|---|---|
