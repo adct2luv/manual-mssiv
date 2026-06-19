@@ -37,16 +37,15 @@ This security setting will disable the use of [Open/Close] button inside.
 
 **Cancellation:** Open the door using Manual Lock / Unlock lever and force lock setting will be cancelled.
 
-## Force Lock Setting (Outside Force Lock)
+## Force Lock Setting (Inside Force Lock)
 
-This security setting will disable the use of [Open/Close] button inside.
+This security setting will not allow any forms of entry from outside (Pin Number and RFID Card).
 
 ### Steps
 
-1. While the door is closed. Touch the number pad. Enter Registered pin number.
-2. Press [✱] button, followed by [0] button.
+1. While door is closed. Press [Open/Close] button for 3 seconds. When the confirmation tone is heard, the setting is complete.
 
-**Cancellation:** Open the door using Manual Lock / Unlock lever and force lock setting will be cancelled.
+**Cancellation:** Open the door using Manual Lock/Unlock knob or pressing [Open/Close] Button inside and force lock setting will be cancelled.
 
 ## Sound Volume Setting
 

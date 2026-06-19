@@ -34,17 +34,6 @@ description: คุณสมบัติพิเศษของ ES-P9100FK
 รหัส PIN สำหรับผู้มาเยือนใช้สำหรับผ่านเข้าประตูได้เพียง 1 ครั้งเท่านั้น
 :::
 
-## outer_force_lock
-
-Outside Double Lock - When enabled will not allow Pin, Card, Fingerprint entry from outside.
-
-### ขั้นตอน
-
-1. After closing the door
-2. Press [Close] button located on the inner body for 3 seconds. Melody will be heard, and setting is complete.
-
-**การยกเลิก:** Open the door from inside by pushing the handle or activate the [Close] button and the Internal Double Lock setting will be cancelled.
-
 ## inner_force_lock
 
 Inside Double Lock - It is a function to block abnormal operation of the interior handle.

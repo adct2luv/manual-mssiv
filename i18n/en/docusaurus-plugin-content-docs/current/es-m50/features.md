@@ -23,17 +23,6 @@ Inside double lock - When enabled will not allow Pin, Card, entry from outside.
 
 **Cancellation:** Turn the inner body handle in downward motion inside, and the double lock setting will be cancelled.
 
-## forced_lock
-
-Inside double lock - When enabled will not allow Pin, Card, entry from outside.
-
-### Steps
-
-1. After closing the door.
-2. Press [Safety button] located on the inner body for 3 seconds. Melody will be heard, and setting is complete.
-
-**Cancellation:** Turn the inner body handle in downward motion inside, and the double lock setting will be cancelled.
-
 ## sound_volume
 
 This feature allows the user to adjust the operation sound volume per level. (perform while door closed) ※ Sound can be adjusted up to 7 levels.

@@ -1272,11 +1272,52 @@ def find_feature_data(panels, feature_key):
     
     candidates = synonyms.get(feature_key, [feature_key])
     
+    # Helper to check for inside/outside mismatch
+    def is_direction_mismatch(fk, tn):
+        fk_lower = fk.lower()
+        tn_lower = tn.lower()
+        inside_kws = ["inside", "inner", "internal"]
+        outside_kws = ["outside", "outer", "external"]
+        
+        has_inside = any(ik in fk_lower for ik in inside_kws)
+        has_outside = any(ok in fk_lower for ok in outside_kws)
+        
+        if has_inside and any(ok in tn_lower for ok in outside_kws):
+            return True
+        if has_outside and any(ik in tn_lower for ik in inside_kws):
+            return True
+        return False
+
+    # 1. Exact match pass over panels to prioritize exact name matches
+    for panel in panels:
+        p_name = panel.get("panel", "").lower()
+        if p_name == feature_key or any(p_name == c.lower() for c in candidates):
+            if is_direction_mismatch(feature_key, p_name):
+                continue
+            
+            # Check for exact matches on key first
+            for c in candidates:
+                if c != "panel" and c in panel:
+                    if is_direction_mismatch(feature_key, c):
+                        continue
+                    val = panel[c]
+                    if isinstance(val, dict):
+                        return val, val.get("title") or panel.get("title") or c
+                    elif isinstance(val, list):
+                        return {"steps": val}, panel.get("title") or c
+                    elif isinstance(val, str):
+                        return {"description": val}, panel.get("title") or c
+            return panel, panel.get("title")
+
+    # 2. Substring/loose match pass
     for panel in panels:
         p_name = panel.get("panel", "").lower()
         
+        # Check keys in the panel first
         for c in candidates:
             if c != "panel" and c in panel:
+                if is_direction_mismatch(feature_key, p_name) or is_direction_mismatch(feature_key, c):
+                    continue
                 if feature_key == "force_lock_outside" and c in ("force_lock", "forced_lock"):
                     desc_text = str(panel.get("description", "")).lower() + " " + str(panel.get(c, {}).get("description", "")).lower()
                     if "inside" in desc_text or "internal" in desc_text or "inner" in desc_text:
@@ -1294,7 +1335,10 @@ def find_feature_data(panels, feature_key):
                 elif isinstance(val, str):
                     return {"description": val}, panel.get("title") or c
                     
+        # Check if any candidate is a substring of the panel name
         if any(c in p_name for c in candidates):
+            if is_direction_mismatch(feature_key, p_name):
+                continue
             if feature_key == "force_lock_outside" and p_name in ("force_lock", "forced_lock"):
                 desc_text = str(panel.get("description", "")).lower()
                 if "inside" in desc_text or "internal" in desc_text or "inner" in desc_text:
@@ -1306,6 +1350,8 @@ def find_feature_data(panels, feature_key):
                     
             for c in candidates:
                 if c != "panel" and c in panel and isinstance(panel[c], dict):
+                    if is_direction_mismatch(feature_key, c):
+                        continue
                     return panel[c], panel.get("title") or c
             return panel, panel.get("title")
             
