@@ -1,26 +1,34 @@
 ---
 sidebar_position: 6
-title: RFID Card Deletion
-description: How to delete RFID cards on Consolidated Manual Rev.09
+title: Smart Card Deletion
+description: How to delete Smart Cards (all or one-by-one)
 ---
 
-# RFID Card Deletion
+# Smart Card Deletion
 
-## Mode A — Delete all at once
+## 🗑 Delete all cards (LED [2] — All at once)
 
-1. Open the battery cover. Press **Registration** once.
-2. Enter your PIN, then press `*`.
-3. Press number `8`.
-4. Hold `#` or `*` for 5 seconds. When you hear a melody, all cards have been deleted.
+**Steps:**
+1. Press and hold **OPEN/CLOSE** for **3 seconds**
+2. Enter main PIN + `[#]`
+3. LEDs [2] [3] [5] [0] light up → press number **[2]** (Card)
+4. Press and hold **`[#]` for 5 seconds** → melody plays → all cards deleted
 
-## Mode B — Delete one by one
+## 🗑 Delete one card (LED [2] — One-by-one)
 
-1. Follow steps 1-2 above.
-2. Press `8`, then press `#` or `*`.
-3. Enter the 3-digit slot number of the card to delete, then press `#` or `*`.
-4. When deletion is complete, all numbers on the keypad light up.
-5. If there's no card to delete, press **Registration** to exit.
+**Steps:**
+1. Press **OPEN/CLOSE** for 3 seconds → enter PIN + `[#]`
+2. LEDs [2] [3] [5] [0] light up → press **[2]**
+3. Enter the **3-digit slot number** (001-200) of the card to delete
+4. Press `[#]` → melody plays → card deleted
+5. Repeat for other cards, or press **R** to finish
+
+## ⚠️ Cautions
 
 :::warning
-Deletion cannot be undone. You must re-register a card to use it again.
+- **Card deletion cannot be undone** — must re-register if needed
+- **Deleting cards does NOT delete the main PIN** — other settings remain
+- If no card to delete, press **R** to exit
+- If an error occurs, LED [2] will blink
+- If Smart Card Auto Recognition is ON, cards will be read immediately — turn off Auto first before deletion
 :::

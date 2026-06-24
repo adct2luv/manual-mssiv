@@ -1,31 +1,65 @@
 ---
 sidebar_position: 5
-title: RFID Card Registration
-description: How to register RFID cards on Consolidated Manual Rev.09
+title: Smart Card Registration
+description: How to register Smart Cards (RFID) and configure Auto Recognition
 ---
 
-# RFID Card Registration
+# Smart Card Registration
 
-:::tip[Compatibility]
-Only 13.56 MHz RFID cards compatible with EPIC work with this lock. Cards included in the box must be registered manually.
+## 1. Card Registration (LED [2])
+
+**Up to 200 cards** per lock
+
+**Steps:**
+1. Press **R** and enter main PIN + `[#]`
+2. LEDs [1] [2] [3] [4] [5] light up → press number **[2]**
+3. Place the Smart Card on the reader → beep sounds
+4. Press **R** → melody plays to confirm
+
+:::tip
+- Smart Cards must be **13.56 MHz** (FeliCa/Mifare)
+- Up to **200 cards** can be registered
+- Registered cards are managed in the system
 :::
 
-:::caution[Door must be open during registration]
+## 2. Smart Card Auto/Manual Recognition (LED [1] / [4])
+
+Set the Smart Card reading mode.
+
+**Steps:**
+1. Touch the keypad to turn on LEDs
+2. Enter main PIN, then press `[#]`
+3. Press **[1]** for **Auto** or **[4]** for **Manual**
+4. Press **R** → melody plays to confirm
+
+| Mode | Behavior |
+|---|---|
+| **Auto (LED [1])** | Place card on reader → door opens immediately |
+| **Manual (LED [4])** | Must touch keypad first, then place card |
+
+:::caution
+- In **Manual** mode, if you don't touch the keypad first, the card won't be read
+- When Auto is set and FeliCa Auto-Detection is OFF, LED [2] will blink
+- LED [2] blinking + error tone = error
 :::
 
-## Mode A — Register all at once
+## 3. Door Open Alarm ON/OFF (LED [7])
 
-1. Open the battery cover. Press the **Registration** button once.
-2. Enter your PIN, then press `*`.
-3. Press number `2` (or `4` depending on model) to select RFID mode.
-4. Place each card on the reader one at a time. A beep confirms each registration.
-5. Press **Registration** to finish.
+Set the alarm when door is left open.
 
-Up to **100 cards** can be registered.
+**Steps:**
+1. Touch keypad → enter PIN + `[#]`
+2. Press **[7]** to toggle ON/OFF
+3. Press **R** to confirm
 
-## Mode B — Register one by one (assign slot numbers)
+**Behavior:**
+- **Enabled:** When Door Open Alarm Mode is ON and Deadbolt Auto Lock is active, if the Latch/Magnet sensor is disconnected → **beep 3 times every 7 seconds**
 
-1. Follow steps 1-3 above.
-2. Enter a 3-digit slot number (001–100), then press `#` or `*`.
-3. Place the card on the reader. The slot number flashes on the keypad.
-4. Repeat for additional cards, or press Registration to finish.
+## ⚠️ Cautions
+
+- Registering more than 200 cards is rejected — delete old cards first
+- Card registration does NOT delete the main PIN
+- To delete all cards, use **LED [2] in Deletion mode** (press for 5 seconds)
+- If an error occurs, LED [2] will blink
+- Cards used with **FeliCa Auto-Detection** will be read automatically when in range
+- **Smart Card + PIN** = Dual Authentication
