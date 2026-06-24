@@ -1,7 +1,7 @@
 ---
 sidebar_position: 6
 title: การลบบัตร RFID
-description: วิธีลบบัตร RFID บน EF-P8800K
+description: วิธีลบบัตร RFID บน N-TOUCH
 ---
 
 # การลบบัตร RFID

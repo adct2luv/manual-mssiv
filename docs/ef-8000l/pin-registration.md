@@ -1,27 +1,22 @@
 ---
 sidebar_position: 4
-title: การลงทะเบียนรหัส PIN
-description: วิธีเปลี่ยนรหัส PIN บน EF-8000L
+title: Pin Number Registration
+description: วิธีPin Number Registration บน EF-8000L
 ---
 
-# การลงทะเบียนรหัส PIN
+# Pin Number Registration
 
-:::caution[ข้อควรทราบก่อนเริ่มตั้งค่า]
-- กรุณาทำการลงทะเบียนรหัส PIN **ในขณะที่ประตูเปิดอยู่เสมอ** เพื่อป้องกันการล็อกนอกบ้านโดยไม่ตั้งใจ
-- รหัส PIN เริ่มต้นจากโรงงานคือ **`1, 2, 3, 4`** โปรดเปลี่ยนเป็นรหัสของคุณเองก่อนเริ่มใช้งานครั้งแรก
-- รหัส PIN ควรประกอบด้วยตัวเลขจำนวน 4~12 หลัก และควรหลีกเลี่ยงรหัสผ่านที่คาดเดาได้ง่าย เช่น `1111`, `1234` หรือวัน/เดือน/ปีเกิด
-- **ระบบไม่มีปุ่มกดรีเซ็ตเป็นค่าเริ่มต้นจากโรงงาน (Factory Reset) จากภายนอกเครื่อง** หากลืมรหัส PIN และไม่มีกุญแจสำรอง จะต้องติดต่อช่างบริการของทางบริษัทเพื่อดำเนินการทางเทคนิคเท่านั้น
+:::caution ข้อควรระวัง
+Always register pin number while door is open. Default pin number upon purchase is [1, 2, 3, 4]. Warning!: Please do not forget the pin number at all times. Once forgotten you will not be able to register new pin, card or fingerprint. There is no Pin number reset.
 :::
 
-## ขั้นตอนการตั้งค่า
-
-1. เปิดฝาครอบแบตเตอรี่ (ตัวเครื่องด้านใน) จากนั้นกดปุ่ม **Registration** (ลงทะเบียน) 1 ครั้ง จะมีเสียงสัญญาณบี๊บดังขึ้น
-2. ป้อนรหัส PIN ปัจจุบันของคุณ แล้วตามด้วยปุ่ม `*`
-3. กดปุ่มหมายเลขตามที่ระบุในคู่มือ (เช่น ปุ่ม `1`) เพื่อเลือกโหมดเปลี่ยนรหัส PIN
-4. ป้อนรหัส PIN ใหม่ที่ต้องการ แล้วตามด้วยปุ่ม `*`
-5. ป้อนรหัส PIN ใหม่ซ้ำอีกครั้งเพื่อยืนยัน จากนั้นตามด้วยปุ่ม `*`
-6. ตัวล็อกจะส่งเสียงสัญญาณเมโลดี้เพื่อยืนยันว่าการลงทะเบียนรหัสผ่านใหม่เสร็จสิ้นสมบูรณ์
-
-:::note[หมายเหตุ]
-แต่ละขั้นตอนตั้งค่าจะต้องดำเนินการภายใน 10 วินาที หากเกินเวลาที่กำหนด ระบบจะยกเลิกขั้นตอนโดยอัตโนมัติและต้องเริ่มต้นใหม่อีกครั้ง
+:::note
+Please register pin number within 10 seconds after pressing the registration button or the registration process will be cancelled. New registration of a single pin number will delete all previously registered pin number on the system.
 :::
+
+## ขั้นตอน
+
+1. Open battery compartment cover. Press [Registration] button once. ~beep sound will be heard.
+2. Enter pin number, followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad. Press [1] button.
+3. Enter Pin number to be registered 4~12 digits.
+4. Press [✱] button on the number pad. A melody will be heard, and the registration is complete.

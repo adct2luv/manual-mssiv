@@ -1,16 +1,17 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Digital lock supporting PIN and RFID.
+description: Overview and features of ES-T153
 ---
 
-# ES-T153 — ES-T153 Digital Lock
+# ES-T153
 
-Digital lock supporting PIN and RFID.
+**USER MANUAL [DIGITAL DOOR LOCK]**
 
-## Key Features
+**Default PIN:** `1,2,3,4`
 
-:::warning[Installation by professional required]
+> The default Pin Number is [1, 2, 3, 4]. Please change to new Pin Number. Ensure not to use consecutive or repetitive numbers for your safety.
+:::warning Professional installation required
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

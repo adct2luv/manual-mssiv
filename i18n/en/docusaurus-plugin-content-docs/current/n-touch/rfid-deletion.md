@@ -1,7 +1,7 @@
 ---
 sidebar_position: 6
 title: RFID Card Deletion
-description: How to delete RFID cards on ES-K70
+description: How to delete RFID cards on N-TOUCH
 ---
 
 # RFID Card Deletion

@@ -1,20 +1,29 @@
 ---
 sidebar_position: 2
-title: ข้อมูลจำเพาะ
+title: ข้อมูลจำเพาะ EF-8000L
 description: ข้อมูลจำเพาะของ EF-8000L
 ---
 
 # ข้อมูลจำเพาะ
 
+## ข้อมูลทั่วไป
+
 | รายการ | ค่า |
 |---|---|
-| ความหนาประตูที่รองรับ | 40~50 มม. |
-| รหัส PIN | ตัวเลข 4~12 หลัก |
-| บัตร RFID | บันทึกการ์ดสูงสุด 100 ใบ |
-| ลายนิ้วมือ | บันทึกลายนิ้วมือสูงสุด 100 ลายนิ้วมือ |
-| ระบบจ่ายไฟ | DC 6V (แบตเตอรี่อัลคาไลน์ขนาด AA จำนวน 4 ก้อน) |
-| ระบบจ่ายไฟฉุกเฉิน | แบตเตอรี่อัลคาไลน์ DC 9V (จำหน่ายแยกต่างหาก) |
-| การตรวจจับความร้อน | 62°C ± 5°C |
-| วัสดุ (ตัวเครื่องด้านนอก) | อะลูมิเนียม (Al), ซิงค์ (Zn), พลาสติกทนความร้อน (ABS) |
-| วัสดุ (ตัวเครื่องด้านใน) | ซิงค์ (Zn), พลาสติกทนความร้อน (ABS) |
-| ประเภทผลิตภัณฑ์ | ไม่มีกุญแจกลไก |
+| **Installation** | Normal door 40mm~50mm Door Thickness |
+| **Authentication** | Pin Number 4~12 Digits |
+| **Authentication** | Smart Key 100 Keys can be registered |
+| **Authentication** | Fingerprint 100 Fingerprints can be registered |
+| **Voltage** | DC 6V LR6 1.5V AA Size Alkaline Battery 8 PCS |
+| **Emergency Battery** | DC 9V Alkaline Battery (Sold Separately) |
+| **Product Type** | Non-Fire Proof, Heat Sensor, Mech.Key, Main Type Door Lock (D-NF-T-K-M) — |
+| **Heat Sensor** | Temperature Sensor Level 72°C±5°C (Testing Room) / 62°C±5°C (Normal Environment) |
+| **Material** | Outbody Al, Zn, ABS |
+| **Material** | Inbody Zn, ABS |
+
+## RF Specification
+
+| Item | Frequency | Channel | Modulation | Power |
+|---|---|---|---|---|
+| RFID | 13.56MHz | 1 PC | ASK | 93.5dBuV/m@10m Below |
+| Remote Device | 447.275MHz | 1 PC | FSK | 10mW below |

@@ -1,16 +1,17 @@
 ---
 sidebar_position: 1
-title: กุญแจดิจิทัล ES-T153
-description: กุญแจดิจิทัลที่รองรับ PIN และบัตร RFID
+title: ภาพรวม ES-T153
+description: ภาพรวมและคุณสมบัติของ ES-T153
 ---
 
-# ES-T153 — กุญแจดิจิทัล ES-T153
+# ES-T153
 
-กุญแจดิจิทัลที่รองรับ PIN และบัตร RFID
+**USER MANUAL [DIGITAL DOOR LOCK]**
 
-## คุณสมบัติเด่น
+**รหัส PIN เริ่มต้น:** `1,2,3,4`
 
-:::warning[ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ]
+> The default Pin Number is [1, 2, 3, 4]. Please change to new Pin Number. Ensure not to use consecutive or repetitive numbers for your safety.
+:::warning ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ
 ผลิตภัณฑ์นี้ต้องติดตั้งโดย **ช่างผู้เชี่ยวชาญเท่านั้น** เพื่อให้ได้รับการรับประกันเต็มรูปแบบ ห้ามติดตั้งด้วยตัวเอง
 :::
 

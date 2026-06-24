@@ -1,16 +1,11 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Main type digital lock supporting PIN, Smart Key, and Mechanical Key.
+description: Overview and features of ES-809L
 ---
 
-# ES-809L — ES-809L Digital Lock
-
-Main type digital lock supporting PIN, Smart Key, and Mechanical Key.
-
-## Key Features
-
-:::warning[Installation by professional required]
+# ES-809L
+:::warning Professional installation required
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

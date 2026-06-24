@@ -1,32 +1,23 @@
 ---
 sidebar_position: 5
-title: การลงทะเบียนบัตร RFID
-description: วิธีลงทะเบียนบัตร RFID บน EF-8000L
+title: Smart Key Registration (Normal)
+description: วิธีSmart Key Registration (Normal) บน EF-8000L
 ---
 
-# การลงทะเบียนบัตร RFID
+# Smart Key Registration (Normal)
 
-:::tip[บัตรที่รองรับ]
-รองรับเฉพาะบัตรหรือแท็ก RFID ความถี่ 13.56 MHz ที่ผ่านการรับรองความเข้ากันได้กับระบบของ EPIC เท่านั้น (การ์ดหรือแท็กที่แถมมาในกล่องจะต้องทำการลงทะเบียนเข้ากับตัวเครื่องก่อนจึงจะเปิดประตูได้)
+:::caution ข้อควรระวัง
+New smart keys are registered without erasing previous registration records. Smart keys included inside the box are not registered in default. Only compatible cards can be registered and used.
 :::
 
-:::caution[ข้อควรระวัง]
-ประตูต้องเปิดอยู่ตลอดเวลาในขณะทำการลงทะเบียน
+## ขั้นตอน
+
+1. Open battery compartment cover. Press [Registration] button once. ~beep sound will be heard.
+2. Enter pin number, followed by [✱] button. Check if the numbers [1, 2, 3, 4, 8, 9] are lighted on the number pad. Press [4] button.
+3. Place smart keys to be registered on the Card reader. (A beep sound will signal registration of each card)
+4. Press [Registration] button after all cards has been registered. And the registration is complete.
+
+:::note หมายเหตุ
+- Up to 100 Smart keys can be registered. To register multiple smart keys, repeat step ③ before the number pad turns off. After all smart keys has been registered Press [Registration] button to complete.
+- Place smart keys on the reader within 10 seconds after pressing [Registration] button or the registration process will be cancelled. No more smart keys registration is possible on registering 100th smart key.
 :::
-
-## โหมดลงทะเบียนการ์ดแบบทั่วไป (ลงทะเบียนทั้งหมดพร้อมกัน)
-
-1. เปิดฝาครอบแบตเตอรี่ (ตัวเครื่องด้านใน) จากนั้นกดปุ่ม **Registration** (ลงทะเบียน) 1 ครั้ง
-2. ป้อนรหัส PIN ปัจจุบันของคุณ แล้วตามด้วยปุ่ม `*`
-3. กดปุ่มหมายเลข `2` (หรือปุ่ม `4` ขึ้นอยู่กับรุ่นของคุณ) เพื่อเข้าสู่โหมดลงทะเบียน RFID
-4. ทาบบัตรหรือแท็กบนเครื่องอ่านทีละใบ ตัวเครื่องจะมีเสียงสัญญาณบี๊บยืนยันสำหรับบัตรแต่ละใบ
-5. กดปุ่ม **Registration** (ลงทะเบียน) อีกครั้งเพื่อเสร็จสิ้นขั้นตอน
-
-สามารถลงทะเบียนการ์ดได้สูงสุด **100 ใบ**
-
-## โหมดลงทะเบียนการ์ดแบบระบุช่องข้อมูล (Individual Register)
-
-1. ทำตามขั้นตอนที่ 1 ถึง 3 ในการลงทะเบียนแบบทั่วไป
-2. ป้อนหมายเลขระบุช่องข้อมูลการ์ดเป็นตัวเลข 3 หลัก (ตั้งแต่ 001 ถึง 100) จากนั้นกดปุ่ม `#` หรือ `*`
-3. ทาบบัตรหรือแท็กบนพื้นที่เครื่องอ่านคีย์แพด หมายเลขช่องข้อมูลจะกะพริบบนคีย์แพดแสดงสถานะสำเร็จ
-4. ทำซ้ำขั้นตอนเดิมหากต้องการลงทะเบียนการ์ดช่องอื่น หรือกดปุ่ม **Registration** อีกครั้งเพื่อเสร็จสิ้นขั้นตอน

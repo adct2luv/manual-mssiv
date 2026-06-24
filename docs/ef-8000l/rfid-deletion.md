@@ -1,26 +1,13 @@
 ---
 sidebar_position: 6
-title: การลบบัตร RFID
-description: วิธีลบบัตร RFID บน EF-8000L
+title: Smart Key Deletion (All-at-once)
+description: วิธีSmart Key Deletion (All-at-once) บน EF-8000L
 ---
 
-# การลบบัตร RFID
+# Smart Key Deletion (All-at-once)
 
-## โหมดลบการ์ดทั้งหมดพร้อมกัน (Delete All)
+## ขั้นตอน
 
-1. เปิดฝาครอบแบตเตอรี่ (ตัวเครื่องด้านใน) แล้วกดปุ่ม **Registration** 1 ครั้ง
-2. ป้อนรหัส PIN ปัจจุบันของคุณ แล้วตามด้วยปุ่ม `*`
-3. กดปุ่มหมายเลข `8` บนคีย์แพด
-4. กดปุ่ม `#` หรือ `*` ค้างไว้ประมาณ 5 วินาที เมื่อได้ยินเสียงสัญญาณเพลงเมโลดี้ดังขึ้น แสดงว่าบัตรทั้งหมดถูกลบเรียบร้อยแล้ว
-
-## โหมดลบการ์ดทีละใบแบบเฉพาะเจาะจง (Delete Individual)
-
-1. ทำตามขั้นตอนที่ 1 ถึง 2 ในการลบการ์ดแบบทั้งหมด
-2. กดปุ่มหมายเลข `8` จากนั้นตามด้วยปุ่ม `#` หรือ `*`
-3. ป้อนหมายเลขระบุช่องข้อมูลของการ์ด 3 หลักที่ต้องการลบ จากนั้นกดปุ่ม `#` หรือ `*`
-4. เมื่อระบบลบข้อมูลเสร็จสิ้น ตัวเลขทั้งหมดบนคีย์แพดจะสว่างขึ้น
-5. หากการลบเสร็จสิ้นหรือไม่มีการ์ดอื่นต้องการลบแล้ว ให้กดปุ่ม **Registration** เพื่อสิ้นสุดขั้นตอนและออกจากโหมด
-
-:::warning[ข้อควรระวัง]
-การลบข้อมูลบัตรจะไม่สามารถยกเลิกได้ คุณจะต้องนำบัตรดังกล่าวมาทำการลงทะเบียนใหม่อีกครั้งหากต้องการใช้งานต่อ
-:::
+1. Open battery compartment cover. Press [Registration] button once. ~beep sound will be heard.
+2. Enter pin number, followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad. Press [8] button.
+3. Long Press [#] button for 5 seconds. When the melody is heard, All smart keys are deleted.

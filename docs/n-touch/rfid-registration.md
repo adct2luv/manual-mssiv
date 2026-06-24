@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 title: การลงทะเบียนบัตร RFID
-description: วิธีลงทะเบียนบัตร RFID บน TRIPLEX-3WAY
+description: วิธีลงทะเบียนบัตร RFID บน N-TOUCH
 ---
 
 # การลงทะเบียนบัตร RFID

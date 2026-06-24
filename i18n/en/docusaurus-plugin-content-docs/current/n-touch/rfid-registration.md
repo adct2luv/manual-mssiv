@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 title: RFID Card Registration
-description: How to register RFID cards on ES-P9100FK
+description: How to register RFID cards on N-TOUCH
 ---
 
 # RFID Card Registration

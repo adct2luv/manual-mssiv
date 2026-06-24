@@ -1,16 +1,13 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Digital lock supporting PIN, Smart Key, Home Network, and Remote Control.
+description: Overview and features of TRIPLEX-2WAY
 ---
 
-# TRIPLEX 2way — TRIPLEX 2way Digital Lock
+# TRIPLEX-2WAY
 
-Digital lock supporting PIN, Smart Key, Home Network, and Remote Control.
-
-## Key Features
-
-:::warning[Installation by professional required]
+**User Manual TRIPLEX 2WAY**
+:::warning Professional installation required
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

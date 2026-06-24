@@ -1,31 +1,18 @@
 ---
 sidebar_position: 5
-title: RFID Card Registration
-description: How to register RFID cards on EF-8000L
+title: Smart Key Registration (Normal)
+description: How to Smart Key Registration (Normal) on EF-8000L
 ---
 
-# RFID Card Registration
+# Smart Key Registration (Normal)
 
-:::tip[Compatibility]
-Only 13.56 MHz RFID cards compatible with EPIC work with this lock. Cards included in the box must be registered manually.
+:::caution Caution
+New smart keys are registered without erasing previous registration records. Smart keys included inside the box are not registered in default. Only compatible cards can be registered and used.
 :::
 
-:::caution[Door must be open during registration]
-:::
+## Steps
 
-## Mode A — Register all at once
-
-1. Open the battery cover. Press the **Registration** button once.
-2. Enter your PIN, then press `*`.
-3. Press number `2` (or `4` depending on model) to select RFID mode.
-4. Place each card on the reader one at a time. A beep confirms each registration.
-5. Press **Registration** to finish.
-
-Up to **100 cards** can be registered.
-
-## Mode B — Register one by one (assign slot numbers)
-
-1. Follow steps 1-3 above.
-2. Enter a 3-digit slot number (001–100), then press `#` or `*`.
-3. Place the card on the reader. The slot number flashes on the keypad.
-4. Repeat for additional cards, or press Registration to finish.
+1. Open battery compartment cover. Press [Registration] button once. ~beep sound will be heard.
+2. Enter pin number, followed by [✱] button. Check if the numbers [1, 2, 3, 4, 8, 9] are lighted on the number pad. Press [4] button.
+3. Place smart keys to be registered on the Card reader. (A beep sound will signal registration of each card)
+4. Press [Registration] button after all cards has been registered. And the registration is complete.

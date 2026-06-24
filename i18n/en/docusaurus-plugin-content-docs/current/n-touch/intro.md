@@ -1,20 +1,17 @@
 ---
 sidebar_position: 1
 title: Overview
-description: PIN-only digital lock, simple and easy to use.
+description: Overview and features of N-TOUCH
 ---
 
-# N-TOUCH — N-TOUCH Digital Lock
+# N-TOUCH
 
-![N-TOUCH](/img/brochures/n-touch.png)
+**USER MANUAL [DIGITAL DOOR LOCK]**
 
-PIN-only digital lock, simple and easy to use.
+**Default PIN:** `1234`
 
-## Key Features
-
-- **📷 Brochure image: n-touch.png**
-
-:::warning[Installation by professional required]
+> The default pin number is 1234. Please change to new pin number. Ensure not to use consecutive or repetitive numbers for your safety.
+:::warning Professional installation required
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

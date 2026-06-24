@@ -1,27 +1,23 @@
 ---
 sidebar_position: 7
-title: การลงทะเบียนลายนิ้วมือ
-description: วิธีลงทะเบียนลายนิ้วมือบน EF-8000L
+title: Fingerprint Registration (Normal)
+description: วิธีFingerprint Registration (Normal) บน EF-8000L
 ---
 
-# การลงทะเบียนลายนิ้วมือ
+# Fingerprint Registration (Normal)
 
-:::caution[ข้อควรทราบ]
-การลบลายนิ้วมือสำหรับระบบปกติจะสามารถลบข้อมูลทั้งหมดพร้อมกันเท่านั้น (Delete All) และเมื่อมีการลงทะเบียนลายนิ้วมือครบโควตาสูงสุด **100 ลายนิ้วมือ** แล้ว จะไม่สามารถเพิ่มลายนิ้วมือใหม่ได้อีกจนกว่าจะล้างข้อมูลลายนิ้วมือชุดเก่าออก
+:::caution ข้อควรระวัง
+Fingerprint deletion cannot be done one by one but all at once. Please refer to page 15 for fingerprint deletion. When 100 fingerprints are registered, no more registration is possible. If you still want to register new one, you need to delete all records and begin a new registration procedure.
 :::
 
-## ขั้นตอนการลงทะเบียน
+## ขั้นตอน
 
-1. เปิดฝาครอบแบตเตอรี่ (ตัวเครื่องด้านใน) แล้วกดปุ่ม **Registration** 1 ครั้ง
-2. ป้อนรหัส PIN ปัจจุบันของคุณ แล้วตามด้วยปุ่ม `*`
-3. กดปุ่มหมายเลข `2` หรือ `3` (ขึ้นอยู่กับรุ่นของผลิตภัณฑ์) เพื่อเข้าสู่โหมดลงทะเบียนลายนิ้วมือ
-4. แตะนิ้วมือที่คุณต้องการลงทะเบียนบนพื้นที่เซ็นเซอร์สแกน **3 ครั้งติดต่อกันอย่างสม่ำเสมอ**
-5. เมื่อลงทะเบียนเสร็จสมบูรณ์ จะมีเสียงสัญญาณบี๊บดังขึ้นยืนยัน
-6. กดปุ่ม **Registration** อีกครั้งเพื่อเสร็จสิ้นขั้นตอน
+1. Open battery cover, press [Registration] button once. You can hear beep sound.
+2. Enter pin number, followed by [✱] button. See if numbers [1, 2, 3, 4, 8, 9] are lighted on the number pad. Press [2] before the number pad turns off.
+3. Place a finger to register three times on the fingerprint reader. If the first reading is successful numbers [1][2][3] will be displayed with blinking number [2]. If the second reading is successful numbers [1][2][3] will be displayed with blinking number [3]. Go ahead with the third reading. Fingerprint registration is complete when the third reading is successful. Now you will see the location number stored for the specific fingerprint with an animated circle and complete sound beep.
+4. Press [Registration] button after all fingerprints has been registered. and registration is complete.
 
-:::note[ข้อแนะนำและสถานะการสแกน]
-- การสแกนครั้งที่ 1 สำเร็จ: ตัวเลข [1][2][3] บนแป้นคีย์แพดจะแสดงขึ้น โดยตัวเลข `[2]` จะกะพริบเพื่อรอรับการสแกนครั้งถัดไป
-- การสแกนครั้งที่ 2 สำเร็จ: ตัวเลข [1][2][3] บนแป้นคีย์แพดจะแสดงขึ้น โดยตัวเลข `[3]` จะกะพริบเพื่อรอรับการสแกนครั้งถัดไป
-- การสแกนครั้งที่ 3 สำเร็จ: ตัวเครื่องส่งสัญญาณว่าบันทึกลายนิ้วมือสำเร็จเรียบร้อย
-- สำหรับผู้ใช้ที่มีผิวลายนิ้วมือบางหรือเด็กเล็ก อาจทำให้เซ็นเซอร์อ่านข้อมูลได้ยากกว่าปกติ
+:::note หมายเหตุ
+- To register multiple fingerprints, repeat step ③ before the number pad lights turns off.
+- Please register fingerprint within 20 seconds after pressing [Registration] button or the registration will be cancelled. Corrupted or Child fingerprints may have difficulty in authentication.
 :::

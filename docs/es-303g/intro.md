@@ -1,20 +1,17 @@
 ---
 sidebar_position: 1
-title: กุญแจประตูกระจก ES-303G
-description: กุญแจดิจิทัลสำหรับประตูกระจก รองรับ PIN และบัตร RFID ติดตั้งง่ายด้วยระบบจดจำซ้ายขวาอัตโนมัติ
+title: ภาพรวม ES-303G
+description: ภาพรวมและคุณสมบัติของ ES-303G
 ---
 
-# ES-303G — กุญแจประตูกระจก ES-303G
+# ES-303G
 
-![ES-303G](/img/brochures/es-303g.png)
+**ES-303G User Manual**
 
-กุญแจดิจิทัลสำหรับประตูกระจก รองรับ PIN และบัตร RFID ติดตั้งง่ายด้วยระบบจดจำซ้ายขวาอัตโนมัติ
+**รหัส PIN เริ่มต้น:** `1, 2, 3, 4`
 
-## คุณสมบัติเด่น
-
-- **📷 Brochure image: es-303g.png**
-
-:::warning[ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ]
+> Create a new 4~12 digits Pin number that is difficult to crack or guess. Do not use consecutive and repetitive number.
+:::warning ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ
 ผลิตภัณฑ์นี้ต้องติดตั้งโดย **ช่างผู้เชี่ยวชาญเท่านั้น** เพื่อให้ได้รับการรับประกันเต็มรูปแบบ ห้ามติดตั้งด้วยตัวเอง
 :::
 

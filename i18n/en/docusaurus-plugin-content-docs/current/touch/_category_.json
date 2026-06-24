@@ -3,6 +3,6 @@
   "position": 1,
   "link": {
     "type": "generated-index",
-    "description": "Digital lock supporting PIN and Smart Card."
+    "description": "Digital lock with PIN + Smart Card"
   }
 }

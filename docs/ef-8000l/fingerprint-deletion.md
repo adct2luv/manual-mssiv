@@ -1,27 +1,13 @@
 ---
 sidebar_position: 8
-title: การลบลายนิ้วมือ
-description: วิธีลบลายนิ้วมือบน EF-8000L
+title: Fingerprint Deletion (All-at-once)
+description: วิธีFingerprint Deletion (All-at-once) บน EF-8000L
 ---
 
-# การลบลายนิ้วมือ
+# Fingerprint Deletion (All-at-once)
 
-## โหมดลบลายนิ้วมือทั้งหมดพร้อมกัน (Delete All)
+## ขั้นตอน
 
-1. เปิดฝาครอบแบตเตอรี่ (ตัวเครื่องด้านใน) แล้วกดปุ่ม **Registration** 1 ครั้ง
-2. ป้อนรหัส PIN ปัจจุบันของคุณ แล้วตามด้วยปุ่ม `*`
-3. กดปุ่มหมายเลข `9` บนคีย์แพด
-4. กดปุ่ม `#` หรือ `*` ค้างไว้ประมาณ 5 วินาที
-5. เมื่อได้ยินเสียงสัญญาณเพลงเมโลดี้ดังขึ้น ลายนิ้วมือทั้งหมดจะถูกลบเรียบร้อยแล้ว
-
-## โหมดลบลายนิ้วมือเฉพาะบุคคล (Delete Individual - ถ้ารองรับ)
-
-1. ทำตามขั้นตอนที่ 1 ถึง 3 ในการลบลายนิ้วมือแบบทั้งหมด
-2. กดปุ่ม `#` หรือ `*` จากนั้นตัวเลขทั้งหมดบนคีย์แพดจะสว่างขึ้นเพื่อเข้าสู่โหมดระบุตัวตน
-3. ป้อนหมายเลขช่องระบุลายนิ้วมือ 3 หลัก (ตั้งแต่ 001 ถึง 100) ที่ต้องการลบ จากนั้นตามด้วยปุ่ม `#` หรือ `*`
-4. เมื่อระบบลบข้อมูลเสร็จสิ้น จะมีเสียงสัญญาณแจ้งเตือนยืนยัน
-5. กดปุ่ม **Registration** อีกครั้งเพื่อสิ้นสุดขั้นตอน
-
-:::warning[ข้อควรระวัง]
-การลบข้อมูลลายนิ้วมือจะไม่สามารถยกเลิกได้ คุณจะต้องสแกนลายนิ้วมือเพื่อลงทะเบียนใหม่อีกครั้งหากต้องการใช้งานต่อ
-:::
+1. Open battery compartment cover. Press [Registration] button once. ~beep sound will be heard.
+2. Enter pin number, followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad. Press [9] button.
+3. Long Press [#] button for 5 seconds. When the melody is heard, All fingerprints are deleted.

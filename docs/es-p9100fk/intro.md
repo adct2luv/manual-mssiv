@@ -1,16 +1,17 @@
 ---
 sidebar_position: 1
-title: กุญแจดิจิทัล ES-P9100FK
-description: กุญแจดิจิทัล Main Type รองรับ PIN, บัตร RFID, ลายนิ้วมือ และกุญแจกลไก
+title: ภาพรวม ES-P9100FK
+description: ภาพรวมและคุณสมบัติของ ES-P9100FK
 ---
 
-# ES-P9100FK — กุญแจดิจิทัล ES-P9100FK
+# ES-P9100FK
 
-กุญแจดิจิทัล Main Type รองรับ PIN, บัตร RFID, ลายนิ้วมือ และกุญแจกลไก
+**USER MANUAL [DIGITAL DOOR LOCK]**
 
-## คุณสมบัติเด่น
+**รหัส PIN เริ่มต้น:** `1234`
 
-:::warning[ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ]
+> The default pin number is 1234. Please change to new pin number. Ensure not to use consecutive or repetitive numbers for your safety.
+:::warning ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ
 ผลิตภัณฑ์นี้ต้องติดตั้งโดย **ช่างผู้เชี่ยวชาญเท่านั้น** เพื่อให้ได้รับการรับประกันเต็มรูปแบบ ห้ามติดตั้งด้วยตัวเอง
 :::
 

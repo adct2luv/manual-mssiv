@@ -1,27 +1,13 @@
 ---
 sidebar_position: 8
-title: Fingerprint Deletion
-description: How to delete fingerprints on EF-8000L
+title: Fingerprint Deletion (All-at-once)
+description: How to Fingerprint Deletion (All-at-once) on EF-8000L
 ---
 
-# Fingerprint Deletion
+# Fingerprint Deletion (All-at-once)
 
-## Delete all
+## Steps
 
-1. Open the battery cover. Press **Registration** once.
-2. Enter your PIN, then press `*`.
-3. Press number `9`.
-4. Hold `#` or `*` for 5 seconds.
-5. When you hear a melody, all fingerprints have been deleted.
-
-## Delete by slot (if supported)
-
-1. Follow steps 1-3 above.
-2. Press `#` or `*`. All keypad numbers light up.
-3. Enter the 3-digit slot number (001–100) of the fingerprint to delete, then press `#` or `*`.
-4. A confirmation sound plays.
-5. Press **Registration** to exit.
-
-:::warning
-Deletion cannot be undone. You must re-register fingerprints to use them again.
-:::
+1. Open battery compartment cover. Press [Registration] button once. ~beep sound will be heard.
+2. Enter pin number, followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad. Press [9] button.
+3. Long Press [#] button for 5 seconds. When the melody is heard, All fingerprints are deleted.

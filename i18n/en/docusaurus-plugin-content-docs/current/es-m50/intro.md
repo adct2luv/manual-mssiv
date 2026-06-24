@@ -1,20 +1,17 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Digital lock supporting PIN and RFID for main doors.
+description: Overview and features of ES-M50
 ---
 
-# ES-M50 — ES-M50 Digital Lock
+# ES-M50
 
-![ES-M50](/img/brochures/es-m50.png)
+**USER MANUAL [DIGITAL DOOR LOCK]**
 
-Digital lock supporting PIN and RFID for main doors.
+**Default PIN:** `1,2,3,4`
 
-## Key Features
-
-- **📷 Brochure image: es-m50.png**
-
-:::warning[Installation by professional required]
+> The default Pin Number is [1, 2, 3, 4]. Please change to new Pin Number. Ensure not to use consecutive or repetitive numbers for your safety.
+:::warning Professional installation required
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

@@ -1,20 +1,17 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Main type digital lock supporting PIN, RFID, Fingerprint, and Remote Control.
+description: Overview and features of EF-P8800K
 ---
 
-# EF-P8800K — EF-P8800K Digital Lock
+# EF-P8800K
 
-![EF-P8800K](/img/brochures/ef-p8800k.png)
+**USER MANUAL**
 
-Main type digital lock supporting PIN, RFID, Fingerprint, and Remote Control.
+**Default PIN:** `1234`
 
-## Key Features
-
-- **📷 Brochure image: ef-p8800k.png**
-
-:::warning[Installation by professional required]
+> The default pin number is 1234. Please change to new pin number. Ensure not to use consecutive or repetitive numbers for your safety.
+:::warning Professional installation required
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

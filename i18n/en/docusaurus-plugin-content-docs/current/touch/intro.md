@@ -1,20 +1,17 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Digital lock supporting PIN and Smart Card.
+description: Overview and features of TOUCH
 ---
 
-# TOUCH — TOUCH Digital Lock
+# TOUCH
 
-![TOUCH](/img/brochures/touch.png)
+**USER'S MANUAL [DIGITAL DOOR LOCK]**
 
-Digital lock supporting PIN and Smart Card.
+**Default PIN:** `1234`
 
-## Key Features
-
-- **📷 Brochure image: touch.png**
-
-:::warning[Installation by professional required]
+> The default pin number is 1234. Please change to new pin number. Ensure not to use consecutive or repetitive numbers for your safety.
+:::warning Professional installation required
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

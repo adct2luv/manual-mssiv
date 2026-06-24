@@ -1,20 +1,17 @@
 ---
 sidebar_position: 1
 title: Overview
-description: Digital lock for glass doors. Supports PIN and RFID. Easy installation with automatic left/right detection.
+description: Overview and features of ES-303G
 ---
 
-# ES-303G — ES-303G Glass Door Lock
+# ES-303G
 
-![ES-303G](/img/brochures/es-303g.png)
+**ES-303G User Manual**
 
-Digital lock for glass doors. Supports PIN and RFID. Easy installation with automatic left/right detection.
+**Default PIN:** `1, 2, 3, 4`
 
-## Key Features
-
-- **📷 Brochure image: es-303g.png**
-
-:::warning[Installation by professional required]
+> Create a new 4~12 digits Pin number that is difficult to crack or guess. Do not use consecutive and repetitive number.
+:::warning Professional installation required
 This product must be installed by a **qualified technician only** to receive full warranty coverage. Do not install it yourself.
 :::
 

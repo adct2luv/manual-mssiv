@@ -1,27 +1,18 @@
 ---
 sidebar_position: 7
-title: Fingerprint Registration
-description: How to register fingerprints on EF-8000L
+title: Fingerprint Registration (Normal)
+description: How to Fingerprint Registration (Normal) on EF-8000L
 ---
 
-# Fingerprint Registration
+# Fingerprint Registration (Normal)
 
-:::caution
-Fingerprint deletion is all-at-once only. Once 100 fingerprints are registered, no more can be added until you delete all existing ones.
+:::caution Caution
+Fingerprint deletion cannot be done one by one but all at once. Please refer to page 15 for fingerprint deletion. When 100 fingerprints are registered, no more registration is possible. If you still want to register new one, you need to delete all records and begin a new registration procedure.
 :::
 
 ## Steps
 
-1. Open the battery cover. Press **Registration** once.
-2. Enter your PIN, then press `*`.
-3. Press number `2` or `3` (depending on model) to select fingerprint mode.
-4. Place your finger on the fingerprint sensor **3 times consecutively** as instructed.
-5. A beep confirms successful registration.
-6. Press **Registration** to finish.
-
-:::note
-- 1st reading success: numbers [1][2][3] display with [2] blinking
-- 2nd reading success: numbers [1][2][3] display with [3] blinking
-- 3rd reading success: fingerprint registration complete
-- Damaged fingerprints or children's fingerprints may have difficulty authenticating
-:::
+1. Open battery cover, press [Registration] button once. You can hear beep sound.
+2. Enter pin number, followed by [✱] button. See if numbers [1, 2, 3, 4, 8, 9] are lighted on the number pad. Press [2] before the number pad turns off.
+3. Place a finger to register three times on the fingerprint reader. If the first reading is successful numbers [1][2][3] will be displayed with blinking number [2]. If the second reading is successful numbers [1][2][3] will be displayed with blinking number [3]. Go ahead with the third reading. Fingerprint registration is complete when the third reading is successful. Now you will see the location number stored for the specific fingerprint with an animated circle and complete sound beep.
+4. Press [Registration] button after all fingerprints has been registered. and registration is complete.

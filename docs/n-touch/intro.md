@@ -1,20 +1,17 @@
 ---
 sidebar_position: 1
-title: กุญแจดิจิทัล N-TOUCH
-description: กุญแจดิจิทัลแบบ PIN อย่างเดียว เรียบง่ายและใช้งานง่าย
+title: ภาพรวม N-TOUCH
+description: ภาพรวมและคุณสมบัติของ N-TOUCH
 ---
 
-# N-TOUCH — กุญแจดิจิทัล N-TOUCH
+# N-TOUCH
 
-![N-TOUCH](/img/brochures/n-touch.png)
+**USER MANUAL [DIGITAL DOOR LOCK]**
 
-กุญแจดิจิทัลแบบ PIN อย่างเดียว เรียบง่ายและใช้งานง่าย
+**รหัส PIN เริ่มต้น:** `1234`
 
-## คุณสมบัติเด่น
-
-- **📷 Brochure image: n-touch.png**
-
-:::warning[ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ]
+> The default pin number is 1234. Please change to new pin number. Ensure not to use consecutive or repetitive numbers for your safety.
+:::warning ต้องติดตั้งโดยช่างผู้เชี่ยวชาญ
 ผลิตภัณฑ์นี้ต้องติดตั้งโดย **ช่างผู้เชี่ยวชาญเท่านั้น** เพื่อให้ได้รับการรับประกันเต็มรูปแบบ ห้ามติดตั้งด้วยตัวเอง
 :::
 
