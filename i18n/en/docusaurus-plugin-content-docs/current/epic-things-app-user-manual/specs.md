@@ -13,6 +13,3 @@ description: Specifications of EPIC Things APP User Manual
 | Power | DC 6V (AA Alkaline x 4) |
 | Emergency Battery | DC 9V Alkaline battery (sold separately) |
 | Fire Detection | 62°C ± 5°C |
-| Material (Outer) | Al, Zn, ABS |
-| Material (Inner) | Zn, ABS |
-| Product Type | Non-key |

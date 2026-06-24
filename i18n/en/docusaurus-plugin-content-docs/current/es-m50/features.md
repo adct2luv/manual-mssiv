@@ -12,7 +12,7 @@ description: Special features of ES-M50
 Random number feature is enabled in default. This is a security feature that keeps the pin number from being exposed by the additional random number that is added before or after the original pin number. The number to be entered including the pin number should not exceed 20 digits.
 :::
 
-## forced_lock
+## Inside Force Lock
 
 Inside double lock - When enabled will not allow Pin, Card, entry from outside.
 
@@ -23,7 +23,7 @@ Inside double lock - When enabled will not allow Pin, Card, entry from outside.
 
 **Cancellation:** Turn the inner body handle in downward motion inside, and the double lock setting will be cancelled.
 
-## sound_volume
+## Sound Volume Setting
 
 This feature allows the user to adjust the operation sound volume per level. (perform while door closed) ※ Sound can be adjusted up to 7 levels.
 
@@ -38,7 +38,7 @@ This feature allows the user to adjust the operation sound volume per level. (pe
 Press [3] button to increase sound. Press [6] button to decrease sound. In mute mode the number pad will blink, when you press a number. The volume level is set on high in default.
 :::
 
-## sound_mute
+## Sound Mute Setting
 
 Regardless of the volume setting, This feature lets you mute the operation melody. This is per 1 time usage only. The operation sound will occur on next operation.
 
@@ -47,7 +47,7 @@ Regardless of the volume setting, This feature lets you mute the operation melod
 1. Touch the number pad, press the [✱] button (in mute state).
 2. Enter Pin number, press [✱] button, door will open. (Number pad will blink)
 
-## auto_manual_lock
+## Auto / Manual Lock Setting
 
 An optional feature that lets you set the lock in automatic and manual Lock mode.
 

@@ -6,7 +6,7 @@ description: Alarms and safety of ES-K70
 
 # Alarms & Safety
 
-## mechanical_key
+## Emergency Mechanical Key
 
 ### Steps
 

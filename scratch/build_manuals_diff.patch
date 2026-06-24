@@ -1,0 +1,687 @@
+diff --git a/scripts/build_manuals.py b/scripts/build_manuals.py
+index 2dee6ad..647564f 100644
+--- a/scripts/build_manuals.py
++++ b/scripts/build_manuals.py
+@@ -156,14 +156,100 @@ TH_DESCRIPTIONS = {
+ }
+ 
+ # Translation lookups for specific component functions, spec labels, spec values
++NON_HANDLE_MODELS = {
++    "es-303g", "es-b10", "os300h", "popscan", "touch", "n-touch",
++    "es-s100dr", "es-f300dr", "es-f301d", "es-f501d", "es-l200",
++    "triplex-2way", "triplex-3way"
++}
++
++COMPONENT_FUNCTIONS = {
++    # Outer Body Parts
++    "Number Pad": "Enter PIN or configuration commands",
++    "Touch-Type Number Pad": "Enter PIN or configuration commands",
++    "Status LED Lamp": "Shows lock status (idle / locked / error)",
++    "Battery Lamp": "Lights up when battery is low",
++    "RFID Card Reader": "Tap registered card here",
++    "Reset Button": "Reset lock to factory defaults (rarely used)",
++    "Emergency Battery Terminal": "Touch 9V battery here if lock is dead",
++    "Outer Body Handle": "Pull down to retract bolt after unlock",
++    "Fingerprint Reader": "Scan registered fingerprint here",
++    "Fingerprint Cover Open Button": "Press to open fingerprint cover",
++    "Mechanical Key Hole": "Insert emergency mechanical key here",
++    "Function sensor bar": "Touch to activate keyboard/card sensor",
++    
++    # Inner Body Parts
++    "Battery Cover": "Slide off to access battery compartment",
++    "Registration Button": "Used when registering PIN, Card or Fingerprint",
++    "Open/Close Button": "One-touch unlock from inside",
++    "Dual Lock Button": "Privacy mode - blocks outside access",
++    "Inner Body Handle": "Pull down to retract bolt from inside",
++    "Alkaline AA Battery": "Main power source",
++    "Manual Lock Button": "Used to close/lock the door in manual mode",
++    "Safety Button": "Press to unlock/lock safely from inside",
++    "Manual Lock/Unlock Knob": "Turn manually to lock or unlock the door",
++    "Deadbolt": "Locking bolt that secures the door",
++    "Latch Bolt": "Spring-loaded latch bolt",
++    "Battery Cover Fixing Screw": "Secures the battery cover in place",
++    "Receiver module attachment (Optional)": "Slot to insert remote control/home network module",
++    "Internal handle lock button": "Locks the internal handle for safety",
++    "Close button (Double lock 3 seconds)": "Closes the door or enables double lock",
++    "Speaker": "Outputs voice guidance and alarm sounds",
++    "Auto lock sensor": "Detects if the door is closed to auto-lock",
++    "Door Closing Sensor": "Detects if the door is closed",
++}
++
++CANONICAL_PART_NAMES = {
++    "Touch-Type Number Pad": "Number Pad",
++    "RFID card reader": "RFID Card Reader",
++    "RF Smart Card sensor": "RFID Card Reader",
++    "Reset button": "Reset Button",
++    "Emergency Batt. Terminal": "Emergency Battery Terminal",
++    "9V battery terminal": "Emergency Battery Terminal",
++    "Emergency battery terminal": "Emergency Battery Terminal",
++    "Outer body handle": "Outer Body Handle",
++    "Fingerprint reader": "Fingerprint Reader",
++    "Mechanical key hole": "Mechanical Key Hole",
++    "Battery cover": "Battery Cover",
++    "Registration button": "Registration Button",
++    "Open/Close button": "Open/Close Button",
++    "Dual lock button": "Dual Lock Button",
++    "Inner body handle": "Inner Body Handle",
++    "Alkaline AA battery": "Alkaline AA Battery",
++    "1.5V AA Battery": "Alkaline AA Battery",
++    "Battery": "Alkaline AA Battery",
++    "Manual lock button": "Manual Lock Button",
++    "safety button": "Safety Button",
++    "Safety button": "Safety Button",
++    "Manual lock/Unlock Knob": "Manual Lock/Unlock Knob",
++    "Dead-bolt": "Deadbolt",
++    "Latch bolt": "Latch Bolt",
++}
++
+ TH_COMPONENTS = {
++    # UI labels / specs
++    "Door Thickness": ("ความหนาประตูที่รองรับ", "40~50 มม."),
++    "PIN": ("รหัส PIN", "ตัวเลข 4~12 หลัก"),
++    "Power": ("ระบบจ่ายไฟ (พลังงานหลัก)", "DC 6V (แบตเตอรี่อัลคาไลน์ขนาด AA จำนวน 4 หรือ 8 ก้อน)"),
++    "Emergency Battery": ("ระบบจ่ายไฟฉุกเฉิน", "แบตเตอรี่อัลคาไลน์ DC 9V (จำหน่ายแยกต่างหาก)"),
++    "Fire Detection": ("การตรวจจับความร้อน (เซ็นเซอร์ไฟไหม้)", "เมื่ออุณหภูมิสูงถึง 62°C ± 5°C / สูงสุด 72°C ± 5°C"),
++    "Material (Outer)": ("วัสดุ (ตัวเครื่องด้านนอก)", "อะลูมิเนียม (Al), ซิงค์ (Zn), พลาสติกทนความร้อน (ABS)"),
++    "Material (Inner)": ("วัสดุ (ตัวเครื่องด้านใน)", "ซิงค์ (Zn), พลาสติกทนความร้อน (ABS)"),
++    
++    # Outer Body Parts
+     "Number Pad": ("แผงคีย์แพดตัวเลข", "ป้อนรหัส PIN หรือรหัสตั้งค่าการทำงาน (1-9, *, 0, #)"),
++    "Touch-Type Number Pad": ("แผงคีย์แพดตัวเลข", "ป้อนรหัส PIN หรือรหัสตั้งค่าการทำงาน (1-9, *, 0, #)"),
+     "Status LED Lamp": ("ไฟ LED แสดงสถานะ", "แสดงสถานะการทำงานของตัวล็อก (สแตนด์บาย / ล็อกแล้ว / ข้อผิดพลาด)"),
+     "Battery Lamp": ("ไฟแจ้งเตือนสถานะแบตเตอรี่", "ไฟเตือนจะสว่างขึ้นเมื่อแบตเตอรี่อ่อน"),
+     "RFID Card Reader": ("เครื่องอ่านการ์ด RFID", "แตะบัตรหรือแท็กคีย์การ์ดที่ลงทะเบียนแล้วเพื่อเปิดประตู"),
+     "Reset Button": ("ปุ่มรีสตาร์ทเครื่อง (Reset)", "ใช้สำหรับรีสตาร์ทระบบกรณีตัวเครื่องขัดข้องหรือไม่ตอบสนอง"),
+     "Emergency Battery Terminal": ("ขั้วต่อแบตเตอรี่ฉุกเฉิน (9V)", "แตะแบตเตอรี่ 9V เพื่อจ่ายไฟสำรองหากแบตเตอรี่หลักหมด"),
+     "Outer Body Handle": ("ที่จับประตูด้านนอก", "ดึงหรือหมุนลงเพื่อเปิดประตูหลังปลดล็อกสำเร็จ"),
++    "Fingerprint Reader": ("เครื่องสแกนลายนิ้วมือ", "แตะนิ้วมือที่ลงทะเบียนเพื่อปลดล็อก"),
++    "Fingerprint Cover Open Button": ("ปุ่มเปิดฝาครอบลายนิ้วมือ", "กดเพื่อเปิดฝาครอบป้องกันเครื่องสแกนลายนิ้วมือ"),
++    "Mechanical Key Hole": ("ช่องเสียบกุญแจกลไก", "ไขกุญแจกลไกสำรองกรณีฉุกเฉิน"),
++    "Function sensor bar": ("แถบเซ็นเซอร์ทำงาน", "สัมผัสเพื่อเปิดใช้งานหน้าจอหรือระบบอ่านการ์ด"),
++    
++    # Inner Body Parts
+     "Battery Cover": ("ฝาครอบแบตเตอรี่", "เปิดออกเพื่อเข้าถึงช่องใส่แบตเตอรี่"),
+     "Registration Button": ("ปุ่มลงทะเบียน (Registration)", "ใช้กดเมื่อต้องการลงทะเบียนหรือแก้ไขรหัส PIN, บัตร หรือลายนิ้วมือ"),
+     "Open/Close Button": ("ปุ่มเปิด/ปิดประตู (Open/Close)", "กดปุ่มเพื่อล็อกหรือปลดล็อกประตูแบบสัมผัสเดียวจากด้านใน"),
+@@ -171,13 +257,17 @@ TH_COMPONENTS = {
+     "Inner Body Handle": ("ที่จับประตูด้านใน", "ดึงหรือหมุนเพื่อเปิดประตูจากภายในห้อง"),
+     "Alkaline AA Battery": ("แบตเตอรี่อัลคาไลน์ AA", "แหล่งพลังงานหลักสำหรับตัวล็อกประตูดิจิทัล"),
+     "Manual Lock Button": ("ปุ่มบิดล็อกด้วยตนเอง", "ใช้เพื่อล็อกหรือปลดล็อกประตูด้วยตนเองในโหมดล็อกแบบแมนนวล"),
+-    "Door Thickness": ("ความหนาประตูที่รองรับ", "40~50 มม."),
+-    "PIN": ("รหัส PIN", "ตัวเลข 4~12 หลัก"),
+-    "Power": ("ระบบจ่ายไฟ (พลังงานหลัก)", "DC 6V (แบตเตอรี่อัลคาไลน์ขนาด AA จำนวน 4 หรือ 8 ก้อน)"),
+-    "Emergency Battery": ("ระบบจ่ายไฟฉุกเฉิน", "แบตเตอรี่อัลคาไลน์ DC 9V (จำหน่ายแยกต่างหาก)"),
+-    "Fire Detection": ("การตรวจจับความร้อน (เซ็นเซอร์ไฟไหม้)", "เมื่ออุณหภูมิสูงถึง 62°C ± 5°C / สูงสุด 72°C ± 5°C"),
+-    "Material (Outer)": ("วัสดุ (ตัวเครื่องด้านนอก)", "อะลูมิเนียม (Al), ซิงค์ (Zn), พลาสติกทนความร้อน (ABS)"),
+-    "Material (Inner)": ("วัสดุ (ตัวเครื่องด้านใน)", "ซิงค์ (Zn), พลาสติกทนความร้อน (ABS)"),
++    "Safety Button": ("ปุ่มนิรภัย (Safety)", "กดปุ่ม Safety ร่วมกับปุ่มเปิด/ปิดเพื่อเปิดประตูเพื่อความปลอดภัย"),
++    "Manual Lock/Unlock Knob": ("ปุ่มหมุนล็อก/ปลดล็อกด้วยมือ", "หมุนเพื่อล็อกหรือปลดล็อกประตูด้วยตนเองจากด้านใน"),
++    "Deadbolt": ("สลักล็อก (Deadbolt)", "สลักล็อกหลักของประตูเมื่อประตูล็อก"),
++    "Latch Bolt": ("ลิ้นสลัก (Latch Bolt)", "ลิ้นสลักสปริงที่ยึดประตูกับวงกบขณะปิด"),
++    "Battery Cover Fixing Screw": ("สกรูยึดฝาครอบแบตเตอรี่", "ขันสกรูเพื่อยึดฝาครอบแบตเตอรี่ให้แน่น"),
++    "Receiver module attachment (Optional)": ("ช่องใส่โมดูลรับสัญญาณ (อุปกรณ์เสริม)", "ช่องสำหรับติดตั้งโมดูลรีโมทคอนโทรลหรือสมาร์ทโฮม"),
++    "Internal handle lock button": ("ปุ่มล็อกที่จับด้านใน", "เปิด/ปิดระบบล็อกที่จับประตูด้านในเพื่อป้องกันเด็กหรือสัตว์เลี้ยงเปิดประตู"),
++    "Close button (Double lock 3 seconds)": ("ปุ่มปิด (ล็อกสองชั้น 3 วินาที)", "กดเพื่อปิดประตู หรือกดค้างไว้ 3 วินาทีเพื่อเปิดใช้งานระบบล็อกสองชั้น"),
++    "Speaker": ("ลำโพง", "ส่งเสียงแนะนำการใช้งานหรือสัญญาณเตือนภัย"),
++    "Auto lock sensor": ("เซ็นเซอร์ล็อกอัตโนมัติ", "ตรวจจับเมื่อประตูปิดเพื่อสั่งการล็อกอัตโนมัติ"),
++    "Door Closing Sensor": ("เซ็นเซอร์ตรวจจับสถานะประตู", "ตรวจจับว่าประตูปิดสนิทแล้วหรือไม่"),
+ }
+ 
+ # Translation for box items
+@@ -188,6 +278,29 @@ TH_IN_BOX = {
+     "Mechanical keys": "กุญแจกลไกสำรอง",
+     "Batteries": "แบตเตอรี่ขนาด AA",
+     "User manual": "คู่มือการใช้งาน",
++    "RFID Card (Sticker) 2EA": "บัตร RFID (สติกเกอร์) 2 ใบ",
++    "RFID Card 4EA": "บัตร RFID 4 ใบ",
++    "RFID Cards": "บัตร RFID",
++    "RFID Card": "บัตร RFID",
++    "RFID Keytag 2EA": "คีย์แทก RFID 2 ชิ้น",
++    "RFID Keytag 4EA": "คีย์แทก RFID 4 ชิ้น",
++    "Smart Key 4EA": "สมาร์ทคีย์ 4 ชิ้น",
++    "User's Guide": "คู่มือการใช้งาน",
++    "Trace form": "แผ่นทาบเจาะช่องติดตั้ง",
++    "Installation template": "แผ่นทาบเจาะช่องติดตั้ง",
++    "Installation guide": "คู่มือการติดตั้ง",
++    "Batteries (LR6 AA) 4EA": "แบตเตอรี่ LR6 AA 4 ก้อน",
++    "4 Batteries": "แบตเตอรี่ 4 ก้อน",
++    "8 Batteries": "แบตเตอรี่ 8 ก้อน",
++    "Screw": "ชุดสกรู",
++    "Screws": "ชุดสกรู",
++    "Screws (×4)": "ชุดสกรู (4 ตัว)",
++    "Striker": "แป้นรับลิ้นล็อก",
++    "Strike plate": "แป้นรับลิ้นล็อก",
++    "Mortise": "ตลับมอร์ทิส",
++    "Mortise shaft": "แกนหมุนตลับมอร์ทิส",
++    "Outbody": "ชุดตัวเครื่องด้านนอก",
++    "Inbody": "ชุดตัวเครื่องด้านใน",
+ }
+ 
+ # Brochure image → slug mapping
+@@ -267,12 +380,12 @@ def _read_json_file(path):
+     Returns:
+         dict/list: Parsed JSON object, or None if the path doesn't exist or is malformed.
+     """
+-    if not path.exists():
++    if not path.is_file():
+         return None
+     try:
+         with open(path, "r", encoding="utf-8") as f:
+             return json.load(f)
+-    except json.JSONDecodeError as e:
++    except (json.JSONDecodeError, OSError) as e:
+         print(f"Error: Malformed JSON file at {path}: {e}")
+         return None
+ 
+@@ -324,6 +437,424 @@ def load_source_json(slug):
+     return None, None
+ 
+ 
++def map_to_canonical(category, subcategory):
++    c = category.lower().strip()
++    s = subcategory.lower().strip()
++    
++    # Door Thickness
++    if "thickness" in c or "thickness" in s:
++        return "Door Thickness"
++    if c == "installation" and "thickness" in s:
++        return "Door Thickness"
++    if c == "installation conditions" and "thickness" in s:
++        return "Door Thickness"
++        
++    # PIN
++    if "pin" in c or "pin" in s or "password" in c or "password" in s:
++        return "PIN"
++        
++    # RFID
++    if "rfid" in c or "rfid" in s or "card" in c or "card" in s or "smart key" in c or "smart key" in s:
++        return "RFID"
++        
++    # Fingerprint
++    if "fingerprint" in c or "fingerprint" in s:
++        return "Fingerprint"
++        
++    # Power
++    if "power use" in c or "power supply" in c or "rated voltage" in c or "voltage" in c or "power" in c:
++        if "emergency" not in c and "emergency" not in s:
++            return "Power"
++            
++    # Emergency Battery
++    if "emergency" in c or "emergency" in s:
++        return "Emergency Battery"
++        
++    # Fire Detection
++    if "fire detection" in c or "temp" in c or "temp" in s or "temperature" in c or "temperature" in s:
++        return "Fire Detection"
++        
++    # Material
++    if "material" in c:
++        if "out" in s or "outbody" in s or "outer" in s:
++            return "Material (Outer)"
++        elif "in" in s or "intbody" in s or "inner" in s:
++            return "Material (Inner)"
++        return "Material"
++        
++    if "product type" in c or "product type" in s:
++        return "Product Type"
++        
++    return None
++
++
++def translate_and_clean_specs(slug, parsed_specs):
++    features = PRODUCT_FEATURES.get(slug, [])
++    has_rfid = any(f in features for f in ("rfid", "smart_card", "smart_key"))
++    has_fp = "fingerprint" in features
++    
++    # 1. Door Thickness
++    if slug == "es-303g":
++        door_en = "12mm tempered glass only"
++        door_th = "กระจกนิรภัยเทมเปอร์หนา 12 มม. เท่านั้น"
++    else:
++        door_en = parsed_specs.get("Door Thickness") or "40~50mm"
++        door_en = str(door_en).strip()
++        door_th = parsed_specs.get("Door Thickness_th") or parsed_specs.get("Door Thickness")
++        if not door_th:
++            door_th = "40~50 มม."
++        else:
++            door_th = str(door_th).strip().replace("mm", " มม.").replace(" ~ ", "~")
++
++    # 2. PIN
++    pin_en = parsed_specs.get("PIN") or "4~12 digits"
++    pin_en = str(pin_en).strip()
++    pin_th = parsed_specs.get("PIN_th") or parsed_specs.get("PIN")
++    if not pin_th:
++        pin_th = "ตัวเลข 4~12 หลัก"
++    else:
++        pin_th = str(pin_th).strip().replace("digits", "หลัก")
++        if "4~12" in pin_th and "หลัก" not in pin_th:
++            pin_th = "ตัวเลข 4~12 หลัก"
++
++    # 3. RFID
++    rfid_en = None
++    rfid_th = None
++    if has_rfid:
++        max_cards = 100
++        if slug == "popscan":
++            max_cards = 200
++        elif slug in CONSOLIDATED_MODELS:
++            max_cards = 200
++        
++        parsed_rfid = parsed_specs.get("RFID")
++        if parsed_rfid:
++            match = re.search(r"\d+", str(parsed_rfid))
++            if match:
++                max_cards = int(match.group())
++        rfid_en = f"Up to {max_cards} cards can be registered"
++        rfid_th = f"บันทึกการ์ดสูงสุด {max_cards} ใบ"
++
++    # 4. Fingerprint
++    fp_en = None
++    fp_th = None
++    if has_fp:
++        max_fp = 100
++        parsed_fp = parsed_specs.get("Fingerprint")
++        if parsed_fp:
++            match = re.search(r"\d+", str(parsed_fp))
++            if match:
++                max_fp = int(match.group())
++        fp_en = f"Up to {max_fp} fingerprints can be registered"
++        fp_th = f"บันทึกลายนิ้วมือสูงสุด {max_fp} ลายนิ้วมือ"
++
++    # 5. Power
++    power_raw = parsed_specs.get("Power", "DC 6V")
++    if "8" in str(power_raw):
++        power_en = "DC 6V (AA Alkaline x 8)"
++        power_th = "DC 6V (แบตเตอรี่อัลคาไลน์ขนาด AA จำนวน 8 ก้อน)"
++    else:
++        power_en = "DC 6V (AA Alkaline x 4)"
++        power_th = "DC 6V (แบตเตอรี่อัลคาไลน์ขนาด AA จำนวน 4 ก้อน)"
++
++    # 6. Emergency Battery
++    emb_en = "DC 9V Alkaline battery (sold separately)"
++    emb_th = "แบตเตอรี่อัลคาไลน์ DC 9V (จำหน่ายแยกต่างหาก)"
++
++    # 7. Fire Detection
++    fire_raw = parsed_specs.get("Fire Detection", "")
++    if "60" in str(fire_raw):
++        fire_en = "60°C ± 10°C"
++        fire_th = "60°C ± 10°C"
++    else:
++        fire_en = "62°C ± 5°C"
++        fire_th = "62°C ± 5°C"
++
++    # 8. Material (Outer)
++    mat_outer_raw = parsed_specs.get("Material (Outer)", parsed_specs.get("Material", "Al, Zn, ABS"))
++    mat_outer_en = str(mat_outer_raw).strip()
++    mat_outer_en = re.sub(r"^(outer body|outbody)\s*:\s*", "", mat_outer_en, flags=re.IGNORECASE)
++    parts_outer = [p.strip() for p in mat_outer_en.split(",")]
++    th_parts_outer = []
++    for p in parts_outer:
++        p_lower = p.lower()
++        if p_lower == "al":
++            th_parts_outer.append("อะลูมิเนียม (Al)")
++        elif p_lower == "zn":
++            th_parts_outer.append("ซิงค์ (Zn)")
++        elif p_lower == "abs":
++            th_parts_outer.append("พลาสติกทนความร้อน (ABS)")
++        elif p_lower == "pc":
++            th_parts_outer.append("โพลีคาร์บอเนต (PC)")
++        else:
++            th_parts_outer.append(p)
++    mat_outer_th = ", ".join(th_parts_outer)
++
++    # 9. Material (Inner)
++    mat_inner_raw = parsed_specs.get("Material (Inner)", parsed_specs.get("Material", "Zn, ABS"))
++    mat_inner_en = str(mat_inner_raw).strip()
++    mat_inner_en = re.sub(r"^(inner body|intbody)\s*:\s*", "", mat_inner_en, flags=re.IGNORECASE)
++    parts_inner = [p.strip() for p in mat_inner_en.split(",")]
++    th_parts_inner = []
++    for p in parts_inner:
++        p_lower = p.lower()
++        if p_lower == "al":
++            th_parts_inner.append("อะลูมิเนียม (Al)")
++        elif p_lower == "zn":
++            th_parts_inner.append("ซิงค์ (Zn)")
++        elif p_lower == "abs":
++            th_parts_inner.append("พลาสติกทนความร้อน (ABS)")
++        elif p_lower == "pc":
++            th_parts_inner.append("โพลีคาร์บอเนต (PC)")
++        else:
++            th_parts_inner.append(p)
++    mat_inner_th = ", ".join(th_parts_inner)
++
++    # 10. Product Type
++    if slug == "es-303g":
++        pt_en = "Non-key"
++        pt_th = "ไม่มีกุญแจกลไก"
++    else:
++        if "mechanical_key" in features:
++            pt_en = "Mechanical key type"
++            pt_th = "มีกุญแจกลไก"
++        else:
++            pt_en = "Non-key"
++            pt_th = "ไม่มีกุญแจกลไก"
++
++    specs_th = [
++        ("ความหนาประตูที่รองรับ", door_th),
++        ("รหัส PIN", pin_th),
++    ]
++    specs_en = [
++        ("Door Thickness", door_en),
++        ("PIN", pin_en),
++    ]
++
++    if has_rfid:
++        specs_th.append(("บัตร RFID", rfid_th))
++        specs_en.append(("RFID", rfid_en))
++    if has_fp:
++        specs_th.append(("ลายนิ้วมือ", fp_th))
++        specs_en.append(("Fingerprint", fp_en))
++
++    specs_th.extend([
++        ("ระบบจ่ายไฟ", power_th),
++        ("ระบบจ่ายไฟฉุกเฉิน", emb_th),
++        ("การตรวจจับความร้อน", fire_th),
++        ("วัสดุ (ตัวเครื่องด้านนอก)", mat_outer_th),
++        ("วัสดุ (ตัวเครื่องด้านใน)", mat_inner_th),
++        ("ประเภทผลิตภัณฑ์", pt_th),
++    ])
++    specs_en.extend([
++        ("Power", power_en),
++        ("Emergency Battery", emb_en),
++        ("Fire Detection", fire_en),
++        ("Material (Outer)", mat_outer_en),
++        ("Material (Inner)", mat_inner_en),
++        ("Product Type", pt_en),
++    ])
++
++    return specs_th, specs_en
++
++
++def parse_specs_from_json(slug, data, source_type):
++    parsed_specs = {}
++    
++    if source_type == "vision":
++        table_data = None
++        for page in data.get("pages", []):
++            for panel in page.get("panels", []):
++                if "table" in panel and isinstance(panel["table"], list):
++                    table_data = panel["table"]
++                    break
++                found = False
++                for k in ("specs", "dimensions", "product_dimension", "components_specs", "safety_specs"):
++                    if k in panel and isinstance(panel[k], dict) and "table" in panel[k]:
++                        table_data = panel[k]["table"]
++                        found = True
++                        break
++                if found:
++                    break
++            if table_data:
++                break
++                
++        if table_data:
++            prev_category = ""
++            for row in table_data:
++                if not row or len(row) < 2:
++                    continue
++                r0 = str(row[0]).lower().strip() if row[0] is not None else ""
++                r1 = str(row[1]).lower().strip() if row[1] is not None else ""
++                if r0 in ("item", "items", "description", "descriptions") or r1 in ("specification", "specifications"):
++                    continue
++                
++                if len(row) == 2:
++                    category = str(row[0]).strip() if row[0] is not None else ""
++                    subcategory = ""
++                    val = str(row[1]).strip() if row[1] is not None else ""
++                else:
++                    category = str(row[0]).strip() if row[0] is not None else ""
++                    subcategory = str(row[1]).strip() if row[1] is not None else ""
++                    val = str(row[2]).strip() if row[2] is not None else ""
++                    
++                if not category:
++                    category = prev_category
++                else:
++                    prev_category = category
++                    
++                if category.lower() == "material":
++                    outer_val = None
++                    inner_val = None
++                    for col in (subcategory, val):
++                        col_clean = col.lower()
++                        if "outer body" in col_clean or "outbody" in col_clean:
++                            if ":" in col:
++                                outer_val = col.split(":", 1)[1].strip()
++                            else:
++                                outer_val = col
++                        elif "inner body" in col_clean or "intbody" in col_clean:
++                            if ":" in col:
++                                inner_val = col.split(":", 1)[1].strip()
++                            else:
++                                inner_val = col
++                    if outer_val:
++                        parsed_specs["Material (Outer)"] = outer_val
++                    if inner_val:
++                        parsed_specs["Material (Inner)"] = inner_val
++                    if not outer_val and not inner_val:
++                        parsed_specs["Material"] = val
++                    continue
++                    
++                canonical = map_to_canonical(category, subcategory)
++                if canonical:
++                    parsed_specs[canonical] = val
++                    
++    elif source_type in ("product", "consolidated"):
++        en_s = data.get("en", {}).get("specs", {}) or {}
++        th_s = data.get("th", {}).get("specs", {}) or {}
++        
++        parsed_specs["Door Thickness"] = en_s.get("door_thickness")
++        parsed_specs["Door Thickness_th"] = th_s.get("door_thickness")
++        
++        parsed_specs["PIN"] = en_s.get("max_user_codes") or en_s.get("PIN")
++        parsed_specs["PIN_th"] = th_s.get("max_user_codes") or th_s.get("PIN")
++        
++        parsed_specs["RFID"] = en_s.get("max_cards") or en_s.get("RFID")
++        parsed_specs["RFID_th"] = th_s.get("max_cards") or th_s.get("RFID")
++        
++        parsed_specs["Fingerprint"] = en_s.get("max_fingerprints") or en_s.get("Fingerprint")
++        parsed_specs["Fingerprint_th"] = th_s.get("max_fingerprints") or th_s.get("Fingerprint")
++        
++        parsed_specs["Power"] = en_s.get("power") or en_s.get("battery_type") or en_s.get("Power")
++        parsed_specs["Power_th"] = th_s.get("power") or th_s.get("battery_type") or th_s.get("Power")
++        
++    return translate_and_clean_specs(slug, parsed_specs)
++
++
++def parse_components_from_json(slug, data, source_type):
++    features = PRODUCT_FEATURES.get(slug, [])
++    has_rfid = any(f in features for f in ("rfid", "smart_card", "smart_key"))
++    has_key = "mechanical_key" in features
++    
++    outer_parts = []
++    inner_parts = []
++    in_box = []
++    
++    if source_type == "vision":
++        outer_raw = []
++        inner_raw = []
++        in_box_raw = []
++        
++        for page in data.get("pages", []):
++            for panel in page.get("panels", []):
++                parts_out = panel.get("outer_body") or panel.get("outer_body_parts")
++                if parts_out and isinstance(parts_out, list):
++                    outer_raw = parts_out
++                parts_in = panel.get("inner_body") or panel.get("inner_body_parts")
++                if parts_in and isinstance(parts_in, list):
++                    inner_raw = parts_in
++                box = panel.get("in_box")
++                if box and isinstance(box, list):
++                    in_box_raw = box
++                    
++        for raw_name in outer_raw:
++            raw_name = str(raw_name).strip()
++            canonical_name = CANONICAL_PART_NAMES.get(raw_name, raw_name)
++            func = COMPONENT_FUNCTIONS.get(canonical_name, COMPONENT_FUNCTIONS.get(raw_name, ""))
++            outer_parts.append((canonical_name, func))
++            
++        for raw_name in inner_raw:
++            raw_name = str(raw_name).strip()
++            canonical_name = CANONICAL_PART_NAMES.get(raw_name, raw_name)
++            func = COMPONENT_FUNCTIONS.get(canonical_name, COMPONENT_FUNCTIONS.get(raw_name, ""))
++            inner_parts.append((canonical_name, func))
++            
++        for item in in_box_raw:
++            in_box.append(str(item).strip())
++            
++    else:
++        for name, func in DEFAULT_OUTER_PARTS:
++            outer_parts.append((name, func))
++        for name, func in DEFAULT_INNER_PARTS:
++            inner_parts.append((name, func))
++        for item in DEFAULT_IN_BOX:
++            in_box.append(item)
++            
++    if slug in NON_HANDLE_MODELS:
++        outer_parts = [(name, func) for name, func in outer_parts if "handle" not in name.lower()]
++        inner_parts = [(name, func) for name, func in inner_parts if "handle" not in name.lower()]
++        in_box = [item for item in in_box if "handle" not in item.lower()]
++        
++    if not has_key:
++        outer_parts = [(name, func) for name, func in outer_parts if "mechanical key" not in name.lower()]
++        inner_parts = [(name, func) for name, func in inner_parts if "mechanical key" not in name.lower()]
++        in_box = [item for item in in_box if "mechanical key" not in item.lower()]
++        
++    if has_rfid:
++        has_rfid_item = any("rfid" in item.lower() or "card" in item.lower() or "keytag" in item.lower() or "smart key" in item.lower() for item in in_box)
++        if slug == "es-303g":
++            in_box = [item for item in in_box if not ("rfid" in item.lower() or "card" in item.lower() or "keytag" in item.lower() or "smart key" in item.lower())]
++            in_box.append("RFID Card (Sticker) 2EA")
++        elif not has_rfid_item:
++            default_rfid = "RFID Card 4EA"
++            if slug == "popscan":
++                default_rfid = "RFID Cards"
++            in_box.append(default_rfid)
++            
++    # Deduplicate outer_parts preserving order (case-insensitive check)
++    seen_outer = set()
++    deduped_outer = []
++    for name, func in outer_parts:
++        name_lower = name.lower()
++        if name_lower not in seen_outer:
++            seen_outer.add(name_lower)
++            deduped_outer.append((name, func))
++    outer_parts = deduped_outer
++
++    # Deduplicate inner_parts preserving order
++    seen_inner = set()
++    deduped_inner = []
++    for name, func in inner_parts:
++        name_lower = name.lower()
++        if name_lower not in seen_inner:
++            seen_inner.add(name_lower)
++            deduped_inner.append((name, func))
++    inner_parts = deduped_inner
++
++    # Deduplicate in_box preserving order
++    seen_box = set()
++    deduped_box = []
++    for item in in_box:
++        item_lower = item.lower()
++        if item_lower not in seen_box:
++            seen_box.add(item_lower)
++            deduped_box.append(item)
++    in_box = deduped_box
++
++    return outer_parts, inner_parts, in_box
++
++
+ # Determine what pages to generate per product
+ def get_pages_for_product(slug):
+     features = PRODUCT_FEATURES.get(slug, ["pin"])
+@@ -450,42 +981,30 @@ def gen_overview(model, slug, th_title, en_title, th_desc, en_desc,
+     return "\n".join(th_lines), "\n".join(en_lines)
+ 
+ 
+-def gen_specs(model, specs_data, th_title="ข้อมูลจำเพาะ", en_title="Specifications"):
+-    """Generate specs page from a list of (label, value) pairs or dict"""
++def gen_specs(model, specs_th, specs_en, th_title="ข้อมูลจำเพาะ", en_title="Specifications"):
++    """Generate specs page from pre-translated specs_th and specs_en lists"""
+     th_lines = [
+         make_frontmatter(th_title, f"ข้อมูลจำเพาะของ {model}", 2),
+         "",
+         f"# {th_title}",
+         "",
++        "| รายการ | ค่า |",
++        "|---|---|",
+     ]
++    for label, val in specs_th:
++        th_lines.append(f"| {label} | {val} |")
++        
+     en_lines = [
+         make_frontmatter(en_title, f"Specifications of {model}", 2),
+         "",
+         f"# {en_title}",
+         "",
++        "| Item | Value |",
++        "|---|---|",
+     ]
+-    if isinstance(specs_data, list):
+-        th_lines.append("| รายการ | ค่า |")
+-        th_lines.append("|---|---|")
+-        en_lines.append("| Item | Value |")
+-        en_lines.append("|---|---|")
+-        for label, val in specs_data:
+-            if label in TH_COMPONENTS:
+-                th_label, th_val = TH_COMPONENTS[label]
+-            else:
+-                th_label = TH.get(label, label)
+-                th_val = TH.get(val, val)
+-            th_lines.append(f"| {th_label} | {th_val} |")
+-            en_lines.append(f"| {label} | {val} |")
+-    elif isinstance(specs_data, dict):
+-        for k, v in specs_data.items():
+-            if k in TH_COMPONENTS:
+-                th_k, th_v = TH_COMPONENTS[k]
+-            else:
+-                th_k = TH.get(k, k)
+-                th_v = TH.get(v, v)
+-            th_lines.append(f"- **{th_k}**: {th_v}")
+-            en_lines.append(f"- **{k}**: {v}")
++    for label, val in specs_en:
++        en_lines.append(f"| {label} | {val} |")
++        
+     th_lines.append("")
+     en_lines.append("")
+     return "\n".join(th_lines), "\n".join(en_lines)
+@@ -1043,17 +1562,26 @@ def generate_manual_pages(slug, model, th_title, en_title, th_desc, en_desc,
+             consolidated_manual=consolidated_manual
+         )
+ 
++    # Load JSON source
++    source_data, source_type = load_source_json(slug)
++
+     # specs
+     if "specs" in pages_to_gen:
+-        specs_data = specs or DEFAULT_SPECS
++        if source_data is not None and source_type is not None:
++            specs_th, specs_en = parse_specs_from_json(slug, source_data, source_type)
++        else:
++            specs_th, specs_en = parse_specs_from_json(slug, {}, "fallback")
++            
+         pages["specs"] = {}
+-        pages["specs"]["th"], pages["specs"]["en"] = gen_specs(model, specs_data)
++        pages["specs"]["th"], pages["specs"]["en"] = gen_specs(model, specs_th, specs_en)
+ 
+     # components
+     if "components" in pages_to_gen:
+-        outer = outer_parts or DEFAULT_OUTER_PARTS
+-        inner = inner_parts or DEFAULT_INNER_PARTS
+-        box = in_box or DEFAULT_IN_BOX
++        if source_data is not None and source_type is not None:
++            outer, inner, box = parse_components_from_json(slug, source_data, source_type)
++        else:
++            outer, inner, box = parse_components_from_json(slug, {}, "fallback")
++            
+         pages["components"] = {}
+         pages["components"]["th"], pages["components"]["en"] = gen_components(model, outer, inner, in_box=box)
+ 

@@ -6,7 +6,7 @@ description: Special features of ES-P9100FK
 
 # Special Features
 
-## Guest Pin Number Registration
+## Guest PIN Registration
 
 ### Steps
 
@@ -34,7 +34,7 @@ IF NEW PIN NUMBER IS NOT REGISTERED AFTER PRESSING REGISTRATION BUTTON THE REGIS
 The guest pin number is for 1 time entry only
 :::
 
-## outer_force_lock
+## Outside Force Lock
 
 Outside Double Lock - When enabled will not allow Pin, Card, Fingerprint entry from outside.
 
@@ -45,13 +45,13 @@ Outside Double Lock - When enabled will not allow Pin, Card, Fingerprint entry f
 
 **Cancellation:** Open the door from inside by pushing the handle or activate the [Close] button and the Internal Double Lock setting will be cancelled.
 
-## inner_force_lock
+## Inside Force Lock
 
 Inside Double Lock - It is a function to block abnormal operation of the interior handle.
 
 **Controls:** Cancel Force Lock / Set Force Lock
 
-## sound_volume
+## Sound Volume Setting
 
 This feature allows the user to adjust the operation sound volume per level. (perform while door closed) ※ Sound can be adjusted up to 7 levels.
 
@@ -66,7 +66,7 @@ This feature allows the user to adjust the operation sound volume per level. (pe
 Press [3] button to increase sound. Press [6] button to decrease sound. In mute mode the number pad will blink, when you press a number. The volume level is set on high in default.
 :::
 
-## sound_mute
+## Sound Mute Setting
 
 Regardless of the volume setting, This feature lets you mute the operation melody. This is per 1 time usage only. The operation sound will occur on next operation.
 
@@ -75,7 +75,7 @@ Regardless of the volume setting, This feature lets you mute the operation melod
 1. Touch the number pad, press the [✱] button (in mute state)
 2. Enter Pin number, press [✱] button, door will open. (Number pad will blink)
 
-## auto_manual_lock
+## Auto / Manual Lock Setting
 
 An optional feature that lets you set the lock in automatic and manual Lock mode
 
@@ -90,7 +90,7 @@ An optional feature that lets you set the lock in automatic and manual Lock mode
 Automatic Lock Mode is set in default. In Manual Lock Mode, the door will not lock after closing the door, instead touch the number pad outside or press the [Close] button inside to lock the door.
 :::
 
-## rfid_auto_manual
+## RFID Auto / Manual Detection
 
 An optional feature that lets you set the RFID Card detection to automatic and manual mode
 
@@ -105,7 +105,7 @@ An optional feature that lets you set the RFID Card detection to automatic and m
 ① In Automatic Mode, Place the RFID Card on the card reader and the door will open. ② In Manual Mode, Touch the number pad, Place the RFID Card on the card reader and the door will open. ※ Automatic Mode is enabled in default.
 :::
 
-## Multi-touch Security Feature Settings
+## Multi-touch Security Setting
 
 ### Steps
 
@@ -120,7 +120,7 @@ This is a security feature that prevents the pin number from being exposed, by r
 When multi-touch feature is enabled, after entering pin number press the 3 digits number that is displayed on the screen. Press [✱] button and the door will open. When this feature is enabled, the random number feature is cancelled.
 :::
 
-## Dual-mode Security Feature Setting
+## Dual-mode Security Setting
 
 ### Steps
 
@@ -134,7 +134,7 @@ When multi-touch feature is enabled, after entering pin number press the 3 digit
 The Pin number, Fingerprint & RFID card should be registered first before setting this feature.
 :::
 
-## home_network
+## Home Network Module & Remote Control
 
 This feature lets you open the door remotely via home network devices and remote control (Optional). ※ Home Network Module and Remote Control setting procedure is the same
 

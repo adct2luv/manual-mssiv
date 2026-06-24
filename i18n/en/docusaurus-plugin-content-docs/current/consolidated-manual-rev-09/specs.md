@@ -14,7 +14,6 @@ description: Specifications of Consolidated Manual Rev.09
 | Fingerprint | Up to 100 fingerprints can be registered |
 | Power | DC 6V (AA Alkaline x 4) |
 | Emergency Battery | DC 9V Alkaline battery (sold separately) |
-| Fire Detection | 62°C ± 5°C |
-| Material (Outer) | Al, Zn, ABS |
-| Material (Inner) | Zn, ABS |
-| Product Type | Non-key |
+| Fire Detection | 60°C ± 10°C |
+| Operating Temperature | -20°C to 60°C |
+| Humidity | 0-80% RH |

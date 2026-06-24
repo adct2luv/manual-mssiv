@@ -349,7 +349,7 @@ PRODUCT_FEATURES = {
     "es-ff730gr": ["pin", "rfid", "fingerprint", "mechanical_key"],
     "es-ff731g": ["pin", "rfid", "fingerprint", "mechanical_key"],
     "es-s740d": ["pin", "rfid", "fingerprint", "mechanical_key"],
-    "es-f7000kr": ["pin", "rfid", "fingerprint"],
+    "es-f7000kr": ["pin", "rfid", "fingerprint", "mechanical_key"],
     "es-f9000kr": ["pin", "rfid", "fingerprint", "mechanical_key"],
     "es-p8800k": ["pin", "rfid", "fingerprint"],
     "consolidated-manual-rev-09": ["pin", "rfid", "fingerprint", "face"],
@@ -488,7 +488,84 @@ def map_to_canonical(category, subcategory):
     return None
 
 
-def translate_and_clean_specs(slug, parsed_specs):
+FIRE_TEMP_RE = re.compile(r"(\d{2})\s*(?:°\s*c|℃)\s*±\s*(\d{1,2})\s*(?:°\s*c|℃)?", re.IGNORECASE)
+
+
+def _normalize_fire_temp(text):
+    """Return a normalized fire-detection temperature like '60°C ± 10°C', or None.
+
+    Some manuals list two values (e.g. '72°C±5°C (Testing Room) / 62°C±5°C
+    (Normal Environment)'). We prefer the normal-environment value and skip
+    testing-chamber values so the spec reflects real operating conditions.
+    """
+    if not text:
+        return None
+    s = str(text)
+    segments = re.split(r"[/,]", s)
+    normal_segs = [seg for seg in segments if "normal" in seg.lower()]
+    test_terms = ("testing", "test room", "test chamber")
+    if normal_segs:
+        candidates = normal_segs
+    else:
+        candidates = [seg for seg in segments
+                      if not any(t in seg.lower() for t in test_terms)] or segments
+    for seg in candidates:
+        m = FIRE_TEMP_RE.search(seg)
+        if m:
+            return f"{m.group(1)}°C ± {m.group(2)}°C"
+    m = FIRE_TEMP_RE.search(s)
+    if m:
+        return f"{m.group(1)}°C ± {m.group(2)}°C"
+    return None
+
+
+def extract_fire_temp(data, source_type):
+    """Find the real fire / high-temperature detection value from the source data.
+
+    The value is often stored outside the specs table (e.g. in an alarm panel or
+    in safety_features), so the regular specs parser misses it and falls back to a
+    hardcoded default. This scans the whole source for the real ±-temperature.
+    """
+    if not data:
+        return None
+    if source_type == "vision":
+        def walk(o):
+            if isinstance(o, str):
+                low = o.lower()
+                if "temp" in low or "fire" in low or "°c" in low or "℃" in low:
+                    return _normalize_fire_temp(o)
+                return None
+            if isinstance(o, dict):
+                for v in o.values():
+                    r = walk(v)
+                    if r:
+                        return r
+            elif isinstance(o, list):
+                for v in o:
+                    r = walk(v)
+                    if r:
+                        return r
+            return None
+        return walk(data.get("pages", data))
+    if source_type in ("product", "consolidated"):
+        en_s = (data.get("en", {}) or {}).get("specs", {}) or {}
+        candidates = []
+        sf = en_s.get("safety_features")
+        if isinstance(sf, list):
+            candidates.extend(sf)
+        elif sf:
+            candidates.append(sf)
+        desc = (data.get("en", {}) or {}).get("description")
+        if desc:
+            candidates.append(desc)
+        for c in candidates:
+            t = _normalize_fire_temp(c)
+            if t:
+                return t
+    return None
+
+
+def translate_and_clean_specs(slug, parsed_specs, source_type=None):
     features = PRODUCT_FEATURES.get(slug, [])
     has_rfid = any(f in features for f in ("rfid", "smart_card", "smart_key"))
     has_fp = "fingerprint" in features
@@ -561,14 +638,15 @@ def translate_and_clean_specs(slug, parsed_specs):
     emb_en = "DC 9V Alkaline battery (sold separately)"
     emb_th = "แบตเตอรี่อัลคาไลน์ DC 9V (จำหน่ายแยกต่างหาก)"
 
-    # 7. Fire Detection
+    # 7. Fire Detection — use the real value from the source when available
     fire_raw = parsed_specs.get("Fire Detection", "")
-    if "60" in str(fire_raw):
-        fire_en = "60°C ± 10°C"
-        fire_th = "60°C ± 10°C"
+    fire_val = _normalize_fire_temp(fire_raw)
+    if fire_val:
+        fire_en = fire_th = fire_val
+    elif "60" in str(fire_raw):
+        fire_en = fire_th = "60°C ± 10°C"
     else:
-        fire_en = "62°C ± 5°C"
-        fire_th = "62°C ± 5°C"
+        fire_en = fire_th = "62°C ± 5°C"
 
     # 8. Material (Outer)
     mat_outer_raw = parsed_specs.get("Material (Outer)", parsed_specs.get("Material", "Al, Zn, ABS"))
@@ -642,18 +720,46 @@ def translate_and_clean_specs(slug, parsed_specs):
         ("ระบบจ่ายไฟ", power_th),
         ("ระบบจ่ายไฟฉุกเฉิน", emb_th),
         ("การตรวจจับความร้อน", fire_th),
-        ("วัสดุ (ตัวเครื่องด้านนอก)", mat_outer_th),
-        ("วัสดุ (ตัวเครื่องด้านใน)", mat_inner_th),
-        ("ประเภทผลิตภัณฑ์", pt_th),
     ])
     specs_en.extend([
         ("Power", power_en),
         ("Emergency Battery", emb_en),
         ("Fire Detection", fire_en),
-        ("Material (Outer)", mat_outer_en),
-        ("Material (Inner)", mat_inner_en),
-        ("Product Type", pt_en),
     ])
+
+    # Operating temperature / humidity — only when the source actually provides them
+    op_temp = parsed_specs.get("Operating Temp")
+    if op_temp:
+        specs_th.append(("อุณหภูมิใช้งาน", str(op_temp).strip()))
+        specs_en.append(("Operating Temperature", str(op_temp).strip()))
+    humidity = parsed_specs.get("Humidity")
+    if humidity:
+        specs_th.append(("ความชื้น", str(humidity).strip()))
+        specs_en.append(("Humidity", str(humidity).strip()))
+
+    # Material — never fabricate. For product/consolidated sources that lack real
+    # material data we omit the rows instead of copying the ES-303G defaults.
+    has_real_material = bool(
+        parsed_specs.get("Material (Outer)")
+        or parsed_specs.get("Material (Inner)")
+        or parsed_specs.get("Material")
+    )
+    show_material = has_real_material or source_type not in ("product", "consolidated")
+    if show_material:
+        specs_th.append(("วัสดุ (ตัวเครื่องด้านนอก)", mat_outer_th))
+        specs_th.append(("วัสดุ (ตัวเครื่องด้านใน)", mat_inner_th))
+        specs_en.append(("Material (Outer)", mat_outer_en))
+        specs_en.append(("Material (Inner)", mat_inner_en))
+
+    # Product Type — only assert when we have positive evidence (a known model or a
+    # mechanical-key feature). Avoid claiming "Non-key" for sources without data.
+    show_product_type = (
+        source_type not in ("product", "consolidated")
+        or "mechanical_key" in features
+    )
+    if show_product_type:
+        specs_th.append(("ประเภทผลิตภัณฑ์", pt_th))
+        specs_en.append(("Product Type", pt_en))
 
     return specs_th, specs_en
 
@@ -729,7 +835,14 @@ def parse_specs_from_json(slug, data, source_type):
                 canonical = map_to_canonical(category, subcategory)
                 if canonical:
                     parsed_specs[canonical] = val
-                    
+
+        # Fire-detection temperature often lives outside the specs table (e.g. in
+        # an alarm panel), so recover the real value instead of using the default.
+        if not parsed_specs.get("Fire Detection"):
+            ft = extract_fire_temp(data, "vision")
+            if ft:
+                parsed_specs["Fire Detection"] = ft
+
     elif source_type in ("product", "consolidated"):
         en_s = data.get("en", {}).get("specs", {}) or {}
         th_s = data.get("th", {}).get("specs", {}) or {}
@@ -748,8 +861,14 @@ def parse_specs_from_json(slug, data, source_type):
         
         parsed_specs["Power"] = en_s.get("power") or en_s.get("battery_type") or en_s.get("Power")
         parsed_specs["Power_th"] = th_s.get("power") or th_s.get("battery_type") or th_s.get("Power")
-        
-    return translate_and_clean_specs(slug, parsed_specs)
+
+        parsed_specs["Operating Temp"] = en_s.get("operating_temp")
+        parsed_specs["Humidity"] = en_s.get("humidity")
+        ft = extract_fire_temp(data, source_type)
+        if ft:
+            parsed_specs["Fire Detection"] = ft
+
+    return translate_and_clean_specs(slug, parsed_specs, source_type)
 
 
 def parse_components_from_json(slug, data, source_type):
@@ -1175,6 +1294,51 @@ RAW_MAP = {
     "Safety Lock Mode": "โหมดล็อกนิรภัย",
     "Closing the door manually": "การปิดประตูด้วยตนเอง",
     "Opening by PIN Code": "เปิดด้วยรหัส PIN",
+    "Opening by Smart Key": "เปิดด้วยสมาร์ทคีย์ (Smart Key)",
+    "Opening by Dual-mode Security": "เปิดด้วยระบบยืนยันตัวตนสองชั้น",
+    "Normal Opening": "การเปิดแบบปกติ",
+    "Auto": "อัตโนมัติ",
+    "Manual": "ด้วยตนเอง",
+    # --- Operation step sentences recovered from the leakage audit (2026-06-20) ---
+    "5 Times repeated failed pin number entry will activate a series of alarm and the lock will not function for 1 minute": "การป้อนรหัส PIN ผิดติดต่อกัน 5 ครั้ง จะเปิดใช้งานสัญญาณเตือนต่อเนื่อง และตัวล็อกจะไม่ทำงานเป็นเวลา 1 นาที",
+    "An optional feature that lets you set the RFID Card detection to automatic and manual mode": "ฟังก์ชันเสริมที่ให้คุณตั้งค่าการตรวจจับบัตร RFID เป็นโหมดอัตโนมัติหรือด้วยตนเอง",
+    "Automatic Lock Mode is set in default. In Manual Lock Mode, the door will not lock after closing the door, instead touch the number pad outside or press the [Close] button inside to lock the door.": "โหมดล็อกอัตโนมัติถูกตั้งเป็นค่าเริ่มต้น ในโหมดล็อกด้วยตนเอง ประตูจะไม่ล็อกหลังจากปิดประตู ต้องสัมผัสคีย์แพดตัวเลขด้านนอกหรือกดปุ่ม [Close] ด้านในเพื่อล็อกประตู",
+    "During normal operation and a series of alarm is heard, it indicates the need for battery replacement. Please remove replace all battery with new ones at this time.": "หากมีเสียงเตือนต่อเนื่องดังขึ้นระหว่างการใช้งานปกติ แสดงว่าถึงเวลาต้องเปลี่ยนแบตเตอรี่ โปรดเปลี่ยนแบตเตอรี่ใหม่ทั้งหมดในครั้งเดียว",
+    "Enter New Guest Pin number to be registered 4~12 digits.": "ป้อนรหัส PIN สำหรับผู้มาเยือนใหม่ที่ต้องการลงทะเบียน (4~12 หลัก)",
+    "Enter Pin number, press [✱] button, door will open. (Number pad will blink)": "ป้อนรหัส PIN กดปุ่ม [✱] ประตูจะเปิด (คีย์แพดตัวเลขจะกะพริบ)",
+    "Enter pin number, followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad. Press [3] button.": "ป้อนรหัส PIN แล้วตามด้วยปุ่ม [✱] ตรวจสอบว่าตัวเลข [1, 2, 3, 4, 8, 9] สว่างขึ้นบนคีย์แพด จากนั้นกดปุ่ม [3]",
+    "Enter registered Pin number.": "ป้อนรหัส PIN ที่ลงทะเบียนไว้",
+    "Enter the pin number": "ป้อนรหัส PIN",
+    "Enter your registered PIN number followed by the [*] button.": "ป้อนรหัส PIN ที่ลงทะเบียนไว้แล้วตามด้วยปุ่ม [*]",
+    "Place on the 9V battery terminal located at the bottom of the outbody": "แตะแบตเตอรี่ 9V เข้ากับขั้วสัมผัสที่อยู่ด้านล่างของตัวเครื่องด้านนอก",
+    "Place registered RFID Card/Tag on the reader area.": "ทาบบัตร/แท็ก RFID ที่ลงทะเบียนไว้บนพื้นที่เครื่องอ่าน",
+    "Press [#] button 2 times": "กดปุ่ม [#] 2 ครั้ง",
+    "Press [#] button for 5 seconds. When the melody is heard. Deletion is complete": "กดปุ่ม [#] ค้างไว้ 5 วินาที เมื่อได้ยินเสียงเพลงเมโลดี้ การลบเสร็จสมบูรณ์",
+    "Press [1] button for Automatic Mode. Press [3] button for Manual Mode": "กดปุ่ม [1] สำหรับโหมดอัตโนมัติ กดปุ่ม [3] สำหรับโหมดด้วยตนเอง",
+    "Press [3] button to increase sound. Press [6] button to decrease sound. In mute mode the number pad will blink, when you press a number. The volume level is set on high in default.": "กดปุ่ม [3] เพื่อเพิ่มเสียง กดปุ่ม [6] เพื่อลดเสียง ในโหมดปิดเสียงคีย์แพดตัวเลขจะกะพริบเมื่อกดตัวเลข ระดับเสียงถูกตั้งไว้สูงสุดเป็นค่าเริ่มต้น",
+    "Press [3] or [6] button": "กดปุ่ม [3] หรือ [6]",
+    "Press [4] button for Automatic Mode. Press [7] button for Manual Mode": "กดปุ่ม [4] สำหรับโหมดอัตโนมัติ กดปุ่ม [7] สำหรับโหมดด้วยตนเอง",
+    "Press [Registration] button followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad": "กดปุ่ม [Registration] แล้วตามด้วยปุ่ม [✱] ตรวจสอบว่าตัวเลข [1, 2, 3, 4, 8, 9] สว่างขึ้นบนคีย์แพด",
+    "Press [Registration] button. Enter pin number. Followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad.": "กดปุ่ม [Registration] ป้อนรหัส PIN แล้วตามด้วยปุ่ม [✱] ตรวจสอบว่าตัวเลข [1, 2, 3, 4, 8, 9] สว่างขึ้นบนคีย์แพด",
+    "Press [✱] button on the number pad. A melody will be heard, and the registration is complete.": "กดปุ่ม [✱] บนคีย์แพดตัวเลข จะมีเสียงเพลงเมโลดี้ดังขึ้นและการลงทะเบียนเสร็จสมบูรณ์",
+    "Press [✱] button on the number pad. Registration is complete": "กดปุ่ม [✱] บนคีย์แพดตัวเลข การลงทะเบียนเสร็จสมบูรณ์",
+    "Press the [Close] button. When the deadbolt comes out of the mortise": "กดปุ่ม [Close] เมื่อสลักกลอนเลื่อนออกจากเบ้ารับ",
+    "Regardless of the volume setting, This feature lets you mute the operation melody. This is per 1 time usage only. The operation sound will occur on next operation.": "ไม่ว่าจะตั้งระดับเสียงไว้เท่าใด ฟังก์ชันนี้ให้คุณปิดเสียงการทำงานได้ ใช้ได้เพียงครั้งเดียวเท่านั้น เสียงจะกลับมาทำงานในการใช้งานครั้งถัดไป",
+    "THE GUEST PASSWORD IS FOR 1 TIME ENTRY ONLY": "รหัสผ่านสำหรับผู้มาเยือนใช้เข้าได้เพียงครั้งเดียวเท่านั้น",
+    "This feature allows the user to adjust the operation sound volume per level. (perform while door closed) ※ Sound can be adjusted up to 7 levels.": "ฟังก์ชันนี้ให้ผู้ใช้ปรับระดับเสียงการทำงานทีละระดับ (ทำขณะประตูปิด) ※ ปรับเสียงได้สูงสุด 7 ระดับ",
+    "To cancel the setting, just repeat steps 1, 2.": "หากต้องการยกเลิกการตั้งค่า ให้ทำซ้ำขั้นตอนที่ 1, 2",
+    "Touch the keypad to lock the door.": "สัมผัสคีย์แพดเพื่อล็อกประตู",
+    "Touch the number pad, press the [✱] button (in mute state)": "สัมผัสคีย์แพดตัวเลข กดปุ่ม [✱] (ในสถานะปิดเสียง)",
+    "When the door detects abnormal operation or forceful opening from the outside, the lock will generate a loud 80(db) alarm.": "เมื่อตัวล็อกตรวจพบการทำงานผิดปกติหรือการพยายามงัดเปิดจากภายนอก ตัวล็อกจะส่งเสียงสัญญาณเตือนดัง 80(db)",
+    "When the inside temperature rise to (62°C±5°C), the lock will generate an alarm and automatically unlocks the door.": "เมื่ออุณหภูมิภายในสูงขึ้นถึง (62°C±5°C) ตัวล็อกจะส่งเสียงสัญญาณเตือนและปลดล็อกประตูโดยอัตโนมัติ",
+    "locks 2 sec after close": "ล็อกภายใน 2 วินาทีหลังปิดประตู",
+    "touch number pad": "สัมผัสคีย์แพดตัวเลข",
+    "Touch the [Number pad] on the Outer body. Enter the pin number, press the [✱] button.": "สัมผัสคีย์แพดตัวเลขที่ตัวเครื่องด้านนอก ป้อนรหัส PIN แล้วกดปุ่ม [✱]",
+    "Touch the [Number pad] on the Outer body": "สัมผัสคีย์แพดตัวเลขที่ตัวเครื่องด้านนอก",
+    "Press the [5] button on the number pad, a melody will be heard and Multi-touch feature setting is complete.": "กดปุ่ม [5] บนคีย์แพดตัวเลข จะมีเสียงเพลงเมโลดี้ดังขึ้นและการตั้งค่า Multi-touch เสร็จสมบูรณ์",
+    "after 2 seconds of closing the door": "ภายใน 2 วินาทีหลังจากปิดประตู",
+    "to wake up the screen": "เพื่อปลุกหน้าจอ",
+    "① In Automatic Mode, Place the RFID Card on the card reader and the door will open. ② In Manual Mode, Touch the number pad, Place the RFID Card on the card reader and the door will open. ※ Automatic Mode is enabled in default.": "① ในโหมดอัตโนมัติ ทาบบัตร RFID บนเครื่องอ่านการ์ด ประตูจะเปิด ② ในโหมดด้วยตนเอง สัมผัสคีย์แพดตัวเลข แล้วทาบบัตร RFID บนเครื่องอ่านการ์ด ประตูจะเปิด ※ โหมดอัตโนมัติถูกเปิดใช้งานเป็นค่าเริ่มต้น",
     "Touch the number pad to turn on the screen.": "แตะแป้นคีย์แพดตัวเลขเพื่อเปิดไฟหน้าจอ",
     "Enter the registered PIN code (default is 1, 2, 3, 4).": "ป้อนรหัส PIN ที่ลงทะเบียนไว้ (ค่าเริ่มต้นคือ 1, 2, 3, 4)",
     "Press the [✱] button.": "กดปุ่ม [✱]",
@@ -1651,7 +1815,16 @@ ALARM_CANONICAL_NAMES = {
 
 def parse_features_from_json(slug, data, source_type):
     features_list = []
-    
+
+    # Consolidated-family models share one real manual (extracted from the
+    # Consolidated PDF). Use the real shared feature set instead of generics.
+    if source_type == "consolidated":
+        feats = list(CONSOLIDATED_FEATURES)
+        prod_feats = PRODUCT_FEATURES.get(slug, [])
+        if "face" not in prod_feats:
+            feats = [f for f in feats if f[0] not in ("IR Sensor ON/OFF", "FeliCa Auto-Detection ON/OFF")]
+        return feats
+
     if source_type == "vision" and data:
         panels = collect_panels(data)
         
@@ -1673,12 +1846,15 @@ def parse_features_from_json(slug, data, source_type):
         for fkey in target_features:
             panel_data, title = find_feature_data(panels, fkey)
             if panel_data:
-                name_en = title or FEATURE_CANONICAL_NAMES[fkey][0]
-                name_th = translate_text(name_en)
-                
+                # Always use the curated canonical names for headings. The panel's
+                # own `title` is often a raw key (e.g. "outside_force_lock") or
+                # untranslated English, which would otherwise leak into the docs.
+                name_en = FEATURE_CANONICAL_NAMES[fkey][0]
+                name_th = FEATURE_CANONICAL_NAMES[fkey][1]
+
                 desc_en = compile_markdown(name_en, panel_data, is_th=False)
                 desc_th = compile_markdown(name_en, panel_data, is_th=True)
-                
+
                 features_list.append((name_en, desc_en, name_th, desc_th))
                 
     if not features_list:
@@ -1688,7 +1864,18 @@ def parse_features_from_json(slug, data, source_type):
 
 def parse_alarms_from_json(slug, data, source_type):
     alarms_list = []
-    
+
+    # Consolidated-family models: use the real shared alarm set.
+    if source_type == "consolidated":
+        alrms = list(CONSOLIDATED_ALARMS)
+        if "mechanical_key" in PRODUCT_FEATURES.get(slug, []):
+            alrms.append((
+                "Emergency Mechanical Key",
+                "When the lock is not functioning normally, use the mechanical key to open the door. Keep keys in an accessible but secure location.",
+                "กุญแจกลไกฉุกเฉิน",
+                "เมื่อล็อกทำงานผิดปกติ ใช้กุญแจกลไกเปิดประตูได้ เก็บกุญแจไว้ในที่เข้าถึงได้แต่ปลอดภัย"))
+        return alrms
+
     if source_type == "vision" and data:
         panels = collect_panels(data)
         
@@ -1706,17 +1893,19 @@ def parse_alarms_from_json(slug, data, source_type):
         for akey in target_alarms:
             panel_data, title = find_feature_data(panels, akey)
             if panel_data:
-                name_en = title or ALARM_CANONICAL_NAMES[akey][0]
-                name_th = translate_text(name_en)
-                
+                # Use curated canonical names so raw keys / untranslated English
+                # never leak into the headings.
+                name_en = ALARM_CANONICAL_NAMES[akey][0]
+                name_th = ALARM_CANONICAL_NAMES[akey][1]
+
                 desc_en = compile_markdown(name_en, panel_data, is_th=False)
                 desc_th = compile_markdown(name_en, panel_data, is_th=True)
-                
+
                 alarms_list.append((name_en, desc_en, name_th, desc_th))
                 
     if not alarms_list:
-        return get_fallback_alarms(slug)
-        
+        return get_fallback_alarms(slug, extract_fire_temp(data, source_type))
+
     return alarms_list
 
 
@@ -2206,15 +2395,22 @@ def get_fallback_features(slug):
         fallback_feats.append(item)
     return fallback_feats
 
-def get_fallback_alarms(slug):
+def get_fallback_alarms(slug, fire_temp=None):
     features = PRODUCT_FEATURES.get(slug, [])
     has_key = "mechanical_key" in features
-    
+
     fallback_alrs = []
     for item in COMMON_ALARMS:
         alarm_en = item[0]
         if alarm_en == "Emergency Mechanical Key" and not has_key:
             continue
+        # Substitute the real fire-detection temperature for the generic default.
+        if alarm_en == "Fire Sensor Alarm" and fire_temp:
+            compact = fire_temp.replace(" ", "")
+            item = (
+                item[0], item[1].replace("62°C±5°C", compact),
+                item[2], item[3].replace("62°C±5°C", compact),
+            )
         fallback_alrs.append(item)
     return fallback_alrs
 
@@ -2874,6 +3070,118 @@ COMMON_ALARMS = [
      "When the lock is not functioning normally, use the mechanical key to open the door. Keep keys in an accessible but secure location.",
      "กุญแจกลไกฉุกเฉิน",
      "เมื่อล็อกทำงานผิดปกติ ใช้กุญแจกลไกเปิดประตูได้ เก็บกุญแจไว้ในที่เข้าถึงได้แต่ปลอดภัย"),
+]
+
+
+# =============================================================================
+# Consolidated-Manual family (ES-F/FF/S/P8800K) — real shared content extracted
+# from Consolidated-Manual-Rev.09.pdf via vision (2026-06-20). These models share
+# one manual: operations/features/alarms are common; only specs differ per model.
+# =============================================================================
+
+_SETTING_PREFIX_EN = ("1. Touch the number pad to turn on all LEDs.\n"
+                      "2. Enter the User PIN followed by the [#] button. "
+                      "(First time: Initial PIN [1234] + [#])")
+_SETTING_PREFIX_TH = ("1. สัมผัสคีย์แพดตัวเลขเพื่อให้ไฟ LED ติดทั้งหมด\n"
+                      "2. ป้อนรหัส PIN ผู้ใช้แล้วตามด้วยปุ่ม [#] (ครั้งแรก: รหัสเริ่มต้น [1234] + [#])")
+
+CONSOLIDATED_FEATURES = [
+    ("Smart Card Auto / Manual Recognition",
+     f"Set whether the lock detects RFID smart cards automatically or manually.\n\n### Steps\n\n{_SETTING_PREFIX_EN}\n3. Press [1] for Auto Recognition (LED 1), or [4] for Manual Recognition (LED 4).\n4. Press the [Registration] button to complete.\n\n:::note\n- Auto Recognition: place the card on the reader and the door opens.\n- Manual Recognition: touch the number pad first, then place the card on the reader.\n:::",
+     "การตรวจจับบัตรอัตโนมัติ / ด้วยตนเอง",
+     f"ตั้งค่าให้ตัวล็อกตรวจจับบัตร RFID แบบอัตโนมัติหรือด้วยตนเอง\n\n### ขั้นตอน\n\n{_SETTING_PREFIX_TH}\n3. กดปุ่ม [1] สำหรับโหมดอัตโนมัติ (LED 1) หรือ [4] สำหรับโหมดด้วยตนเอง (LED 4)\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\n- โหมดอัตโนมัติ: ทาบบัตรบนเครื่องอ่าน ประตูจะเปิด\n- โหมดด้วยตนเอง: สัมผัสคีย์แพดก่อน แล้วจึงทาบบัตรบนเครื่องอ่าน\n:::"),
+
+    ("Deadbolt Auto Lock / Manual Lock",
+     f"An optional feature that lets you set the deadbolt to lock automatically or manually.\n\n### Steps\n\n{_SETTING_PREFIX_EN}\n3. Press [2] for Auto Lock (LED 2), or [5] for Manual Lock (LED 5).\n4. Press the [Registration] button to complete.\n\n:::note\n- When Auto Lock is set, the deadbolt locks automatically based on the door sensor.\n- When Manual Lock is set, touch the number pad for 2 seconds to lock.\n:::",
+     "ล็อกสลักอัตโนมัติ / ด้วยตนเอง",
+     f"ฟังก์ชันเสริมที่ให้คุณตั้งค่าให้สลักล็อก (deadbolt) ล็อกอัตโนมัติหรือด้วยตนเอง\n\n### ขั้นตอน\n\n{_SETTING_PREFIX_TH}\n3. กดปุ่ม [2] สำหรับล็อกอัตโนมัติ (LED 2) หรือ [5] สำหรับล็อกด้วยตนเอง (LED 5)\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\n- เมื่อตั้งล็อกอัตโนมัติ สลักจะล็อกตามเซ็นเซอร์ประตู\n- เมื่อตั้งล็อกด้วยตนเอง ให้สัมผัสคีย์แพดค้าง 2 วินาทีเพื่อล็อก\n:::"),
+
+    ("Sound Setting (Voice, Buzzer, Warning, Door Open Alarm)",
+     f"Adjust the operation volume.\n\n### Steps\n\n{_SETTING_PREFIX_EN}\n3. Press [3] to increase volume (LED 3), or [6] to decrease volume (LED 6).\n4. Press the [Registration] button to complete.\n\n:::note\n- Controls all volume except Alarm Notification and Door Opening Melody.\n- Volume can be set to 8 levels (level 1: silent ~ level 8: 80 dB).\n:::",
+     "การตั้งค่าเสียง (Voice, Buzzer, Warning, Door Open Alarm)",
+     f"ปรับระดับเสียงการทำงาน\n\n### ขั้นตอน\n\n{_SETTING_PREFIX_TH}\n3. กดปุ่ม [3] เพื่อเพิ่มเสียง (LED 3) หรือ [6] เพื่อลดเสียง (LED 6)\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\n- ควบคุมเสียงทั้งหมด ยกเว้นเสียงแจ้งเตือนและเสียงเพลงเปิดประตู\n- ปรับได้ 8 ระดับ (ระดับ 1: เงียบ ~ ระดับ 8: 80 dB)\n:::"),
+
+    ("Voice Mode / Buzzer Mode Setting",
+     f"Switch between voice guidance and buzzer tones.\n\n### Steps\n\n{_SETTING_PREFIX_EN}\n3. Press the [8] button.\n4. Press the [Registration] button to complete.\n\n:::note\nVoice Mode and Buzzer Mode are toggled by repeating these steps. For models without Voice Mode, it is always set to Buzzer Mode.\n:::",
+     "การตั้งค่าโหมดเสียงพูด / โหมดบัซเซอร์",
+     f"สลับระหว่างเสียงพูดนำทางกับเสียงบัซเซอร์\n\n### ขั้นตอน\n\n{_SETTING_PREFIX_TH}\n3. กดปุ่ม [8]\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\nโหมดเสียงพูดและโหมดบัซเซอร์สลับกันด้วยการทำซ้ำขั้นตอนนี้ รุ่นที่ไม่มีโหมดเสียงพูดจะตั้งเป็นโหมดบัซเซอร์เสมอ\n:::"),
+
+    ("Door Open Alarm ON/OFF",
+     f"Sound an alarm when the door is left open.\n\n### Steps\n\n{_SETTING_PREFIX_EN}\n3. Press the [7] button.\n4. Press the [Registration] button to complete.\n\n:::note\nWhen Door Open Alarm is ON and Deadbolt Auto Lock is set, if the latch or magnet sensor is disconnected the buzzer sounds 3 times every 7 seconds.\n:::",
+     "เปิด/ปิดสัญญาณเตือนประตูเปิดค้าง",
+     f"ส่งเสียงเตือนเมื่อประตูถูกเปิดค้างไว้\n\n### ขั้นตอน\n\n{_SETTING_PREFIX_TH}\n3. กดปุ่ม [7]\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\nเมื่อเปิดสัญญาณเตือนประตูเปิดค้างและตั้งล็อกสลักอัตโนมัติ หากเซ็นเซอร์ latch/magnet หลุด บัซเซอร์จะดัง 3 ครั้งทุก 7 วินาที\n:::"),
+
+    ("Internal Forced Lock ON/OFF",
+     "Prevent any entry from outside (PIN, Card, etc.).\n\n### Turn ON (inside)\n\n1. With the door closed and the deadbolt sensor detected, press the [Open/Close] button for 3 seconds.\n\n### Turn OFF (outside)\n\n1. Touch the number pad to turn on all LEDs.\n2. Enter the User PIN followed by the [#] button. (First time: Initial PIN [1234] + [#])\n3. Press the [9] button.\n4. Press the [#] button to complete.\n\n### Turn OFF (inside)\n\n1. Press the [Open/Close] button.\n2. Open the door.\n\n:::note\nThis function stops outside authentication. It can be set when the latch or magnet sensor reacts to the door closing. Internal Forced Lock can be released from outside.\n:::",
+     "เปิด/ปิดล็อกบังคับจากด้านใน",
+     "ป้องกันการเข้าจากภายนอกทุกช่องทาง (PIN, บัตร ฯลฯ)\n\n### เปิด (จากด้านใน)\n\n1. เมื่อประตูปิดและเซ็นเซอร์สลักทำงาน กดปุ่ม [Open/Close] ค้างไว้ 3 วินาที\n\n### ปิด (จากด้านนอก)\n\n1. สัมผัสคีย์แพดตัวเลขเพื่อให้ไฟ LED ติดทั้งหมด\n2. ป้อนรหัส PIN ผู้ใช้แล้วตามด้วยปุ่ม [#] (ครั้งแรก: รหัสเริ่มต้น [1234] + [#])\n3. กดปุ่ม [9]\n4. กดปุ่ม [#] เพื่อเสร็จสิ้น\n\n### ปิด (จากด้านใน)\n\n1. กดปุ่ม [Open/Close]\n2. เปิดประตู\n\n:::note[หมายเหตุ]\nฟังก์ชันนี้หยุดการยืนยันตัวตนจากภายนอก ตั้งค่าได้เมื่อเซ็นเซอร์ latch/magnet ตอบสนองการปิดประตู และสามารถปลดได้จากภายนอก\n:::"),
+
+    ("External Forced Lock Setting",
+     f"Disable the [Open/Close] button.\n\n### Steps\n\n{_SETTING_PREFIX_EN}\n3. Press the [0] button.\n4. Press the [#] button to complete.\n\n:::note\nThis function stops the [Open/Close] button. When normal authentication (such as PIN) is performed, the setting is released.\n:::",
+     "การตั้งค่าล็อกบังคับจากด้านนอก",
+     f"ปิดการใช้งานปุ่ม [Open/Close]\n\n### ขั้นตอน\n\n{_SETTING_PREFIX_TH}\n3. กดปุ่ม [0]\n4. กดปุ่ม [#] เพื่อเสร็จสิ้น\n\n:::note[หมายเหตุ]\nฟังก์ชันนี้หยุดการทำงานของปุ่ม [Open/Close] เมื่อมีการยืนยันตัวตนปกติ (เช่น PIN) การตั้งค่าจะถูกยกเลิก\n:::"),
+
+    ("Dual Authentication ON/OFF",
+     f"Require two-factor authentication (PIN + Card/Fingerprint/Face) before unlocking.\n\n### Steps\n\n1. Touch the number pad to turn on all LEDs.\n2. Enter the User PIN followed by the [#] button twice. (First time: Initial PIN [1234] + [#])\n3. Press [2] for ON (LED 2), or [5] for OFF (LED 5).\n4. Press the [Registration] button to complete.\n\n:::note\n- When ON, you must enter the User PIN and perform a second authentication.\n- Admin PIN/Card/Fingerprint/Face ignore Dual Authentication.\n- Remote Control, Guest PIN and Bluetooth can unlock without secondary authentication.\n- If the user's secondary authentication is not registered, Dual Authentication cannot be turned ON.\n:::",
+     "เปิด/ปิดการยืนยันตัวตนสองชั้น",
+     f"กำหนดให้ต้องยืนยันตัวตนสองชั้น (PIN + บัตร/ลายนิ้วมือ/ใบหน้า) ก่อนปลดล็อก\n\n### ขั้นตอน\n\n1. สัมผัสคีย์แพดตัวเลขเพื่อให้ไฟ LED ติดทั้งหมด\n2. ป้อนรหัส PIN ผู้ใช้แล้วตามด้วยปุ่ม [#] สองครั้ง (ครั้งแรก: รหัสเริ่มต้น [1234] + [#])\n3. กดปุ่ม [2] เพื่อเปิด (LED 2) หรือ [5] เพื่อปิด (LED 5)\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\n- เมื่อเปิด ต้องป้อนรหัส PIN ผู้ใช้แล้วยืนยันตัวตนชั้นที่สอง\n- PIN/บัตร/ลายนิ้วมือ/ใบหน้าของผู้ดูแล (Admin) จะข้ามการยืนยันสองชั้น\n- รีโมท, Guest PIN และ Bluetooth ปลดล็อกได้โดยไม่ต้องยืนยันชั้นที่สอง\n- หากผู้ใช้ยังไม่ได้ลงทะเบียนการยืนยันชั้นที่สอง จะเปิดการยืนยันสองชั้นไม่ได้\n:::"),
+
+    ("Alarm Notification ON/OFF",
+     f"Turn the alarm notification on or off.\n\n### Steps\n\n1. Touch the number pad to turn on all LEDs.\n2. Enter the User PIN followed by the [#] button twice. (First time: Initial PIN [1234] + [#])\n3. Press the [1] button or [4] button.\n4. Press the [Registration] button to complete.\n\n:::note\nControls only the Alarm Notification.\n:::",
+     "เปิด/ปิดการแจ้งเตือนสัญญาณเตือน",
+     f"เปิดหรือปิดการแจ้งเตือนสัญญาณเตือน\n\n### ขั้นตอน\n\n1. สัมผัสคีย์แพดตัวเลขเพื่อให้ไฟ LED ติดทั้งหมด\n2. ป้อนรหัส PIN ผู้ใช้แล้วตามด้วยปุ่ม [#] สองครั้ง (ครั้งแรก: รหัสเริ่มต้น [1234] + [#])\n3. กดปุ่ม [1] หรือ [4]\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\nควบคุมเฉพาะการแจ้งเตือนสัญญาณเตือนเท่านั้น\n:::"),
+
+    ("IR Sensor ON/OFF",
+     f"Enable or disable the infrared proximity sensor (face models).\n\n### Steps\n\n1. Touch the number pad to turn on all LEDs.\n2. Enter the User PIN followed by the [#] button twice. (First time: Initial PIN [1234] + [#])\n3. Press the [3] button or [0] button.\n4. Press the [Registration] button to complete.\n\n:::note\n- LED 8: IR Sensor ON / LED 0: IR Sensor OFF.\n- When ON, authentication starts automatically as the IR sensor detects you (within 100 cm).\n- When OFF, touch the number pad and press the [*] LED for 1 second to start manual authentication.\n:::",
+     "เปิด/ปิดเซ็นเซอร์ IR",
+     f"เปิดหรือปิดเซ็นเซอร์ตรวจจับระยะอินฟราเรด (รุ่นที่มีสแกนใบหน้า)\n\n### ขั้นตอน\n\n1. สัมผัสคีย์แพดตัวเลขเพื่อให้ไฟ LED ติดทั้งหมด\n2. ป้อนรหัส PIN ผู้ใช้แล้วตามด้วยปุ่ม [#] สองครั้ง (ครั้งแรก: รหัสเริ่มต้น [1234] + [#])\n3. กดปุ่ม [3] หรือ [0]\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\n- LED 8: เปิดเซ็นเซอร์ IR / LED 0: ปิดเซ็นเซอร์ IR\n- เมื่อเปิด ระบบจะเริ่มยืนยันตัวตนอัตโนมัติเมื่อเซ็นเซอร์ตรวจจับ (ภายในระยะ 100 ซม.)\n- เมื่อปิด ให้สัมผัสคีย์แพดแล้วกดไฟ [*] ค้าง 1 วินาทีเพื่อเริ่มยืนยันด้วยตนเอง\n:::"),
+
+    ("FeliCa Auto-Detection ON/OFF",
+     f"Enable or disable FeliCa card auto-detection.\n\n### Steps\n\n1. Touch the number pad to turn on all LEDs.\n2. Enter the User PIN followed by the [#] button three times. (First time: Initial PIN [1234] + [#])\n3. Press the [3] button or [6] button.\n4. Press the [Registration] button to complete.\n\n:::note\nValid only when Smart Card Auto Recognition is ON. If it is OFF, this setting does not work.\n:::",
+     "เปิด/ปิดการตรวจจับ FeliCa อัตโนมัติ",
+     f"เปิดหรือปิดการตรวจจับบัตร FeliCa อัตโนมัติ\n\n### ขั้นตอน\n\n1. สัมผัสคีย์แพดตัวเลขเพื่อให้ไฟ LED ติดทั้งหมด\n2. ป้อนรหัส PIN ผู้ใช้แล้วตามด้วยปุ่ม [#] สามครั้ง (ครั้งแรก: รหัสเริ่มต้น [1234] + [#])\n3. กดปุ่ม [3] หรือ [6]\n4. กดปุ่ม [Registration] เพื่อเสร็จสิ้นการตั้งค่า\n\n:::note[หมายเหตุ]\nใช้ได้เฉพาะเมื่อเปิดการตรวจจับบัตรอัตโนมัติ หากปิดอยู่ การตั้งค่านี้จะไม่ทำงาน\n:::"),
+
+    ("Etiquette Mode",
+     "Silent mode for PIN, Card, Fingerprint, Face and Guest entry.\n\n### Steps\n\n1. Touch the number pad to turn on all LEDs.\n2. Press the [#] button.\n\n:::note\n- Silent mode is applied to PIN, Card, Fingerprint, Face and Guest, for 1 authentication, regardless of the previous Sound Setting.\n- A warning volume will occur after 5 consecutive failed authentications.\n:::",
+     "โหมดมารยาท (Etiquette Mode)",
+     "โหมดเงียบสำหรับการเข้าด้วย PIN, บัตร, ลายนิ้วมือ, ใบหน้า และ Guest\n\n### ขั้นตอน\n\n1. สัมผัสคีย์แพดตัวเลขเพื่อให้ไฟ LED ติดทั้งหมด\n2. กดปุ่ม [#]\n\n:::note[หมายเหตุ]\n- โหมดเงียบใช้กับ PIN, บัตร, ลายนิ้วมือ, ใบหน้า และ Guest สำหรับการยืนยัน 1 ครั้ง ไม่ขึ้นกับการตั้งค่าเสียงก่อนหน้า\n- จะมีเสียงเตือนหลังจากยืนยันตัวตนผิดติดต่อกัน 5 ครั้ง\n:::"),
+
+    ("Random Number Feature",
+     "Enter random digits before the PIN to prevent shoulder-surfing.\n\n:::note\n- Up to 20 digits can be entered, including the PIN.\n- The PIN must be entered after the random number.\n:::",
+     "ฟีเจอร์สุ่มตัวเลข",
+     "ป้อนตัวเลขสุ่มก่อนรหัส PIN เพื่อป้องกันการแอบมอง\n\n:::note[หมายเหตุ]\n- ป้อนได้สูงสุด 20 หลัก รวมรหัส PIN\n- ต้องป้อนรหัส PIN หลังตัวเลขสุ่ม\n:::"),
+
+    ("Automatic Re-locking Function",
+     "If the door is not opened within 7 seconds after authentication, the lock re-locks automatically.",
+     "ฟังก์ชันล็อกซ้ำอัตโนมัติ",
+     "หากไม่เปิดประตูภายใน 7 วินาทีหลังยืนยันตัวตน ตัวล็อกจะล็อกซ้ำโดยอัตโนมัติ"),
+]
+
+CONSOLIDATED_ALARMS = [
+    ("High Temperature Alarm Function",
+     "When the temperature sensor reaches 60°C ± 10°C for 5 seconds, the deadbolt opens automatically after 10 seconds and an 80 dB alarm sounds for 2 minutes.\n\n:::note\n- After opening, the lock checks the door every 5 seconds and retries opening.\n- Pressing any inside button executes the deadbolt-open operation.\n- The deadbolt opens even if Internal/External Forced Lock is set.\n- You can disable the High Temperature Alarm by authenticating with PIN, Card or Remote Control.\n- When the lock power is off, this function is disabled.\n:::",
+     "สัญญาณเตือนอุณหภูมิสูง",
+     "เมื่อเซ็นเซอร์อุณหภูมิถึง 60°C ± 10°C นาน 5 วินาที สลักล็อกจะเปิดอัตโนมัติหลัง 10 วินาที และส่งเสียงเตือน 80 dB นาน 2 นาที\n\n:::note[หมายเหตุ]\n- หลังเปิด ตัวล็อกจะตรวจสอบประตูทุก 5 วินาทีและพยายามเปิดซ้ำ\n- การกดปุ่มด้านในใดๆ จะสั่งเปิดสลักล็อก\n- สลักจะเปิดแม้ตั้งล็อกบังคับจากด้านใน/ด้านนอกไว้\n- ปิดสัญญาณเตือนอุณหภูมิสูงได้ด้วยการยืนยันตัวตนด้วย PIN, บัตร หรือรีโมท\n- เมื่อตัวล็อกไม่มีไฟ ฟังก์ชันนี้จะปิด\n:::"),
+
+    ("1 Minute Lock Warning Function",
+     "After 5 consecutive failed authentications, the alarm sounds for 7 seconds and operation stops for 1 minute.\n\n:::note\n- During the 1-minute lock, PIN, Card, Fingerprint, Face, Guest PIN and Remote Control will not work.\n- Press the [Open/Close] button to disable the 1-minute lock.\n:::",
+     "ฟังก์ชันเตือนและล็อก 1 นาที",
+     "หลังยืนยันตัวตนผิดติดต่อกัน 5 ครั้ง สัญญาณเตือนจะดัง 7 วินาที และระบบจะหยุดทำงาน 1 นาที\n\n:::note[หมายเหตุ]\n- ระหว่างล็อก 1 นาที PIN, บัตร, ลายนิ้วมือ, ใบหน้า, Guest PIN และรีโมทจะใช้ไม่ได้\n- กดปุ่ม [Open/Close] เพื่อปิดการล็อก 1 นาที\n:::"),
+
+    ("Low Battery Warning Function",
+     "When the battery is low, the [Battery Replacement] LED lights up and a warning melody is heard.\n\n:::note\n- Authentication may not operate normally when the battery is low.\n- Low voltage: 4.5 V (Face recognition lock: 5.0 V).\n- The alarm clears when voltage returns to 5.5 V (Face recognition lock: 5.6 V).\n:::",
+     "ฟังก์ชันเตือนแบตเตอรี่ต่ำ",
+     "เมื่อแบตเตอรี่ต่ำ ไฟ LED [Battery Replacement] จะติดและมีเสียงเตือนดังขึ้น\n\n:::note[หมายเหตุ]\n- เมื่อแบตเตอรี่ต่ำ การยืนยันตัวตนอาจทำงานไม่ปกติ\n- แรงดันต่ำ: 4.5V (ล็อกสแกนใบหน้า: 5.0V)\n- สัญญาณเตือนจะหายเมื่อแรงดันกลับมาที่ 5.5V (ล็อกสแกนใบหน้า: 5.6V)\n:::"),
+
+    ("Deadbolt Operation Error Warning Function",
+     "When the deadbolt does not operate normally on opening or closing, a warning melody and the [4] LED indicate the error.\n\n:::note\nFor normal operation, the lock retries up to three times.\n:::",
+     "ฟังก์ชันเตือนสลักล็อกทำงานผิดพลาด",
+     "เมื่อสลักล็อกทำงานผิดปกติขณะเปิดหรือปิด จะมีเสียงเตือนและไฟ LED [4] แสดงข้อผิดพลาด\n\n:::note[หมายเหตุ]\nระบบจะพยายามทำงานซ้ำสูงสุด 3 ครั้ง\n:::"),
+
+    ("Intrusion Alarm Function",
+     "If the deadbolt sensor stays on for more than 7 seconds during forced opening, an intrusion alarm of more than 80 dB sounds.\n\n:::note\n- You can disable the Intrusion Alarm by authenticating with PIN, Card, Fingerprint or Remote Control.\n- When the lock power is off, the Intrusion Alarm is disabled.\n- During the Intrusion Alarm, the [5] LED lights up.\n:::",
+     "ฟังก์ชันสัญญาณเตือนการบุกรุก",
+     "หากเซ็นเซอร์สลักล็อกทำงานค้างเกิน 7 วินาทีระหว่างการงัดเปิด จะส่งสัญญาณเตือนการบุกรุกดังเกิน 80 dB\n\n:::note[หมายเหตุ]\n- ปิดสัญญาณเตือนการบุกรุกได้ด้วยการยืนยันตัวตนด้วย PIN, บัตร, ลายนิ้วมือ หรือรีโมท\n- เมื่อตัวล็อกไม่มีไฟ สัญญาณเตือนการบุกรุกจะปิด\n- ระหว่างสัญญาณเตือนการบุกรุก ไฟ LED [5] จะติด\n:::"),
 ]
 
 

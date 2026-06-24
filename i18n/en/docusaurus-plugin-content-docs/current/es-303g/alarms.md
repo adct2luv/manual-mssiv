@@ -6,7 +6,7 @@ description: Alarms and safety of ES-303G
 
 # Alarms & Safety
 
-## Anti-Hacking (invasion) Alarm
+## Anti-Hacking Alarm
 
 When the lock detects forceful entry from inside or outside, it will activate a series of alarm.
 
@@ -24,7 +24,7 @@ Prolonged exposure of the main body to direct sunlight can activate fire sensor 
 Even in 'Force Lock' status, the door will automatically open. When temperature returns to normal, The lock will return to it's normal operation status.
 :::
 
-## Anti-Prank Alarm & 1 Minute Lock
+## Anti-Prank Alarm & 1-Minute Lockout
 
 5 consecutive failed Pin number and Smart keytag entry will activate an alarm. And the lock will not function for 1 minute.
 
@@ -35,7 +35,7 @@ Even in 'Force Lock' status, the door will automatically open. When temperature 
 1. During open and close operation. If the detection sensor is not working an error sound will be heard.
 2. This will retry for up to 3 times.
 
-## Replace battery alarm
+## Replace Battery Alarm
 
 During normal operation, and a series of alarm is heard, it indicates the need for battery replacement. Please replace all battery with new ones at this time.
 

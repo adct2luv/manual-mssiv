@@ -6,7 +6,7 @@ description: Special features of TOUCH
 
 # Special Features
 
-## Guest Pin number Registration
+## Guest PIN Registration
 
 ### Steps
 
@@ -27,7 +27,7 @@ New registration will delete old guest pin number
 When registration mode is cancelled old pin number will be restored
 :::
 
-## outside_force_lock
+## Outside Force Lock
 
 When this is set the door cannot be opened from the inside. [Open/Close] button is disable.
 
@@ -40,7 +40,7 @@ When this is set the door cannot be opened from the inside. [Open/Close] button 
 
 **Cancellation:** Open the door by pin number and the [Force Lock] setting will be cancelled
 
-## internal_force_lock
+## Inside Force Lock
 
 When this is set the door cannot be opened from the outside. Pin number entry is disabled.
 
@@ -51,7 +51,7 @@ When this is set the door cannot be opened from the outside. Pin number entry is
 
 **Cancellation:** Open the door by the [Manual Knob (lock/unlock)] or by the [Open/Close] button inside and the [Force Lock] will be cancelled.
 
-## auto_manual_lock
+## Auto / Manual Lock Setting
 
 Sets the door locking mode to Manual or Automatic Lock Mode
 
@@ -66,7 +66,7 @@ Sets the door locking mode to Manual or Automatic Lock Mode
 Automatic mode is set in default. When you set the manual lock, The door will not automatically lock after closing the door. You need to press [Open/Close] button inside or Touch the number pad outside to close the door
 :::
 
-## Multi-touch Feature
+## Multi-touch Security Setting
 
 ### Steps
 
@@ -83,7 +83,7 @@ This is a security feature that prevents the pin number from being exposed, by r
 When multi-touch feature is enabled, after entering pin number press the 3 digits number that is displayed on the screen. Press [✱] button and the door will open. When this feature is enabled, the random number feature is cancelled.
 :::
 
-## dual_mode
+## Dual-mode Security Setting
 
 ### Steps
 

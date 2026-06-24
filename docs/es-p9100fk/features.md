@@ -34,7 +34,7 @@ description: คุณสมบัติพิเศษของ ES-P9100FK
 รหัส PIN สำหรับผู้มาเยือนใช้สำหรับผ่านเข้าประตูได้เพียง 1 ครั้งเท่านั้น
 :::
 
-## outer_force_lock
+## โหมดล็อกบังคับจากด้านนอก (Outside Force Lock)
 
 ระบบล็อกสองชั้นจากด้านนอก - เมื่อเปิดใช้งานจะไม่ยินยอมให้เปิดประตูจากภายนอกด้วยรหัส PIN, บัตร หรือสแกนลายนิ้วมือ
 
@@ -45,72 +45,72 @@ description: คุณสมบัติพิเศษของ ES-P9100FK
 
 **การยกเลิก:** เปิดประตูจากด้านในด้วยการผลักมือจับหรือใช้ปุ่ม [Close] การตั้งค่าล็อกสองชั้นด้านในจะถูกยกเลิก
 
-## inner_force_lock
+## โหมดล็อกบังคับจากด้านใน (Inside Force Lock)
 
 ระบบล็อกสองชั้นจากด้านใน - เป็นฟังก์ชันบล็อกการทำงานที่จับประตูด้านในเมื่อมีการดึงดิ่งแบบผิดปกติ
 
 **การควบคุม:** ยกเลิกโหมดล็อกบังคับ / ตั้งค่าโหมดล็อกบังคับ
 
-## การปรับระดับเสียงการทำงาน
+## การตั้งค่าระดับเสียงการทำงาน
 
-This feature allows the user to adjust the operation sound volume per level. (perform while door closed) ※ Sound can be adjusted up to 7 levels.
+ฟังก์ชันนี้ให้ผู้ใช้ปรับระดับเสียงการทำงานทีละระดับ (ทำขณะประตูปิด) ※ ปรับเสียงได้สูงสุด 7 ระดับ
 
 ### ขั้นตอน
 
 1. สัมผัสคีย์แพดตัวเลข
-2. Enter registered Pin Number
+2. ป้อนรหัส PIN ที่ลงทะเบียนไว้
 3. กดปุ่ม [✱]
-4. Press [3] or [6] button
+4. กดปุ่ม [3] หรือ [6]
 
 :::note[หมายเหตุ]
-Press [3] button to increase sound. Press [6] button to decrease sound. In mute mode the number pad will blink, when you press a number. The volume level is set on high in default.
+กดปุ่ม [3] เพื่อเพิ่มเสียง กดปุ่ม [6] เพื่อลดเสียง ในโหมดปิดเสียงคีย์แพดตัวเลขจะกะพริบเมื่อกดตัวเลข ระดับเสียงถูกตั้งไว้สูงสุดเป็นค่าเริ่มต้น
 :::
 
-## การปิดเสียงปุ่มกดชั่วคราว (Sound Mute)
+## การตั้งค่าปิดเสียงชั่วคราว (Sound Mute)
 
-Regardless of the volume setting, This feature lets you mute the operation melody. This is per 1 time usage only. The operation sound will occur on next operation.
+ไม่ว่าจะตั้งระดับเสียงไว้เท่าใด ฟังก์ชันนี้ให้คุณปิดเสียงการทำงานได้ ใช้ได้เพียงครั้งเดียวเท่านั้น เสียงจะกลับมาทำงานในการใช้งานครั้งถัดไป
 
 ### ขั้นตอน
 
-1. Touch the number pad, press the [✱] button (in mute state)
-2. Enter Pin number, press [✱] button, door will open. (Number pad will blink)
+1. สัมผัสคีย์แพดตัวเลข กดปุ่ม [✱] (ในสถานะปิดเสียง)
+2. ป้อนรหัส PIN กดปุ่ม [✱] ประตูจะเปิด (คีย์แพดตัวเลขจะกะพริบ)
 
-## โหมดล็อกอัตโนมัติ / ล็อกด้วยตนเอง
+## การตั้งค่าโหมดล็อกอัตโนมัติ / ล็อกด้วยตนเอง
 
 คุณสมบัติเสริมที่ช่วยให้ตั้งค่าล็อกได้ทั้งโหมดอัตโนมัติและล็อกด้วยตนเอง
 
 ### ขั้นตอน
 
-1. Press the [Close] button. When the deadbolt comes out of the mortise
+1. กดปุ่ม [Close] เมื่อสลักกลอนเลื่อนออกจากเบ้ารับ
 2. สัมผัสคีย์แพดตัวเลข
 3. ป้อนรหัส PIN จากนั้นกดปุ่ม [✱] 2 ครั้ง
-4. Press [4] button for Automatic Mode. Press [7] button for Manual Mode
+4. กดปุ่ม [4] สำหรับโหมดอัตโนมัติ กดปุ่ม [7] สำหรับโหมดด้วยตนเอง
 
 :::note[หมายเหตุ]
-Automatic Lock Mode is set in default. In Manual Lock Mode, the door will not lock after closing the door, instead touch the number pad outside or press the [Close] button inside to lock the door.
+โหมดล็อกอัตโนมัติถูกตั้งเป็นค่าเริ่มต้น ในโหมดล็อกด้วยตนเอง ประตูจะไม่ล็อกหลังจากปิดประตู ต้องสัมผัสคีย์แพดตัวเลขด้านนอกหรือกดปุ่ม [Close] ด้านในเพื่อล็อกประตู
 :::
 
 ## การสแกนบัตร RFID อัตโนมัติ / ด้วยตนเอง
 
-An optional feature that lets you set the RFID Card detection to automatic and manual mode
+ฟังก์ชันเสริมที่ให้คุณตั้งค่าการตรวจจับบัตร RFID เป็นโหมดอัตโนมัติหรือด้วยตนเอง
 
 ### ขั้นตอน
 
 1. สัมผัสคีย์แพดตัวเลข
-2. Enter the Pin number
-3. Press [#] button 2 times
-4. Press [1] button for Automatic Mode. Press [3] button for Manual Mode
+2. ป้อนรหัส PIN
+3. กดปุ่ม [#] 2 ครั้ง
+4. กดปุ่ม [1] สำหรับโหมดอัตโนมัติ กดปุ่ม [3] สำหรับโหมดด้วยตนเอง
 
 :::note[หมายเหตุ]
-① In Automatic Mode, Place the RFID Card on the card reader and the door will open. ② In Manual Mode, Touch the number pad, Place the RFID Card on the card reader and the door will open. ※ Automatic Mode is enabled in default.
+① ในโหมดอัตโนมัติ ทาบบัตร RFID บนเครื่องอ่านการ์ด ประตูจะเปิด ② ในโหมดด้วยตนเอง สัมผัสคีย์แพดตัวเลข แล้วทาบบัตร RFID บนเครื่องอ่านการ์ด ประตูจะเปิด ※ โหมดอัตโนมัติถูกเปิดใช้งานเป็นค่าเริ่มต้น
 :::
 
-## การตั้งค่าฟังก์ชันความปลอดภัยสัมผัสหลายจุด (Multi-Touch)
+## การตั้งค่าระบบสัมผัสหลายจุด (Multi-touch)
 
 ### ขั้นตอน
 
 1. สัมผัสคีย์แพดตัวเลขที่แผงตัวเครื่องด้านนอก ป้อนรหัส PIN แล้วตามด้วยปุ่ม [*]
-2. กดปุ่ม [5] บนคีย์แพดตัวเลข จะได้ยินเสียงเพลงเมโลดี้และสิ้นสุดการตั้งค่าฟังก์ชัน Multi-Touch
+2. กดปุ่ม [5] บนคีย์แพดตัวเลข จะมีเสียงเพลงเมโลดี้ดังขึ้นและการตั้งค่า Multi-touch เสร็จสมบูรณ์
 
 :::note[หมายเหตุ]
 ฟังก์ชันความปลอดภัย Multi-Touch ช่วยปกป้องรหัสผ่านของคุณจากการถูกเปิดเผยหรือคาดเดาจากร่องรอยนิ้วมือที่หลงเหลือบนแผงหน้าจอคีย์แพดตัวเลข โดยฟังก์ชันนี้จะถูกปิดการทำงานเป็นค่าเริ่มต้น
@@ -120,7 +120,7 @@ An optional feature that lets you set the RFID Card detection to automatic and m
 เมื่อเปิดใช้ระบบความปลอดภัย Multi-Touch หลังจากกดปุ่มรหัส PIN จะปรากฏตัวเลขสุ่ม 3 ตัวนั้นแล้วกดปุ่ม [*] เพื่อปลดล็อกเข้าประตู ซึ่งระบบนี้จะช่วยปิดการทำงานระบบความปลอดภัยสุ่มตัวเลขแบบอื่นโดยอัตโนมัติ
 :::
 
-## การตั้งค่าระบบความปลอดภัยแบบยืนยันตัวตนสองชั้น
+## การตั้งค่าระบบยืนยันตัวตนสองชั้น
 
 ### ขั้นตอน
 
@@ -134,21 +134,21 @@ An optional feature that lets you set the RFID Card detection to automatic and m
 ต้องทำการลงทะเบียนรหัส PIN, ลายนิ้วมือ และบัตร RFID ให้เรียบร้อยก่อนเปิดใช้งานฟังก์ชันนี้
 :::
 
-## โมดูลเครือข่ายในบ้านและรีโมทคอนโทรล
+## การตั้งค่าโมดูลระบบเครือข่ายในบ้านและรีโมทคอนโทรล
 
 ฟังก์ชันนี้ช่วยให้คุณสามารถสั่งเปิดประตูได้จากระยะไกลผ่านอุปกรณ์ระบบเครือข่ายภายในบ้านและรีโมทคอนโทรล (อุปกรณ์เสริม) * ขั้นตอนการลงทะเบียนโมดูลเครือข่ายในบ้านและรีโมทคอนโทรลใช้วิธีเดียวกัน
 
 ### ขั้นตอน
 
-1. Press [Registration] button followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad
+1. กดปุ่ม [Registration] แล้วตามด้วยปุ่ม [✱] ตรวจสอบว่าตัวเลข [1, 2, 3, 4, 8, 9] สว่างขึ้นบนคีย์แพด
 2. การลงทะเบียนโมดูลเครือข่ายในบ้าน: กดปุ่ม [Registration] / รีโมทคอนโทรล: กดปุ่ม [OPEN] บนรีโมทคอนโทรล
-3. Press [✱] button on the number pad. Registration is complete
+3. กดปุ่ม [✱] บนคีย์แพดตัวเลข การลงทะเบียนเสร็จสมบูรณ์
 
 ### ขั้นตอนการลบข้อมูล
 
-1. Press [Registration] button. Enter pin number. Followed by [✱] button. Check if the number [1, 2, 3, 4, 8, 9] is lighted on the number pad.
+1. กดปุ่ม [Registration] ป้อนรหัส PIN แล้วตามด้วยปุ่ม [✱] ตรวจสอบว่าตัวเลข [1, 2, 3, 4, 8, 9] สว่างขึ้นบนคีย์แพด
 2. กดปุ่ม [0]
-3. Press [#] button for 5 seconds. When the melody is heard. Deletion is complete
+3. กดปุ่ม [#] ค้างไว้ 5 วินาที เมื่อได้ยินเสียงเพลงเมโลดี้ การลบเสร็จสมบูรณ์
 
 :::note[หมายเหตุ]
 สำหรับการลงทะเบียนรีโมทคอนโทรลเพิ่มเติม ให้ทำซ้ำขั้นตอนที่ 2 สามารถลงทะเบียนรีโมทได้สูงสุด 5 อัน

@@ -6,19 +6,19 @@ description: Alarms and safety of TRIPLEX 2way
 
 # Alarms & Safety
 
-## anti_prank
+## Anti-Prank Alarm & 1-Minute Lockout
 
 5 times repeated failed [Pin Number] entry will activate a series of alarm and the lock will not function for 1 minute.
 
-## deadbolt_error
+## Deadbolt Jammed Alarm
 
 When the door is not closed properly or the deadbolt is jammed. A series of alarm will be activated 3 times.
 
-## replace_battery
+## Replace Battery Alarm
 
 During normal operation and a series of alarm is heard, it indicates the need for battery replacement. Please replace all battery with new ones at this time.
 
-## emergency_battery
+## Emergency Battery
 
 ### Steps
 

@@ -27,6 +27,11 @@ description: How to open and close the door on ES-F7000Kr
 2. Melody will sound and the door will unlock.
 3. Pull down the handle to open the door.
 
+### Opening by Mechanical Key (Emergency)
+
+1. Open the mechanical key hole cover (usually located at the bottom of the outer body).
+2. Insert the emergency mechanical key and turn it to unlock the door.
+
 ## Closing Door Outside
 
 ### Automatic Lock Mode

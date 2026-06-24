@@ -6,7 +6,7 @@ description: Special features of ES-303G
 
 # Special Features
 
-## Guest Pin Number Registration
+## Guest PIN Registration
 
 ### Steps
 
@@ -26,7 +26,7 @@ NEW REGISTRATION WILL DELETE OLD REGISTERED PIN NUMBER.
 THE GUEST PIN NUMBER IS FOR 1 TIME ENTRY ONLY.
 :::
 
-## Force Lock Setting (Outside Force Lock)
+## Outside Force Lock
 
 This security setting will disable the use of [Open/Close] button inside.
 
@@ -37,7 +37,7 @@ This security setting will disable the use of [Open/Close] button inside.
 
 **Cancellation:** Open the door using Manual Lock / Unlock lever and force lock setting will be cancelled.
 
-## Force Lock Setting (Inside Force Lock)
+## Inside Force Lock
 
 This security setting will not allow any forms of entry from outside (Pin Number and RFID Card).
 
@@ -68,7 +68,7 @@ Touch external number pad, Press [✱] button. Enter Pin number and the mute set
 When Sound Mute is set, when you enter a number on the number pad, it will be blinking. This is 1 time operation. After 1 usage, the sound will come back to normal.
 :::
 
-## Auto / Manual Lock Mode Setting
+## Auto / Manual Lock Setting
 
 Set the door to automatic or manual lock mode.
 
@@ -89,7 +89,7 @@ In manual lock mode, the door will not lock after closing the door. To lock insi
 During purchase of item the Manual Lock Number Pad is set in default.
 :::
 
-## RFID Card Auto / Manual Detection Setting
+## RFID Auto / Manual Detection
 
 Sets the RFID Card detection to Auto or Manual mode.
 
@@ -114,7 +114,7 @@ In Automatic Mode, Place the RFID Card on the reader and the door will open.
 Automatic Mode is enable in default.
 :::
 
-## Normal & Safe open Mode Setting
+## Normal & Safe Open Mode
 
 When you purchase the product for the first time, it is set in normal mode.
 
@@ -135,7 +135,7 @@ You can open the door by Pressing [Force Lock] button then press the [OPEN / CLO
 Pressing [Force Lock] button and [OPEN / CLOSE] button continuously. This enhances the security unlock feature.
 :::
 
-## Multi-Touch Safe Feature Setting
+## Multi-touch Security Setting
 
 Multi-touch Safe Feature is the security feature that enables user to enter additional series of number after entering pin number. It erases fingerprint traces left on the number pad & protects the pin number from being exposed.
 
@@ -149,7 +149,7 @@ When multi-touch security is enabled, after entering pin number. Press the 3 ran
 When Multi-touch Security feature is enabled "Random Number" feature is disabled. And when "Random number" feature is enabled, Multi-touch Security Feature is disabled.
 :::
 
-## Dual-Mode Security Feature Setting
+## Dual-mode Security Setting
 
 ### Steps
 
@@ -183,7 +183,7 @@ After the melody is heard and the door is not closed but a new function is perfo
 After the door was opened the melody will not be heard
 :::
 
-## Home Network Module & Remote Control Setting
+## Home Network Module & Remote Control
 
 ### Registration
 

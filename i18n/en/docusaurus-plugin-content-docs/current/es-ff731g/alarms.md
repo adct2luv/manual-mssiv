@@ -6,21 +6,54 @@ description: Alarms and safety of ES-FF731G
 
 # Alarms & Safety
 
-## Anti-Hacking Alarm
+## High Temperature Alarm Function
 
-If the lock detects forced entry from inside or outside, it activates a loud alarm. Cancelled by entering valid PIN or Card.
+When the temperature sensor reaches 60°C ± 10°C for 5 seconds, the deadbolt opens automatically after 10 seconds and an 80 dB alarm sounds for 2 minutes.
 
-## Fire Sensor Alarm
+:::note
+- After opening, the lock checks the door every 5 seconds and retries opening.
+- Pressing any inside button executes the deadbolt-open operation.
+- The deadbolt opens even if Internal/External Forced Lock is set.
+- You can disable the High Temperature Alarm by authenticating with PIN, Card or Remote Control.
+- When the lock power is off, this function is disabled.
+:::
 
-If internal temperature reaches 62°C±5°C, the lock automatically unlocks and sounds an alarm to allow safe evacuation.
+## 1 Minute Lock Warning Function
 
-## Anti-Prank & 1-Minute Lockout
+After 5 consecutive failed authentications, the alarm sounds for 7 seconds and operation stops for 1 minute.
 
-After 5 consecutive failed PIN/Card/Fingerprint attempts, the lock stops responding for 1 minute and emits a warning tone.
+:::note
+- During the 1-minute lock, PIN, Card, Fingerprint, Face, Guest PIN and Remote Control will not work.
+- Press the [Open/Close] button to disable the 1-minute lock.
+:::
 
-## Replace Battery Alarm
+## Low Battery Warning Function
 
-When battery is low, the Battery Replacement LED lights up and a notification melody plays.
+When the battery is low, the [Battery Replacement] LED lights up and a warning melody is heard.
+
+:::note
+- Authentication may not operate normally when the battery is low.
+- Low voltage: 4.5 V (Face recognition lock: 5.0 V).
+- The alarm clears when voltage returns to 5.5 V (Face recognition lock: 5.6 V).
+:::
+
+## Deadbolt Operation Error Warning Function
+
+When the deadbolt does not operate normally on opening or closing, a warning melody and the [4] LED indicate the error.
+
+:::note
+For normal operation, the lock retries up to three times.
+:::
+
+## Intrusion Alarm Function
+
+If the deadbolt sensor stays on for more than 7 seconds during forced opening, an intrusion alarm of more than 80 dB sounds.
+
+:::note
+- You can disable the Intrusion Alarm by authenticating with PIN, Card, Fingerprint or Remote Control.
+- When the lock power is off, the Intrusion Alarm is disabled.
+- During the Intrusion Alarm, the [5] LED lights up.
+:::
 
 ## Emergency Mechanical Key
 
