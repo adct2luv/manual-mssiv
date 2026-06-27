@@ -1,70 +1,122 @@
 ---
 sidebar_position: 2
-title: Installation & Initial Setup
-description: How to install the EPIC Things app and perform initial setup
+title: Setup
+description: Super Admin PIN, Sign Up, Login, Forgot Password, Guest Login
 ---
 
-# Installation & Initial Setup
+# Setup
 
-## 1. Download the app
+## 0. Set Super Admin PIN (do this first)
 
-The EPIC Things app is free to download for both iOS and Android:
+:::tip Do this before using the app
+Before opening EPIC Things App, you must set a **Super Admin PIN** at the lock.
+:::
 
-- **iOS:** App Store → search "EPIC Things"
-- **Android:** Google Play Store → search "EPIC Things"
+**What is Super Admin:**
+- The highest user level of EPIC Door Lock
+- Full access to all lock functions
+- Can link the app to the lock (prevents unauthorized linking)
 
-## 2. Create an account (Sign Up)
+**Steps to set Super Admin PIN:**
+1. Press the **[R]** button on the inner body
+2. Enter the **User PIN** (main PIN), then press `[#]`
+3. **Press and hold [OPEN/CLOSE] for 3 seconds** until the LED on the outer body lights up
+4. Enter a **Super Admin PIN of 6-12 digits**, then press `[#]`
+5. **Re-enter the Super Admin PIN** to confirm
+6. Press the **[R]** button to complete
 
-1. Open the EPIC Things app
+:::note
+If Super Admin PIN is already registered, the LED will not turn on in step 3.
+:::
+
+---
+
+## 1. Sign Up
+
+:::tip Quick Login
+If you want to log in directly with your Apple or Google account, skip sign-up and use Quick Login.
+:::
+
+**Steps:**
+1. Open the EPIC Things App
 2. Tap **Sign Up**
-3. Enter your details:
-   - Email
-   - Password (recommended 8+ characters, mix numbers and special characters)
-   - Confirm password
-4. Accept the terms of service
-5. Verify your email (a confirmation link will be sent)
+3. Enter your **Email** and **Password** (≥ 8 characters)
+4. Check the 4 **Terms** checkboxes
+5. Tap **Next**
+6. Enter the **Verification Code** sent to your email
+7. Tap **Submit** (or **Skip** if you already have a code)
 
-## 3. Sign in (Login)
+**Requirements:**
+- Password ≥ 8 characters
+- Must agree to **Terms, Collection, Personal Info, All Terms**
+- Verification Code must be entered before Submit
 
-1. Open the app
-2. Enter your email and password
-3. Tap **Login**
-
-:::tip[Guest Login]
-If you want to try the app before signing up, use **Guest Login**. Some features will be limited.
+:::caution
+- **If you don't receive the Verification Code** → tap **REQUEST AGAIN** or check spam folder
+- **If you leave the Sign Up page** before entering the Code → REQUEST AGAIN
+- **Tap SKIP** if you already have a verification code
 :::
 
-## 4. Set the Super Admin PIN
+---
 
-After signing up and logging in for the first time, the system will ask you to set a **Super Admin PIN**:
+## 2. Login / Quick Login
 
-1. Enter a 4-12 digit PIN
-2. Confirm the PIN
-3. **Important:** Store this PIN in a safe place. If forgotten, you must contact a technician.
+### Normal Login (with EPIC Account)
 
-## 5. Connect a lock (Door Lock Registration)
+**Steps:**
+1. Enter **Email** + **Password**
+2. (Optional) Check **ID Saving** to remember email
+3. Tap **Sign In**
 
-### 5.1 Via Bluetooth (BLE)
-
-1. Enable Bluetooth on your smartphone
-2. In the app, tap **+ Add Lock**
-3. Select **Bluetooth** mode
-4. Press the Registration button on the lock
-5. The app will search for nearby locks
-6. Select the lock you want to connect
-7. Enter the Super Admin PIN
-8. Name the lock (e.g. "Front door")
-
-### 5.2 Via Wi-Fi Bridge (Remote)
-
-:::note[Wi-Fi Bridge required]
-Remote control requires a **Wi-Fi Bridge** (sold separately).
+:::caution
+- If Email or Password is wrong, a pop-up notification will appear
+- **If you don't have an account** yet, go to Sign Up first
+- **Login status persists** even after exiting the app — you must Logout manually to switch
 :::
 
-1. Plug the Wi-Fi Bridge into an outlet near the lock
-2. In the app, tap **+ Add Bridge**
-3. Select your home Wi-Fi
-4. Enter the Wi-Fi password
-5. Press the pairing button on the Bridge
-6. The app will find and connect to the Bridge
-7. After connecting the Bridge, you can add locks through it
+### Quick Login (Apple / Google)
+
+**Steps:**
+1. Tap the **Apple** or **Google** icon
+2. Log in with the account currently signed in on your device
+
+:::info
+Quick Login allows direct access without an EPIC account.
+However, Apple/Google accounts and EPIC accounts are treated as separate.
+:::
+
+---
+
+## 3. Forgot Password
+
+**Steps:**
+1. Tap **Forgot Password** on the Login screen
+2. Enter the **Email** you used to register
+3. Tap **Continue**
+4. Check your email → click the **"Reset Password"** link
+5. Set a **new Password** (≥ 8 characters)
+6. **Log in again** with the new password
+
+---
+
+## 4. Guest Login
+
+Use the app without logging in — perfect for **trying out** the app or **temporary users**
+
+**Steps:**
+1. Tap **Guest Login** on the Login screen
+2. Use the app immediately (limited features)
+
+:::warning Guest Login limitations
+- **Cannot save settings** between sessions
+- **Cannot add/remove** real locks or members
+- **Data will be lost** when exiting Guest mode
+- Must Login with a real EPIC account for full functionality
+:::
+
+:::tip When to use Guest Login?
+- Try the app before deciding to sign up
+- Let family/friends test it temporarily
+- See examples before registering
+- **Not suitable** for serious long-term use
+:::

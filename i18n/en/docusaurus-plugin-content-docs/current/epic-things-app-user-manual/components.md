@@ -1,39 +1,117 @@
 ---
-sidebar_position: 3
+sidebar_position: 12
 title: Components
-description: Components of EPIC Things APP User Manual
+description: Components and structure of the EPIC Things App
 ---
 
 # Components
 
-## Outer body
-<a id="emergency-battery-terminal"></a>
+## 📱 Main Screen
 
-| # | Part | Function |
+| # | Section | Description |
 |---|---|---|
-| 1 | **Number Pad** | Enter PIN or programming codes (1-9, *, 0, #) |
-| 2 | **Status LED Lamp** | Shows lock status (idle / locked / error) |
-| 3 | **Battery Lamp** | Lights up when battery is low |
-| 4 | **RFID Card Reader** | Tap registered card here |
-| 5 | **Reset Button** | Reset lock to factory defaults (rarely used) |
-| 6 | **Emergency Battery Terminal** | Touch 9V battery here if lock is dead |
-| 7 | **Outer Body Handle** | Pull down to retract bolt after unlock |
+| 1 | **Open/Close Button** | Door open/close — central lock icon |
+| 2 | **Door Lock Status** | Shows lock status (open/closed/battery/alarm) |
+| 3 | **Door Lock List** | List of active locks — tap to manage |
+| 4 | **Connection Mode** | Connection mode (Bluetooth / Wi-Fi) |
+| 5 | **Profile Icon** | Access profile and settings |
+| 6 | **Menu Grid** | Main menu: Member, Door Lock, Wifi Bridge, Key, Guest Key, History, App Settings |
 
-## Inner body
+## 🎛️ Main Menu
 
-| # | Part | Function |
+| Menu | Icon | Description |
 |---|---|---|
-| 1 | **Battery Cover** | Slide off to access battery compartment |
-| 2 | **Registration Button** | Used when registering PIN, Card or Fingerprint |
-| 3 | **Open/Close Button** | One-touch unlock from inside |
-| 4 | **Dual Lock Button** | Privacy mode - blocks outside access |
-| 5 | **Inner Body Handle** | Pull down to retract bolt from inside |
-| 6 | **Alkaline AA Battery** | Main power source |
-| 7 | **Manual Lock Button** | Used to close the door in manual mode |
+| **Member** | 👥 | Manage members (add/remove/edit) |
+| **Door Lock** | 🔐 | Connect/manage locks |
+| **Wifi Bridge** | 📡 | Configure Wi-Fi Bridge |
+| **Key** | 🗝️ | Manage keys (PIN, Card, FP, Remote, Face) |
+| **Guest Key** | 🎫 | Guest keys |
+| **History** | 📋 | Usage history |
+| **App Settings** | ⚙️ | App configuration |
 
-## In the box
-- Outer body
-- Inner body
-- Strike plate & fixing hardware
-- Batteries
-- User manual
+## 📱 Lock Menu
+
+| Menu | Description |
+|---|---|
+| **Lock Status** | Current status (Online/Offline, Battery, Connection) |
+| **Open/Close** | Open/close door |
+| **Lock Info** | Name, model, serial number, firmware |
+| **Edit Name** | Change lock name |
+| **Delete Lock** | Delete lock from app (doesn't delete from device) |
+| **Connection Mode** | Switch Bluetooth/Wi-Fi |
+
+## 🔑 Key Menu
+
+| Menu | Description |
+|---|---|
+| **PIN** | Manage password (view/change) |
+| **Card** | Registered Smart Cards |
+| **Fingerprint** | Registered fingerprints |
+| **Remote** | Remote controls |
+| **Face** | Face ID |
+
+Each tab has:
+- **+ Add** — add new key
+- **Item list** — registered keys
+- **Edit/Delete** — edit/delete
+
+## 🔧 Settings Components
+
+| Section | Description |
+|---|---|
+| **Profile** | Name, Email, Phone, picture |
+| **Change Password** | Change password |
+| **Language** | UI language |
+| **Notifications** | Notifications (Push, Email, Sound) |
+| **Security** | 2FA, Active Sessions |
+| **Clear Cache** | Clear cache |
+| **About** | Version, License |
+| **Logout** | Log out |
+| **Delete Account** | Delete account |
+
+## 📡 Wi-Fi Bridge Management
+
+| Section | Description |
+|---|---|
+| **+ Add Bridge** | Add new Bridge |
+| **Bridge List** | List of registered Bridges |
+| **Register Wi-Fi** | Register Wi-Fi network |
+| **SSID List** | List of visible Wi-Fi networks |
+| **Delete** | Delete Bridge |
+
+## 🎫 Guest Key Management
+
+| Section | Description |
+|---|---|
+| **+ Add Guest Key** | Create new Guest Key |
+| **Type Selector** | One-time / Time-limited |
+| **Name Field** | Name the Guest Key |
+| **Valid Period** | Set expiration time |
+| **Lock Selector** | Select allowed locks |
+| **Share** | Share via Email/QR/Link |
+| **Guest Key List** | List of Guest Keys |
+| **Status** | Active/Used/Expired |
+
+## 👥 Member Management
+
+| Section | Description |
+|---|---|
+| **+ Add Member** | Add new member |
+| **Permission Selector** | General Admin / User |
+| **Email Field** | member email |
+| **Name Field** | member name |
+| **Member List** | All members |
+| **Permission Level** | Shows level per person |
+| **Edit/Delete** | Edit/delete |
+
+## 📊 History
+
+| Section | Description |
+|---|---|
+| **Lock Selector** | Select lock |
+| **Time Range** | Today/Week/Month/Custom |
+| **Event List** | Event list |
+| **Event Type Filter** | Entry/Failed/Alarm/Settings |
+| **Export** | CSV/PDF |
+| **Detail View** | View event details |
+| **Filter** | By user, lock, time |
